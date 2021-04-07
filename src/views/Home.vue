@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="KamilCraft.com logo" src="https://kamilcraft.com/assets/img/logo.png">
-    <HelloWorld msg="Witam serdecznie 🤗"/>
+    <HelloWorld/>
   </div>
 </template>
 

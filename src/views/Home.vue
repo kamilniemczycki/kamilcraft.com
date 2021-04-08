@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="KamilCraft.com logo" src="https://kamilcraft.com/assets/img/logo.png">
+    <img alt="KamilCraft.com logo" :src="`${publicPath}assets/logo.png`">
     <HelloWorld/>
   </div>
 </template>
@@ -10,6 +10,11 @@ import HelloWorld from '@/components/HomePageElement.vue'
 
 export default {
   name: 'Home',
+  data () {
+    return {
+      publicPath: process.env.BASE_URL
+    }
+  },
   components: {
     HelloWorld
   }

@@ -12,6 +12,8 @@
 <style lang="scss">
 #nav {
   display: flex;
+  max-width: 1000px;
+  margin: 0 auto;
   justify-content: space-between;
   align-items: center;
   padding: 5px 30px;
@@ -24,21 +26,33 @@
   #menu {
     display: flex;
     list-style: none;
+
     .menu-element {
       display: block;
       padding: 0 10px;
+
       &:hover {
         background: rgba(0, 0 , 0, .1);
       }
     }
-  }
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    line-height: 50px;
 
-    &.router-link-exact-active {
-       color: #42b983;
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+
+      &.router-link-exact-active {
+        color: #42b983;
+      }
+    }
+
+  }
+}
+@media (max-width: 600px) {
+  #nav {
+    justify-content: center;
+
+    #menu {
+      display: none;
     }
   }
 }

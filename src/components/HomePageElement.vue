@@ -6,8 +6,8 @@
 </template>
 
 <style scoped lang="scss">
-  h3 {
-    margin: 40px 0 0;
+  h1 {
+    margin: 30px 0 20px;
   }
   ul {
     list-style-type: none;

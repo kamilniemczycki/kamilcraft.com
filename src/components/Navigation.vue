@@ -1,10 +1,10 @@
 <template>
   <div id="nav">
-    <img alt="KamilCraft.com logo" :src="`${publicPath}assets/logo.png`">
-    <ul>
-      <li><router-link to="/">Strona główna</router-link></li>
-      <li><router-link to="/projects">Projekty</router-link></li>
-      <li><router-link to="/about">O mnie</router-link></li>
+    <img id="nav-logo" alt="KamilCraft.com logo" :src="`${publicPath}assets/logo.png`">
+    <ul id="menu">
+      <li class="menu-element"><router-link to="/">Strona główna</router-link></li>
+      <li class="menu-element"><router-link to="/projects">Projekty</router-link></li>
+      <li class="menu-element"><router-link to="/about">O mnie</router-link></li>
     </ul>
   </div>
 </template>
@@ -14,17 +14,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 5px 30px;
 
-  ul {
+  #nav-logo {
+    object-fit: cover;
+    height: 50px;
+  }
+
+  #menu {
     display: flex;
     list-style: none;
-    li {
+    .menu-element {
       display: block;
+      padding: 0 10px;
+      &:hover {
+        background: rgba(0, 0 , 0, .1);
+      }
     }
   }
   a {
     font-weight: bold;
     color: #2c3e50;
+    line-height: 50px;
 
     &.router-link-exact-active {
        color: #42b983;

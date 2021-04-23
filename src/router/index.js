@@ -7,12 +7,14 @@ import NotFound from '../views/NotFound'
 
 Vue.use(VueRouter)
 
+const mainTitle = ' :: kamilcraft.com'
+
 const routes = [
   {
     path: '/',
     name: 'Home',
     meta: {
-      title: 'Witam serdecznie 😊'
+      title: 'Witam serdecznie 😊' + mainTitle
     },
     component: Home
   },
@@ -20,7 +22,7 @@ const routes = [
     path: '/projects',
     name: 'Projects',
     meta: {
-      title: 'Moje projekty'
+      title: 'Moje projekty' + mainTitle
     },
     component: Projects
   },
@@ -28,7 +30,7 @@ const routes = [
     path: '/about',
     name: 'About',
     meta: {
-      title: 'O mnie'
+      title: 'O mnie' + mainTitle
     },
     component: About
   },

@@ -1,22 +1,19 @@
 <template>
   <div class="home">
-    <img alt="KamilCraft.com logo" :src="`${publicPath}assets/logo.png`">
     <HelloWorld/>
+    <About/>
   </div>
 </template>
 
 <script>
 import HelloWorld from '@/components/HomePageElement.vue'
+import About from '@/components/sections/About.vue'
 
 export default {
   name: 'Home',
-  data () {
-    return {
-      publicPath: process.env.BASE_URL
-    }
-  },
   components: {
-    HelloWorld
+    HelloWorld,
+    About
   }
 }
 </script>

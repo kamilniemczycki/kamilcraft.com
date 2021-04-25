@@ -1,6 +1,8 @@
 <template>
   <div id="nav">
-    <img id="nav-logo" alt="KamilCraft.com logo" :src="`${publicPath}assets/logo.png`">
+    <router-link to="/">
+      <img id="nav-logo" alt="KamilCraft.com logo" :src="`${publicPath}assets/logo.png`">
+    </router-link>
     <ul id="menu">
       <li class="menu-element"><router-link to="/">Strona główna</router-link></li>
       <li class="menu-element"><router-link to="/projects">Projekty</router-link></li>
@@ -10,6 +12,9 @@
 </template>
 
 <style lang="scss">
+a {
+  text-decoration: none;
+}
 #nav {
   display: flex;
   max-width: 1000px;
@@ -19,6 +24,7 @@
   padding: 5px 30px;
 
   #nav-logo {
+    display: block;
     object-fit: cover;
     height: 50px;
   }
@@ -26,6 +32,7 @@
   #menu {
     display: flex;
     list-style: none;
+    margin: 0;
 
     .menu-element {
       display: block;
@@ -37,6 +44,8 @@
     }
 
     a {
+      display: block;
+      line-height: 50px;
       font-weight: bold;
       color: #2c3e50;
 

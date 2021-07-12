@@ -7,6 +7,7 @@
       <li class="menu-element"><router-link to="/">Strona główna</router-link></li>
       <li class="menu-element"><router-link to="/projects">Projekty</router-link></li>
       <li class="menu-element"><router-link to="/about">O mnie</router-link></li>
+      <li class="menu-element"><router-link to="/contact">Kontakt</router-link></li>
     </ul>
   </div>
 </template>

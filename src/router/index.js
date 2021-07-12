@@ -1,20 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import Projects from '../views/Projects.vue'
+import Home from '../views/Home'
+import About from '../views/About'
+import Projects from '../views/Projects'
+import Contact from '../views/Contact'
 import NotFound from '../views/NotFound'
 
 Vue.use(VueRouter)
 
-const mainTitle = ' :: kamilcraft.com'
+const mainTitle = 'kamilcraft.com'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     meta: {
-      title: 'Witam serdecznie 😊' + mainTitle
+      title: 'Witam serdecznie 😊'
     },
     component: Home
   },
@@ -22,7 +23,7 @@ const routes = [
     path: '/projects',
     name: 'Projects',
     meta: {
-      title: 'Moje projekty' + mainTitle
+      title: 'Moje projekty'
     },
     component: Projects
   },
@@ -30,9 +31,17 @@ const routes = [
     path: '/about',
     name: 'About',
     meta: {
-      title: 'O mnie' + mainTitle
+      title: 'O mnie'
     },
     component: About
+  },
+  {
+    path: '/contact',
+    name: 'Kontakt',
+    meta: {
+      title: 'Kontakt'
+    },
+    component: Contact
   },
   {
     path: '*',
@@ -47,9 +56,10 @@ const router = new VueRouter({
   routes
 })
 
-const title = 'KamilCraft.com'
+const title = ' :: ' + mainTitle
 router.beforeEach((to, form, next) => {
-  document.title = to.meta.title || title
+  const documentTitle = to.meta.title + title || mainTitle
+  document.title = documentTitle === to.meta.title ? title : documentTitle
   next()
 })
 

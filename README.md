@@ -1,24 +1,22 @@
-# kamilcraft-master
+# kamilcraft-master projekt
+Projekt mający na celu przedstawienie mojej wykonanej treści i moich projektów publicznych.
 
-## Project setup
+## Instalcja paczek do projektu
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Kompilacja i rekompilacja w czasie projektowania
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Kompilacja i wrzucenie do folderu finalnego
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Formatowanie treści kodu
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

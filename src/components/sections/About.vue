@@ -1,62 +1,63 @@
 <template>
   <section id="about">
-    <h1>O mnie:</h1>
-    <div id="grid">
-      <div id="grid-text">
-        <p>Nazywam się <strong>Kamil Niemczycki</strong>, jestem studentem kierunku <strong>Informatyka</strong> o specjalności Programowanie Aplikacji Mobilnych i Internetowych.</p>
-        <p>Swoją przygodę w internecie rozpocząłem od nagrywania poradników, które umieszczałem na moim starym kanale youtube Moje Poradniki (wcześniej Niemczycki12). Z czasem zacząłem odczuwać potrzebę wypowiedzenia się, co spowodowało, że utworzyłem drugi kanał NiKCamii (wcześniej KamilNiemczycki), który był miejscem gdzie dodawałem Vlogi.</p>
-      </div>
-      <div id="grid-photo">
-        <figure id="about-photo">
-          <img :src="`${publicPath}assets/me.png`" />
-        </figure>
+    <div class="container">
+      <div id="grid">
+        <div id="grid-text">
+          <h2 class="name">Kamil Niemczycki</h2>
+          <div class="tagline">Web Developer</div>
+          <p>I'm a software engineer specialised in frontend and backend development for complex scalable web apps. I write about software development on my blog. Want to know how I may help your project? Check out my project portfolio and online resume.</p>
+        </div>
+        <div id="grid-photo">
+          <figure id="about-photo">
+            <img :src="`${publicPath}assets/me.png`" />
+          </figure>
+        </div>
       </div>
     </div>
   </section>
 </template>
+
 <style lang="scss">
-h1 {
-  font-size: 1.6em;
-  margin: 30px 0 20px;
-}
-#about {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-#grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr .8fr;
-  grid-template-areas:
-    'text text photo';
-  align-items: center;
-  #grid-text {
-    grid-area: text;
-    text-align: left;
-
-    p {
-      font-size: 1.1em;
-      line-height: 1.4em;
-      padding-bottom: 10px;
-    }
+section#about {
+  padding: 20px 0;
+  background-color: #fafafa !important;
+  h2.name {
+    font-size: 2.1em;
+    margin-bottom: 5px;
   }
-  #grid-photo {
-    grid-area: photo;
+  div.tagline {
+    font-size: 1.6em;
+    margin-bottom: .7em;
   }
-  figure {
-    img {
-      object-fit: cover;
-      width: 100%;
-      height: auto;
-    }
-  }
-}
-
-@media (max-width: 900px) {
   #grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
+     display: grid;
+     grid-template-columns: 1fr 1fr .8fr;
+     grid-template-areas:
+       'text text photo';
+     align-items: center;
+     #grid-text {
+       grid-area: text;
+       text-align: left;
+     }
+     #grid-photo {
+       grid-area: photo;
+     }
+     figure {
+       text-align: center;
+       img {
+         object-fit: cover;
+         width: 200px;
+         height: 200px;
+       }
+     }
+  }
+  @media (max-width: 900px) {
+    #grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
     'text text'
     'photo photo';
+    }
   }
 }
 </style>

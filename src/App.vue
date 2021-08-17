@@ -1,22 +1,45 @@
 <template>
   <div id="app">
-    <navigation/>
+    <site-header />
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+  display: flex;
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
+a {
+  text-decoration: none;
+}
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 5px;
+}
+p {
+  font-size: 1.1em;
+  line-height: 1.4em;
+  padding-bottom: 10px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
 </style>
+
 <script>
-import Navigation from '@/components/Navigation.vue'
+import SiteHeader from '@/components/SiteHeader.vue'
+
 export default {
-  components: { Navigation }
+  name: 'App',
+  components: {
+    SiteHeader
+  }
 }
 </script>

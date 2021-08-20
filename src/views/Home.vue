@@ -1,13 +1,13 @@
 <template>
-  <div class="home">
+  <section class="home">
     <About />
     <Experiences />
-  </div>
+  </section>
 </template>
 
 <script>
-import About from '@/components/sections/About.vue'
-import Experiences from '@/components/sections/Experiences.vue'
+import About from '../components/sections/About'
+import Experiences from '../components/sections/Experiences'
 
 export default {
   name: 'Home',

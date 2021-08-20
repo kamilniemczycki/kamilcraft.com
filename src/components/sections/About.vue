@@ -1,11 +1,12 @@
 <template>
-  <section id="about">
+  <div class="about">
     <div class="container">
       <div id="grid">
         <div id="grid-text">
           <h2 class="name">Kamil Niemczycki</h2>
           <div class="tagline">Web Developer</div>
           <p>I'm a software engineer specialised in frontend and backend development for complex scalable web apps. I write about software development on my blog. Want to know how I may help your project? Check out my project portfolio and online resume.</p>
+          <base-btn class-icon="my-class" has-icon>Wyświetl portfolio</base-btn>
         </div>
         <div id="grid-photo">
           <figure id="about-photo">
@@ -14,13 +15,18 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <style lang="scss">
-section#about {
+.btn {
+  i.my-class:before {
+    content: 'XD ';
+  }
+}
+div.about {
   padding: 20px 0;
-  background-color: #fafafa !important;
+  background-color: var(--gray-color) !important;
   h2.name {
     font-size: 2.1em;
     margin-bottom: 5px;
@@ -62,11 +68,16 @@ section#about {
 }
 </style>
 <script>
+import BaseButton from '../BaseButton'
+
 export default {
   data () {
     return {
       publicPath: process.env.BASE_URL
     }
+  },
+  components: {
+    'base-btn': BaseButton
   }
 }
 </script>

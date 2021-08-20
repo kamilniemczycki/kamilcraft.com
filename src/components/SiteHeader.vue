@@ -1,7 +1,8 @@
 <template>
   <header id="header">
     <router-link to="/">
-      <img id="nav-logo" alt="KamilCraft.com logo" :src="`${publicPath}assets/logo.png`">
+      <!-- <img id="nav-logo" alt="KamilCraft.com logo" :src="`${publicPath}assets/logo.png`"> -->
+      <h1 id="nav-text">KamilCraft</h1>
     </router-link>
     <nav id="navigation">
       <ul id="menu">
@@ -18,10 +19,15 @@
 #header {
   width: 250px;
   height: 100vh;
-  background-color: #4f4f4f !important;
+  background-color: #1893D7!important;
+  background-image: linear-gradient(to top,#005C93 25%,#2C395C);
+  #nav-text {
+    color: white;
+  }
   #nav-logo {
     display: block;
     width: 250px;
+    height: 67px;
     padding: 8px 0;
     background-color: #fafafa !important;
   }

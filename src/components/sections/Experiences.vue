@@ -1,10 +1,10 @@
 <template>
-  <section id="experiences">
+  <div id="experiences">
     <div class="container">
       <h2>Moje doświadczenie</h2>
       <p>I have more than 10 years' experience building software for clients all over the world. Below is a quick overview of my main technical skill sets and technologies I use. Want to find out more about my experience? Check out my online resume and project portfolio.</p>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style lang="scss">
-  section#experiences {
-
+  div#experiences {
+    padding: 20px 0;
   }
 </style>

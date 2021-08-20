@@ -16,3 +16,9 @@ section#about {
   background-color: #fafafa !important;
 }
 </style>
+
+<script>
+export default {
+  name: 'About'
+}
+</script>

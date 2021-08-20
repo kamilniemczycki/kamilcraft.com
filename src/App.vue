@@ -1,14 +1,12 @@
 <template>
   <div id="app">
-    <site-header />
+    <SiteHeader />
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
 #app {
-  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
-  display: flex;
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,7 +15,7 @@
 </style>
 
 <script>
-import SiteHeader from './components/SiteHeader'
+import SiteHeader from '@/components/SiteHeader'
 
 export default {
   name: 'App',

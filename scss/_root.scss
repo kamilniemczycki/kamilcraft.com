@@ -1,7 +1,7 @@
 @import "colors";
 
 :root {
-  --font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family: 'Roboto', sans-serif;;
   --dark-gray-color: #{$dark-gray};
   --gray-color: #{$gray};
   --text-color: #{$text-color};

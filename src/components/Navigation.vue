@@ -1,7 +1,7 @@
 <template>
   <div class="container" :class="{'container-menu-active': clicked}">
     <router-link to="/">
-      <div class="logo">Kamil<span class="logo-element">Craft</span></div>
+      <div class="logo" @click="linkClicked">Kamil<span class="logo-element">Craft</span></div>
     </router-link>
     <nav class="nav">
       <button class="nav-btn" @click="clickMenu">
@@ -10,18 +10,9 @@
           <font-awesome-icon v-else icon="times"></font-awesome-icon>
         </transition>
       </button>
-      <ul class="site-menu">
-        <li class="menu-element" @click="linkClicked">
-          <router-link to="/">Start</router-link>
-        </li>
-        <li class="menu-element" @click="linkClicked">
-          <router-link to="/projects">Projekty</router-link>
-        </li>
-        <li class="menu-element" @click="linkClicked">
-          <router-link to="/about">O mnie</router-link>
-        </li>
-        <li class="menu-element" @click="linkClicked">
-          <router-link to="/contact">Kontakt</router-link>
+      <ul class="site-menu" :class="{'menu-clicked': clicked}">
+        <li v-for="menuItem in menuItems" :key="menuItem.slug" class="menu-element" @click="linkClicked">
+          <router-link :to="menuItem.uri">{{ menuItem.title }}</router-link>
         </li>
       </ul>
     </nav>
@@ -111,7 +102,7 @@
       top: 80px;
       left: 0;
       background-color: white;
-      box-shadow: 0px 10px 10px rgba(0, 0, 0, .1);
+      box-shadow: 0 10px 10px rgba(0, 0, 0, .1);
 
       .menu-element {
         width: 100%;
@@ -138,6 +129,28 @@ export default {
   name: 'SiteHeader',
   data () {
     return {
+      menuItems: [
+        {
+          slug: 'start',
+          title: 'Start',
+          uri: '/'
+        },
+        {
+          slug: 'projects',
+          title: 'Projekty',
+          uri: '/projects'
+        },
+        {
+          slug: 'about',
+          title: 'O mnie',
+          uri: '/about'
+        },
+        {
+          slug: 'contact',
+          title: 'Kontakt',
+          uri: '/contact'
+        }
+      ],
       clicked: false,
       publicPath: process.env.BASE_URL
     }
@@ -146,23 +159,11 @@ export default {
     changeClickedStatus () {
       this.clicked = !this.clicked
     },
-    addMenuClicked () {
-      const siteMenu = document.querySelector('.site-menu')
-      siteMenu.classList.add('menu-clicked')
-    },
-    removeMenuClicked () {
-      const siteMenu = document.querySelector('.site-menu')
-      siteMenu.classList.remove('menu-clicked')
-    },
     clickMenu () {
-      !this.clicked ? this.addMenuClicked() : this.removeMenuClicked()
       this.changeClickedStatus()
     },
     linkClicked () {
-      /* safari has problem with variables */
-      var siteMenu = document.querySelector('.site-menu')
-      if (siteMenu.classList.contains('menu-clicked')) {
-        this.removeMenuClicked()
+      if (this.clicked) {
         this.changeClickedStatus()
       }
     }

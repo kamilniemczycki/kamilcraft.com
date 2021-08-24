@@ -1,7 +1,7 @@
 <template>
   <button class="btn" :class="isReverse ? 'reverse' : ''">
-    <i v-if="hasIcon" :class="classIcon"></i>
-    <slot></slot>
+    <font-awesome-icon class="icon" if="hasIcon" :icon="icon"/>
+    <span><slot></slot></span>
   </button>
 </template>
 
@@ -10,7 +10,7 @@ export default {
   name: 'BaseButton',
   props: {
     hasIcon: Boolean,
-    classIcon: String,
+    icon: String,
     isReverse: Boolean
   }
 }
@@ -21,11 +21,19 @@ $btn-color: black;
 $hover-btn-color: white;
 
 .btn {
-  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
   border: 1px solid #{$btn-color};
   background-color: transparent;
   color: $btn-color;
   border-radius: 0;
+
+  .icon {
+    margin-right: 5px;
+    font-size: 1.5em;
+  }
+
   &:hover {
     background-color: $btn-color;
     color: $hover-btn-color;

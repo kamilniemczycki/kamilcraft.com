@@ -6,7 +6,9 @@
           <h2 class="name">Kamil Niemczycki</h2>
           <div class="tagline">Web Developer</div>
           <p>I'm a software engineer specialised in frontend and backend development for complex scalable web apps. I write about software development on my blog. Want to know how I may help your project? Check out my project portfolio and online resume.</p>
-          <base-btn class-icon="my-class" has-icon>Wyświetl portfolio</base-btn>
+          <div class="buttons">
+            <base-btn has-icon icon="portrait">Wyświetl portfolio</base-btn>
+          </div>
         </div>
         <div id="grid-photo">
           <figure id="about-photo">
@@ -19,11 +21,6 @@
 </template>
 
 <style lang="scss">
-.btn {
-  i.my-class:before {
-    content: 'XD ';
-  }
-}
 div.about {
   padding: 20px 0;
   background-color: var(--gray-color) !important;

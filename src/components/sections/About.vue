@@ -7,8 +7,13 @@
           <div class="tagline">Web Developer</div>
           <p>I'm a software engineer specialised in frontend and backend development for complex scalable web apps. I write about software development on my blog. Want to know how I may help your project? Check out my project portfolio and online resume.</p>
           <div class="buttons">
-            <base-btn has-icon icon="portrait" is-reverse>Wyświetl portfolio</base-btn>
-            <base-btn has-icon icon="user">Więcej o mnie</base-btn>
+            <base-btn has-icon
+                      icon="portrait"
+                      is-reverse
+                      @click.native="$router.push('projects')">Wybrane projekty</base-btn>
+            <base-btn has-icon
+                      icon="user"
+                      @click.native="$router.push('about')">Więcej o mnie</base-btn>
           </div>
         </div>
         <div id="grid-photo">
@@ -51,7 +56,7 @@ div.about {
 
          .btn {
            margin-right: 20px;
-           &:last-child {
+           &:last-of-type {
              margin-right: 0;
            }
          }
@@ -69,7 +74,7 @@ div.about {
            display: block;
            margin-bottom: 25px;
 
-           .btn{
+           .btn {
              margin: 0 auto 20px;
              &:last-child {
                margin: 0 auto;
@@ -79,7 +84,8 @@ div.about {
        }
 
        @media screen and (max-width: 400px) {
-         .buttons .btn {
+         .buttons .btn,
+         .buttons a {
            min-width: unset;
            width: 100%;
          }

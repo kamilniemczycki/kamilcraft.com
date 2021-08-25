@@ -7,12 +7,13 @@
           <div class="tagline">Web Developer</div>
           <p>I'm a software engineer specialised in frontend and backend development for complex scalable web apps. I write about software development on my blog. Want to know how I may help your project? Check out my project portfolio and online resume.</p>
           <div class="buttons">
-            <base-btn has-icon icon="portrait">Wyświetl portfolio</base-btn>
+            <base-btn has-icon icon="portrait" is-reverse>Wyświetl portfolio</base-btn>
+            <base-btn has-icon icon="user">Więcej o mnie</base-btn>
           </div>
         </div>
         <div id="grid-photo">
           <figure id="about-photo">
-            <img :src="`${publicPath}assets/me.png`" />
+            <img :src="`${publicPath}assets/me.jpg`" />
           </figure>
         </div>
       </div>
@@ -38,12 +39,58 @@ div.about {
      grid-template-areas:
        'text text photo';
      align-items: center;
+
      #grid-text {
        grid-area: text;
        text-align: left;
+
+       .buttons {
+         display: flex;
+         justify-content: flex-start;
+         padding: 10px 0;
+
+         .btn {
+           margin-right: 20px;
+           &:last-child {
+             margin-right: 0;
+           }
+         }
+       }
+
+       @media screen and (max-width: 900px) {
+         .buttons {
+           justify-content: center;
+           margin-bottom: 25px;
+         }
+       }
+
+       @media screen and (max-width: 600px) {
+         .buttons {
+           display: block;
+           margin-bottom: 25px;
+
+           .btn{
+             margin: 0 auto 20px;
+             &:last-child {
+               margin: 0 auto;
+             }
+           }
+         }
+       }
+
+       @media screen and (max-width: 400px) {
+         .buttons .btn {
+           min-width: unset;
+           width: 100%;
+         }
+       }
      }
      #grid-photo {
        grid-area: photo;
+
+       #about-photo img {
+         border-radius: 50%;
+       }
      }
      figure {
        text-align: center;

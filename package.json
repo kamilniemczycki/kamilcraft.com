@@ -1,6 +1,6 @@
 {
-  "name": "kamilcraft-master",
-  "version": "0.1.0",
+  "name": "kamilcraft-com",
+  "version": "1.0.0-alpha",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

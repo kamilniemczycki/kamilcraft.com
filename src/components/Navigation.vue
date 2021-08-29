@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :class="{'container-menu-active': clicked}">
+  <div class="container" :class="{'container-menu-active': clickedStatus}">
     <router-link to="/">
       <div class="logo" @click="linkClicked">Kamil<span class="logo-element">Craft</span></div>
     </router-link>
@@ -18,8 +18,13 @@
 </template>
 
 <style lang="scss" scoped>
+.sub-page > .container .nav-btn,
+.sub-page > .container .nav .site-menu .menu-element a:not([class|=router-link-exact]) {
+  color: #8D8D8D;
+}
 .container {
   display: flex;
+  height: 80px;
   align-items: center;
   justify-content: flex-start;
   padding: 0;
@@ -37,12 +42,10 @@
   }
 
   &-menu-active {
-    /* background-color: #EFEFEF; */
     color: #8D8D8D;
     animation: container-active-menu 500ms forwards ease-in-out;
 
     div.logo {
-      /* background-color: #F6F6F6; */
       animation: logo-active-menu 500ms forwards ease-in-out;
     }
     .nav {
@@ -57,6 +60,7 @@
 }
 .nav {
   margin-left: 20px;
+  z-index: 10;
   .nav-btn {
     display: none;
     margin: 10px 25px;
@@ -163,6 +167,11 @@ export default {
       ],
       clicked: false,
       publicPath: process.env.BASE_URL
+    }
+  },
+  computed: {
+    clickedStatus () {
+      return this.clicked
     }
   },
   methods: {

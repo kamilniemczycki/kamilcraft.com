@@ -1,11 +1,9 @@
 <template>
   <section id="about">
     <div class="container">
-      <h2>{{ $route.meta.title }}</h2>
-      <p>Nazywam się Kamil Niemczycki, jestem studentem kierunku Informatyka o specjalności Programowanie Aplikacji Mobilnych i Internetowych.</p>
-      <p>Swoją przygodę w internecie rozpocząłem od nagrywania poradników, które umieszczałem na moim starym kanale youtube Moje Poradniki (wcześniej Niemczycki12). Z czasem zacząłem odczuwać potrzebę wypowiedzenia się, co spowodowało, że utworzyłem drugi kanał NiKCamii (wcześniej KamilNiemczycki), który był miejscem gdzie dodawałem Vlogi.</p>
-      <p>Aktualnie zajmuję się projektowaniem i programowaniem aplikacji web w postaci stron www, wykorzystując od strony backend'u język skryptowy PHP. Znam także język znaczników - HTML 5, jego kompana - CSS, jak i podstawy JavaScript(), które są wykorzystwyane w frontend'dzie.</p>
-      <p>Backend, frontend ❤</p>
+      <h2>Studia</h2>
+      <p>Nazywam się Kamil Niemczycki, jestem absolwentem Państwowej Wyższej Szkoły Zawodowej im. Witelona w Legnicy.</p>
+      <p>Studiowałem na kierunku <i>Informatyka</i> o specjalności <i>Programowanie Aplikacji Mobilnych i Internetowych.</i></p>
     </div>
   </section>
 </template>
@@ -19,6 +17,17 @@ section#about {
 
 <script>
 export default {
-  name: 'About'
+  name: 'About',
+  mounted () {
+    const header = {
+      title: this.$route.meta.title,
+      description: 'I\'m a software engineer specialised in frontend and backend development for complex scalable web apps. I write about software development on my blog.'
+    }
+    this.$store.commit('setHeader', header)
+  },
+  destroyed () {
+    this.$store.commit('resetHeaderTitle')
+    this.$store.commit('resetHeaderDescription')
+  }
 }
 </script>

@@ -5,10 +5,8 @@
     </router-link>
     <nav class="nav">
       <button class="nav-btn" @click="clickMenu">
-        <transition name="btn">
-          <font-awesome-icon v-if="!clicked" icon="bars"></font-awesome-icon>
-          <font-awesome-icon v-else icon="times"></font-awesome-icon>
-        </transition>
+        <font-awesome-icon v-if="!clicked" icon="bars"></font-awesome-icon>
+        <font-awesome-icon v-else icon="times"></font-awesome-icon>
       </button>
       <ul class="site-menu" :class="{'menu-clicked': clicked}">
         <li v-for="menuItem in menuItems" :key="menuItem.slug" class="menu-element" @click="linkClicked">
@@ -20,12 +18,6 @@
 </template>
 
 <style lang="scss" scoped>
-.btn-enter-active, .btn-leave-active {
-  transition: opacity .5s;
-}
-.btn-enter, .btn-leave-to {
-  opacity: 0;
-}
 .container {
   display: flex;
   align-items: center;
@@ -45,11 +37,13 @@
   }
 
   &-menu-active {
-    background-color: #EFEFEF;
+    /* background-color: #EFEFEF; */
     color: #8D8D8D;
+    animation: container-active-menu 500ms forwards ease-in-out;
 
     div.logo {
-      background-color: #F6F6F6;
+      /* background-color: #F6F6F6; */
+      animation: logo-active-menu 500ms forwards ease-in-out;
     }
     .nav {
       .nav-btn {
@@ -120,6 +114,22 @@
 @media screen and (max-width: 600px) {
   .container {
     justify-content: space-between;
+  }
+}
+@keyframes container-active-menu {
+  0% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: #EFEFEF;
+  }
+}
+@keyframes logo-active-menu {
+  0% {
+    background-color: white;
+  }
+  100% {
+    background-color: #F6F6F6;
   }
 }
 </style>

@@ -2,6 +2,7 @@
   <div id="app">
     <SiteHeader />
     <router-view />
+    <Footer />
   </div>
 </template>
 
@@ -15,12 +16,14 @@
 </style>
 
 <script>
-import SiteHeader from '@/components/SiteHeader'
+import SiteHeader from './components/SiteHeader'
+import Footer from './components/Footer'
 
 export default {
   name: 'App',
   components: {
-    SiteHeader
+    SiteHeader,
+    Footer
   }
 }
 </script>

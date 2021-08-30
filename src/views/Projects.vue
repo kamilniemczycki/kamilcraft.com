@@ -11,12 +11,12 @@
           <div class="description">
             <p>{{ project.short_description }}</p>
           </div>
-          <div class="more-button">
-            <base-btn has-icon
-                      icon="info"
-                      is-reverse
-                      class="btn">Szczegóły</base-btn>
-          </div>
+        </div>
+        <div class="more-button">
+          <base-btn has-icon
+                    icon="eye"
+                    is-reverse
+                    class="btn">O projekcie</base-btn>
         </div>
       </div>
     </div>
@@ -29,11 +29,12 @@
   padding: 15px 10px;
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: minmax(80px, auto);
-  column-gap: 20px;
-  row-gap: 15px;
+  column-gap: 25px;
+  row-gap: 20px;
 
   .project {
     display: grid;
+    position: relative;
     grid-template-areas: 'image content';
     background-color: #EFEFEF;
     border: 1px solid rgba(0, 0, 0, .025);
@@ -64,22 +65,6 @@
         padding: 5px 0;
       }
 
-      .more-button {
-        z-index: 6;
-        position: absolute;
-        left: 0;
-        bottom: 5px;
-        width: 100%;
-
-        .btn {
-          width: 100%;
-          min-width: unset;
-          max-width: 270px;
-          margin: 0 auto;
-          font-size: .8em;
-        }
-      }
-
       &::after {
         content: "";
         position: absolute;
@@ -96,6 +81,37 @@
     }
   }
 
+  @media screen and (min-width: 901px) {
+    .project {
+      .more-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        .btn {
+          display: none;
+        }
+
+        &:hover {
+          background: rgba(0, 0, 0, .3);
+          .btn {
+            display: flex;
+            color: white;
+            border-style: none;
+            &:hover {
+              background-color: #385c8a;
+            }
+          }
+        }
+      }
+    }
+  }
+
   @media screen and (max-width: 900px) {
     .project {
       grid-template-areas: 'image' 'content';
@@ -108,16 +124,20 @@
       .project-content {
         height: auto;
         max-height: 250px;
+      }
 
-        .more-button {
-          display: block;
-          bottom: 0;
+      .more-button {
+        display: block;
+        position: unset;
+        margin-top: 8px;
+        height: auto;
+        left: unset;
+        top: unset;
+        .btn {
+          display: flex;
           width: 100%;
-
-          .btn {
-            width: 100%;
-            border-radius: 0;
-          }
+          border-radius: 0;
+          border-style: solid;
         }
       }
     }

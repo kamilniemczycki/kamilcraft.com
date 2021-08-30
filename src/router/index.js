@@ -15,7 +15,7 @@ const routes = [
     path: '/',
     name: 'Home',
     meta: {
-      title: 'Witam serdecznie 😊'
+      title: 'Witam! 😊'
     },
     component: Home
   },

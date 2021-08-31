@@ -79,7 +79,4 @@ export default {
     color: white;
   }
 }
-.welcome {
-  min-height: 40vh;
-}
 </style>

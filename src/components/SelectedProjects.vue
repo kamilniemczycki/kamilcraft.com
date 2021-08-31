@@ -43,6 +43,7 @@
       background-color: #fafafa;
       border: 1px solid rgba(0, 0, 0, .025);
       border-radius: 5px;
+      animation: load-project 2s forwards;
 
       .project-image {
         grid-area: image;
@@ -86,7 +87,7 @@
       }
     }
 
-    @media screen and (min-width: 901px) {
+    @media screen and (min-width: 900px) {
       .project {
         .more-button {
           display: flex;
@@ -151,7 +152,18 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@keyframes load-project {
+  from {
+    transform: translateY(20px);
+    opacity: .1;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 600px) {
   .projects .container {
     grid-template-columns: 1fr;
     padding: 25px;

@@ -1,6 +1,6 @@
 <template>
   <button class="btn" :class="{ reverse: isReverse }">
-    <font-awesome-icon class="icon" if="hasIcon" :icon="icon"/>
+    <font-awesome-icon class="icon" v-if="hasIcon" :icon="icon"/>
     <span><slot></slot></span>
   </button>
 </template>

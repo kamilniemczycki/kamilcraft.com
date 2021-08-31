@@ -12,6 +12,9 @@
       </ul>
     </div>
     <projects :projects="projects.active" />
+    <div v-if="projects.active.length === 0" class="loading">
+      <div class="loading-animation"></div>
+    </div>
   </div>
 </template>
 
@@ -26,6 +29,7 @@
       position: relative;
       cursor: pointer;
       margin-right: 25px;
+
       a {
         color: var(--text-color);
         &:hover {
@@ -43,17 +47,51 @@
           left: 0;
           right: 0;
           bottom: 0;
-          width: 100%;
+          width: 0;
           height: 2px;
           background-color: #A2CF00;
           transform: translateY(8px);
+          animation: load-underline 300ms forwards;
         }
+      }
+
+      @media screen and (max-width: 450px) {
+        margin-right: 15px;
       }
     }
   }
 }
 .projects {
   padding-top: 25px;
+  padding-bottom: 25px;
+}
+.loading {
+  height: 300px;
+  .loading-animation {
+    margin: 20px auto;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 10px #A2CF00 solid;
+    border-radius: 50%;
+    animation: loading-animation 1s linear infinite;
+  }
+}
+@keyframes loading-animation {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes load-underline {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 </style>
 
@@ -172,12 +210,15 @@ export default {
   },
   methods: {
     loadListWhereCategory (category) {
-      if (category !== 'wszystkie') {
-        const projects = this.projects.all.filter(project => project.category === category)
-        this.projects.active = projects
-      } else {
-        this.projects.active = this.projects.all
-      }
+      this.projects.active = []
+      setTimeout(() => {
+        if (category !== 'wszystkie') {
+          const projects = this.projects.all.filter(project => project.category === category)
+          this.projects.active = projects
+        } else {
+          this.projects.active = this.projects.all
+        }
+      }, 1000)
     },
     changeCategory (category) {
       this.categories.active = category

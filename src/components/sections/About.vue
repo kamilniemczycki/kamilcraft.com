@@ -27,9 +27,13 @@
 </template>
 
 <style lang="scss">
-div.about {
-  padding: 20px 0;
+.about {
   background-color: var(--gray-color) !important;
+
+  .container {
+    padding-top: 45px;
+    padding-bottom: 45px;
+  }
   h2.name {
     font-size: 2.1em;
     margin-bottom: 5px;

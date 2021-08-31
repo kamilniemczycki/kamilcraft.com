@@ -2,6 +2,7 @@
   <section class="home">
     <About />
     <Experiences />
+    <FavoriteProjects />
   </section>
 </template>
 
@@ -12,9 +13,16 @@
 <script>
 import About from '../components/sections/About'
 import Experiences from '../components/sections/Experiences'
+import FavoriteProjects from '../components/sections/FavoriteProjects'
 
 export default {
   name: 'Home',
+  data () {
+    return {
+      publicPath: process.env.BASE_URL,
+      select_projects: []
+    }
+  },
   mounted () {
     const header = {
       title: this.$route.meta.title,
@@ -31,7 +39,8 @@ export default {
   },
   components: {
     About,
-    Experiences
+    Experiences,
+    FavoriteProjects
   }
 }
 </script>

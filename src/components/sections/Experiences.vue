@@ -88,7 +88,7 @@ export default {
       margin-top: 35px;
 
       .skill-group {
-        background-color: rgba(0, 0, 0, .02);
+        background-color: #fafafa;
         padding: 15px;
         border-radius: 5px;
 

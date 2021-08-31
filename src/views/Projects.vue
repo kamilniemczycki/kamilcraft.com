@@ -11,7 +11,7 @@
         </li>
       </ul>
     </div>
-    <projects :projects="projects" />
+    <projects :projects="projects.active" />
   </div>
 </template>
 
@@ -69,7 +69,10 @@ export default {
         active: 'wszystkie'
       },
       publicPath: process.env.BASE_URL,
-      projects: []
+      projects: {
+        all: [],
+        active: []
+      }
     }
   },
   mounted () {
@@ -79,7 +82,7 @@ export default {
       { name: 'Prywatne', slug: 'prywatne' },
       { name: 'Zlecenia', slug: 'zlecenia' }
     ]
-    this.projects = [
+    this.projects.all = [
       {
         title: 'KamilCraft.com',
         category: 'private',
@@ -94,7 +97,7 @@ export default {
       },
       {
         title: 'Youtube.com',
-        category: 'private',
+        category: 'prywatne',
         image: `${this.publicPath}assets/me.jpg`,
         release_data: '29.08.2021',
         version: 'v1.0.1',
@@ -130,7 +133,7 @@ export default {
       },
       {
         title: 'Projekt 3',
-        category: 'private',
+        category: 'prywatne',
         image: `${this.publicPath}assets/me.jpg`,
         release_data: '29.08.2021',
         version: 'v1.0.0',
@@ -142,7 +145,7 @@ export default {
       },
       {
         title: 'Projekt 4',
-        category: '',
+        category: 'prywatne',
         image: `${this.publicPath}assets/me.jpg`,
         release_data: '29.08.2021',
         version: 'v1.0.0',
@@ -154,7 +157,7 @@ export default {
       },
       {
         title: 'Projekt 20',
-        category: '',
+        category: 'zlecenia',
         image: `${this.publicPath}assets/me.jpg`,
         release_data: '29.08.2021',
         version: 'v1.0.0',
@@ -165,10 +168,20 @@ export default {
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
       }
     ]
+    this.projects.active = this.projects.all
   },
   methods: {
+    loadListWhereCategory (category) {
+      if (category !== 'wszystkie') {
+        const projects = this.projects.all.filter(project => project.category === category)
+        this.projects.active = projects
+      } else {
+        this.projects.active = this.projects.all
+      }
+    },
     changeCategory (category) {
       this.categories.active = category
+      this.loadListWhereCategory(category)
     }
   },
   components: {

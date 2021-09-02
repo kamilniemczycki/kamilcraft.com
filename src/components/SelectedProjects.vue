@@ -17,6 +17,7 @@
           <base-btn has-icon
                     icon="eye"
                     is-reverse
+                    @click.native="$router.push({ name: 'Project', params: { id: project.id } })"
                     class="btn">O projekcie</base-btn>
         </div>
       </div>
@@ -31,6 +32,7 @@
 
   .container {
     display: grid;
+    align-items: flex-start;
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: minmax(80px, auto);
     column-gap: 25px;
@@ -40,6 +42,7 @@
       display: grid;
       position: relative;
       grid-template-areas: 'image content';
+      grid-template-columns: 200px 1fr;
       background-color: #fafafa;
       border: 1px solid rgba(0, 0, 0, .025);
       border-radius: 5px;
@@ -121,7 +124,7 @@
 
     @media screen and (max-width: 900px) {
       .project {
-        grid-template-areas: 'image' 'content';
+        display: block;
 
         .project-image {
           width: 100%;

@@ -3,7 +3,7 @@
     <div class="category-menu">
       <ul class="categories">
         <li class="category"
-            v-for="category in categories.list"
+            v-for="category in $store.getters.getCategories"
             :key="category.slug"
             :class="{ 'category-active': categories.active === category.slug }"
             @click="changeCategory(category.slug)">
@@ -11,8 +11,8 @@
         </li>
       </ul>
     </div>
-    <projects :projects="projects.active" />
-    <div v-if="projects.active.length === 0" class="loading">
+    <projects :projects="projects" />
+    <div v-if="projects.length === 0" class="loading">
       <div class="loading-animation"></div>
     </div>
   </div>
@@ -21,6 +21,7 @@
 <style lang="scss">
 .category-menu {
   padding-top: 45px;
+
   .categories {
     display: flex;
     justify-content: center;
@@ -103,122 +104,55 @@ export default {
   data () {
     return {
       categories: {
-        list: [],
         active: 'wszystkie'
       },
       publicPath: process.env.BASE_URL,
-      projects: {
-        all: [],
-        active: []
-      }
+      projects: []
     }
   },
-  mounted () {
-    this.categories.list = [
-      { name: 'Wszystkie', slug: 'wszystkie' },
-      { name: 'Wordpress', slug: 'wordpress' },
-      { name: 'Prywatne', slug: 'prywatne' },
-      { name: 'Zlecenia', slug: 'zlecenia' }
-    ]
-    this.projects.all = [
+  async mounted () {
+    this.$store.commit('setCategories', [
       {
-        title: 'KamilCraft.com',
-        category: 'private',
-        image: `${this.publicPath}assets/me.jpg`,
-        release_data: '29.08.2021',
-        version: 'v1.0.1',
-        short_description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+        name: 'Wszystkie',
+        slug: 'wszystkie'
       },
       {
-        title: 'Youtube.com',
-        category: 'prywatne',
-        image: `${this.publicPath}assets/me.jpg`,
-        release_data: '29.08.2021',
-        version: 'v1.0.1',
-        short_description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+        name: 'Wordpress',
+        slug: 'wordpress'
       },
       {
-        title: 'Projekt 2',
-        category: 'wordpress',
-        image: `${this.publicPath}assets/me.jpg`,
-        release_data: '29.08.2021',
-        version: 'v1.0.0',
-        short_description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+        name: 'Prywatne',
+        slug: 'prywatne'
       },
       {
-        title: 'Projekt 14',
-        category: 'wordpress',
-        image: `${this.publicPath}assets/me.jpg`,
-        release_data: '29.08.2021',
-        version: 'v1.0.0',
-        short_description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-      },
-      {
-        title: 'Projekt 3',
-        category: 'prywatne',
-        image: `${this.publicPath}assets/me.jpg`,
-        release_data: '29.08.2021',
-        version: 'v1.0.0',
-        short_description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-      },
-      {
-        title: 'Projekt 4',
-        category: 'prywatne',
-        image: `${this.publicPath}assets/me.jpg`,
-        release_data: '29.08.2021',
-        version: 'v1.0.0',
-        short_description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-      },
-      {
-        title: 'Projekt 20',
-        category: 'zlecenia',
-        image: `${this.publicPath}assets/me.jpg`,
-        release_data: '29.08.2021',
-        version: 'v1.0.0',
-        short_description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+        name: 'Zlecenia',
+        slug: 'zlecenia'
       }
-    ]
-    this.projects.active = this.projects.all
+    ])
+    await this.$store.dispatch('fetchProjects').then(projects => {
+      projects.sort((firstProduct, secondProduct) => {
+        return secondProduct.id - firstProduct.id
+      })
+      this.projects = projects
+    }).catch(error => {
+      console.log(error)
+    })
+  },
+  destroyed () {
+    this.$store.commit('resetHeaderTitle')
+    this.$store.commit('resetHeaderDescription')
   },
   methods: {
     loadListWhereCategory (category) {
-      this.projects.active = []
+      this.projects = []
       setTimeout(() => {
         if (category !== 'wszystkie') {
-          const projects = this.projects.all.filter(project => project.category === category)
-          this.projects.active = projects
+          const projects = this.$store.getters.getProjects.filter(project => project.category === category)
+          this.projects = projects
         } else {
-          this.projects.active = this.projects.all
+          this.projects = this.$store.getters.getProjects
         }
-      }, 1000)
+      }, 500)
     },
     changeCategory (category) {
       this.categories.active = category

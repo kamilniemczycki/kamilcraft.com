@@ -8,18 +8,42 @@ const moduleSettings = {
     header: {
       title: null,
       description: null
-    }
+    },
+    categories: [],
+    projects: []
   },
   getters: {
     getHeader (state) {
       return state.header
+    },
+    getCategories (state) {
+      return state.categories
+    },
+    getProjects (state) {
+      return state.projects
+    }
+  },
+  actions: {
+    fetchProjects (store) {
+      return fetch('/api/projects.json')
+        .then(response => response.json())
+        .then(data => {
+          store.commit('setProjects', data)
+          return store.getters.getProjects
+        })
     }
   },
   mutations: {
-    setHeader: (state, payload) => {
+    setCategories: (state, array = []) => {
+      state.categories = array
+    },
+    setProjects: (state, array = []) => {
+      state.projects = array
+    },
+    setHeader: (state, text) => {
       state.header = {
-        title: payload.title ?? null,
-        description: payload.description ?? null
+        title: text.title ?? null,
+        description: text.description ?? null
       }
     },
     resetHeaderTitle (state) {

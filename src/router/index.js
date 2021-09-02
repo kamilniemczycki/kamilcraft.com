@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import About from '../views/About'
 import Projects from '../views/Projects'
+import Project from '../views/Project'
 import Contact from '../views/Contact'
 import NotFound from '../views/NotFound'
 
@@ -26,6 +27,14 @@ const routes = [
       title: 'Moje projekty'
     },
     component: Projects
+  },
+  {
+    path: '/projects/:id',
+    name: 'Project',
+    meta: {
+      title: 'Projekt'
+    },
+    component: Project
   },
   {
     path: '/about',

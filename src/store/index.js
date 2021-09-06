@@ -25,11 +25,19 @@ const moduleSettings = {
   },
   actions: {
     fetchProjects (store) {
-      return fetch('/api/projects.json')
+      return fetch('https://api.kamilcraft.com/projects')
         .then(response => response.json())
         .then(data => {
           store.commit('setProjects', data)
           return store.getters.getProjects
+        })
+    },
+    fetchCategories (store) {
+      return fetch('https://api.kamilcraft.com/categories')
+        .then(response => response.json())
+        .then(data => {
+          store.commit('setCategories', data)
+          return store.getters.getCategories
         })
     }
   },

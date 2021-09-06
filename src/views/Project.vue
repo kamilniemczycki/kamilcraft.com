@@ -13,7 +13,7 @@
         </li>
         <li class="info-text">
           <font-awesome-icon class="icon" :icon="['far', 'folder']"/>
-          <span>{{ getCategoryName(project.category) }}</span>
+          <span>{{ getCategoryName(project.categories)[0] }}</span>
         </li>
         <li class="info-text">
           <font-awesome-icon class="icon" :icon="['fas', 'code-branch']"/>
@@ -26,7 +26,7 @@
         <img :src="`${publicPath}${project.image}`" :alt="project.title">
       </component>
       <div class="content">
-        <p v-for="(description, key) in project.short_description.split('\n')" :key="key">
+        <p v-for="(description, key) in project.description.split('\n')" :key="key">
           {{ description }}
         </p>
       </div>
@@ -44,21 +44,33 @@ export default {
     }
   },
   mounted () {
-    const project = this.getProjects.find(project => project.id === this.$route.params.id)
-    this.project = project
+    if (this.getCategories.length === 0) {
+      this.$store.dispatch('fetchCategories')
+    }
+    this.loadProject(this.$route.params.id)
   },
   computed: {
     getCategories () {
       return this.$store.getters.getCategories
-    },
-    getProjects () {
-      return this.$store.getters.getProjects
     }
   },
   methods: {
-    getCategoryName (slug) {
-      const category = this.getCategories.find(category => category.slug === slug)
-      return category.name
+    getCategoryName (categories) {
+      const categoriesText = []
+      categories.forEach(categoryElement => {
+        const cat = this.getCategories.find(category => category.slug === categoryElement)
+        if (cat) {
+          categoriesText.push(cat.name)
+        }
+      })
+      return categoriesText
+    },
+    loadProject (id) {
+      fetch('https://api.kamilcraft.com/projects/' + id)
+        .then(response => response.json())
+        .then(data => {
+          this.project = data
+        })
     }
   }
 }

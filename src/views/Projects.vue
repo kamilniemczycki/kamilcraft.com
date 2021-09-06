@@ -3,7 +3,7 @@
     <div class="category-menu">
       <ul class="categories">
         <li class="category"
-            v-for="category in $store.getters.getCategories"
+            v-for="category in getCategories"
             :key="category.slug"
             :class="{ 'category-active': categories.active === category.slug }"
             @click="changeCategory(category.slug)">
@@ -104,31 +104,19 @@ export default {
   data () {
     return {
       categories: {
-        active: 'wszystkie'
+        active: 'all'
       },
       publicPath: process.env.BASE_URL,
       projects: []
     }
   },
+  computed: {
+    getCategories () {
+      return this.$store.getters.getCategories
+    }
+  },
   async mounted () {
-    this.$store.commit('setCategories', [
-      {
-        name: 'Wszystkie',
-        slug: 'wszystkie'
-      },
-      {
-        name: 'Wordpress',
-        slug: 'wordpress'
-      },
-      {
-        name: 'Prywatne',
-        slug: 'prywatne'
-      },
-      {
-        name: 'Zlecenia',
-        slug: 'zlecenia'
-      }
-    ])
+    await this.$store.dispatch('fetchCategories')
     await this.$store.dispatch('fetchProjects').then(projects => {
       projects.sort((firstProduct, secondProduct) => {
         return secondProduct.id - firstProduct.id
@@ -146,8 +134,8 @@ export default {
     loadListWhereCategory (category) {
       this.projects = []
       setTimeout(() => {
-        if (category !== 'wszystkie') {
-          const projects = this.$store.getters.getProjects.filter(project => project.category === category)
+        if (category !== 'all') {
+          const projects = this.$store.getters.getProjects.filter(project => project.categories.includes(category))
           this.projects = projects
         } else {
           this.projects = this.$store.getters.getProjects

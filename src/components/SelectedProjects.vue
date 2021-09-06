@@ -8,7 +8,7 @@
         <img class="project-image" :src="project.image" :alt="project.title" />
         <div class="project-content">
           <h3 class="title">{{ project.title }}</h3>
-          <div class="release">{{ project.version }} - {{ project.release_data }}</div>
+          <div class="release">{{ project.version }}</div>
           <div class="description">
             <p>{{ project.short_description }}</p>
           </div>

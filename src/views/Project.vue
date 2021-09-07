@@ -32,6 +32,9 @@
       </div>
     </div>
   </section>
+  <div v-else class="loading">
+    <div class="loading-animation"></div>
+  </div>
 </template>
 
 <script>
@@ -78,6 +81,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "scss/default";
+
 .project {
   .project-header {
     @extend .container;
@@ -129,21 +133,30 @@ export default {
     .project-photo {
       box-shadow: 5px 5px 10px rgba(0, 0, 0, .3);
     }
+
     .project-photo, .project-photo img {
       width: 100%;
     }
+
     .project-photo img {
       display: block;
       object-fit: cover;
       max-height: 500px;
     }
+
     .content {
-      margin: 25px 0;
-      font-weight: lighter;
-      font-size: .9em;
-    }
-    p::first-line {
-      text-indent: 5px;
+      margin: 35px 0;
+
+      p {
+        text-align: justify;
+        text-indent: 1.5em;
+        line-height: 1.8em;
+
+        @media screen and (max-width: 600px) {
+          font-size: 1em;
+          line-height: 1.5em;
+        }
+      }
     }
   }
 }

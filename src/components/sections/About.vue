@@ -56,34 +56,32 @@
        .buttons {
          display: flex;
          justify-content: flex-start;
-         padding: 10px 0;
+         padding: 25px 0;
 
          .btn {
            margin-right: 20px;
-           &:last-of-type {
+
+           &:last-child {
              margin-right: 0;
            }
-         }
-       }
 
-       @media screen and (max-width: 900px) {
-         .buttons {
-           justify-content: center;
-           margin-bottom: 25px;
-         }
-       }
+           @media screen and (max-width: 600px) {
+             margin: 0 auto 15px;
 
-       @media screen and (max-width: 600px) {
-         .buttons {
-           display: block;
-           margin-bottom: 25px;
-
-           .btn {
-             margin: 0 auto 20px;
              &:last-child {
                margin: 0 auto;
              }
            }
+         }
+
+         @media screen and (max-width: 900px) {
+           justify-content: center;
+           margin-bottom: 25px;
+         }
+
+         @media screen and (max-width: 600px) {
+           display: block;
+           margin-bottom: 25px;
          }
        }
 

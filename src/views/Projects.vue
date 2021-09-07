@@ -26,6 +26,7 @@
     display: flex;
     justify-content: center;
     list-style: none;
+
     .category {
       position: relative;
       cursor: pointer;
@@ -37,9 +38,11 @@
           color: black;
         }
       }
+
       &:last-child {
         margin-right: 0;
       }
+
       &-active {
         &::after {
           content: '';
@@ -62,22 +65,12 @@
     }
   }
 }
+
 .projects {
   padding-top: 25px;
   padding-bottom: 25px;
 }
-.loading {
-  height: 300px;
-  .loading-animation {
-    margin: 20px auto;
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 10px #A2CF00 solid;
-    border-radius: 50%;
-    animation: loading-animation 1s linear infinite;
-  }
-}
+
 @keyframes loading-animation {
   0% {
     transform: rotate(0);
@@ -86,6 +79,7 @@
     transform: rotate(360deg);
   }
 }
+
 @keyframes load-underline {
   from {
     width: 0;
@@ -115,22 +109,25 @@ export default {
       return this.$store.getters.getCategories
     }
   },
-  async mounted () {
-    await this.$store.dispatch('fetchCategories')
-    await this.$store.dispatch('fetchProjects').then(projects => {
-      projects.sort((firstProduct, secondProduct) => {
-        return secondProduct.id - firstProduct.id
-      })
-      this.projects = projects
-    }).catch(error => {
-      console.log(error)
-    })
+  mounted () {
+    this.loadAllData()
   },
   destroyed () {
     this.$store.commit('resetHeaderTitle')
     this.$store.commit('resetHeaderDescription')
   },
   methods: {
+    async loadAllData () {
+      await this.$store.dispatch('fetchCategories')
+      await this.$store.dispatch('fetchProjects').then(projects => {
+        projects.sort((firstProduct, secondProduct) => {
+          return secondProduct.id - firstProduct.id
+        })
+        this.projects = projects
+      }).catch(error => {
+        console.log(error)
+      })
+    },
     loadListWhereCategory (category) {
       this.projects = []
       setTimeout(() => {

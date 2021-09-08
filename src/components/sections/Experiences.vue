@@ -85,7 +85,7 @@ export default {
       grid-template-columns: repeat(4, 1fr);
       column-gap: 20px;
       row-gap: 20px;
-      margin-top: 35px;
+      margin-top: 15px;
 
       .skill-group {
         background-color: #fafafa;

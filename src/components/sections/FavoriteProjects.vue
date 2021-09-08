@@ -69,5 +69,6 @@ export default {
 }
 .header-container {
   @extend .container;
+  margin-bottom: 15px;
 }
 </style>

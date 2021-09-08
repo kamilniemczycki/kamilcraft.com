@@ -10,7 +10,7 @@
             <base-btn has-icon
                       icon="portrait"
                       is-reverse
-                      @click.native="$router.push('projects')">Wybrane projekty</base-btn>
+                      @click.native="scrollTo('.selected-projects')">Wybrane projekty</base-btn>
             <base-btn has-icon
                       icon="user"
                       @click.native="$router.push('about')">Więcej o mnie</base-btn>
@@ -126,6 +126,13 @@ export default {
   data () {
     return {
       publicPath: process.env.BASE_URL
+    }
+  },
+  methods: {
+    scrollTo (id) {
+      document.querySelector(id).scrollIntoView({
+        behavior: 'smooth'
+      })
     }
   },
   components: {

@@ -2,8 +2,11 @@
   <section id="about">
     <div class="container">
       <h2>Studia</h2>
-      <p>Nazywam się Kamil Niemczycki, jestem absolwentem Państwowej Wyższej Szkoły Zawodowej im. Witelona w Legnicy.</p>
-      <p>Studiowałem na kierunku <i>Informatyka</i> o specjalności <i>Programowanie Aplikacji Mobilnych i Internetowych.</i></p>
+      <p>
+        Nazywam się Kamil Niemczycki, jestem absolwentem Państwowej Wyższej Szkoły Zawodowej im. Witelona w Legnicy.
+        Studiowałem na kierunku <em>Informatyka</em> o specjalności <em>Programowanie Aplikacji Mobilnych i
+        Internetowych.</em>
+      </p>
     </div>
   </section>
 </template>
@@ -18,6 +21,9 @@ section#about {
 <script>
 export default {
   name: 'About',
+  data () {
+    return {}
+  },
   mounted () {
     const header = {
       title: this.$route.meta.title,

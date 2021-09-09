@@ -6,10 +6,6 @@
   </section>
 </template>
 
-<style lang="scss">
-
-</style>
-
 <script>
 import About from '../components/sections/About'
 import Experiences from '../components/sections/Experiences'

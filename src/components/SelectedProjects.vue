@@ -188,8 +188,8 @@ export default {
     const header = {
       title: this.$route.meta.title,
       description: [
-        'Ta podstrona jak zwykle nie ma listy projektów 😅',
-        'Albo może jednak będzie posiadała piękne, ciekawe i inspirujące projekty?'
+        'Witam Państwa na podstronie z moimi projektami!',
+        'Lista i treść jest niekompletna! (BETA)'
       ]
     }
     this.$store.commit('setHeader', header)

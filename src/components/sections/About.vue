@@ -5,7 +5,8 @@
         <div id="grid-text">
           <h2 class="name">Kamil Niemczycki</h2>
           <div class="tagline">Web Developer</div>
-          <p>I'm a software engineer specialised in frontend and backend development for complex scalable web apps. I write about software development on my blog. Want to know how I may help your project? Check out my project portfolio and online resume.</p>
+          <p>Jestem młodym i ambitnym inżynierem oprogramowania. Specjalizuję się w tworzeniu frontendów i backendów.
+            W projektach wykorzystuję techologie oparte o PHP i JavaScript, tworząc skomplikowane i skalowalne aplikacje internetowe.</p>
           <div class="buttons">
             <base-btn has-icon
                       icon="portrait"

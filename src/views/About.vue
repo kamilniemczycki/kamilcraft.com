@@ -15,7 +15,7 @@
       </p>
       <h3>Kursy</h3>
       <p>W ramach studiów uzyskałem zaświadczenie dotyczące ukończenia kursu:
-        <a href="#"><strong>Architektura aplikacji internetowych opartych o framework Laravel</strong></a>.</p>
+        <a :href="publicPath + 'download/certyfikat-laravel.pdf'"><strong>Architektura aplikacji internetowych opartych o framework Laravel</strong></a>.</p>
       <p>Umożliwiło mi to szersze spojrzenie na możliwości jakie daje nam Laravel i wzbogaconie poprzednio zdobytej
         wiedzy o nowe doświadczenia.</p>
       <h2>Moje zainteresowania</h2>
@@ -59,7 +59,9 @@ section#about {
 export default {
   name: 'About',
   data () {
-    return {}
+    return {
+      publicPath: process.env.BASE_URL
+    }
   },
   mounted () {
     const header = {

@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <div class="container">
+    <div class="footer-container">
       <div class="logo">Kamil<span class="logo-element">Craft</span></div>
       <ul class="social-media">
         <li class="social-link"
@@ -16,15 +16,19 @@
         </li>
       </ul>
     </div>
+    <div class="container"></div>
   </footer>
 </template>
 
 <style lang="scss" scoped>
+@import "scss/default";
+
 .footer {
   background-color: #323232;
   padding: 35px 0;
 
-  .container {
+  &-container {
+    @extend .container;
     display: flex;
     align-items: center;
     justify-content: space-between;

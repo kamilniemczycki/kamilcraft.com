@@ -5,6 +5,7 @@ import About from '../views/About'
 import Projects from '../views/Projects'
 import Project from '../views/Project'
 import Contact from '../views/Contact'
+import KamilCraftInfo from '../views/KamilCraftInfo'
 import NotFound from '../views/NotFound'
 
 Vue.use(VueRouter)
@@ -51,6 +52,14 @@ const routes = [
       title: 'Kontakt'
     },
     component: Contact
+  },
+  {
+    path: '/info',
+    name: 'KamilCraftProject',
+    meta: {
+      title: 'KamilCraft Project'
+    },
+    component: KamilCraftInfo
   },
   {
     path: '*',

@@ -1,22 +1,25 @@
-# kamilcraft-master projekt
-Projekt mający na celu przedstawienie mojej wykonanej treści i moich projektów publicznych.
+# kamilcraft.com
+Project of my website - portfolio
+The project uses a closed API at https://api.kamilcraft.com
 
-## Instalcja paczek do projektu
+## Dependency installation
 ```
 npm install
 ```
 
-### Kompilacja i rekompilacja w czasie projektowania
+### Development
 ```
 npm run serve
 ```
+Application should be available under `127.0.0.1:8080` or `localhost:8080`.
 
-### Kompilacja i wrzucenie do folderu finalnego
+### Compilation
 ```
 npm run build
 ```
+The executable files should be in the `dist` folder.
 
-### Formatowanie treści kodu
+### Code formatting
 ```
 npm run lint
 ```

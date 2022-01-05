@@ -18,6 +18,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import "scss/media";
+
 .sub-page > .container .nav-btn,
 .sub-page > .container .nav .site-menu .menu-element a:not([class|=router-link-exact]) {
   color: #8D8D8D;
@@ -89,10 +91,13 @@
       }
     }
   }
-  @media screen and (max-width: 600px) {
+  @include media-tablet {
+    margin-left: 0;
+
     .nav-btn {
       display: block;
     }
+
     .site-menu {
       display: none;
       width: 100%;
@@ -110,12 +115,13 @@
         line-height: 2em;
       }
     }
+
     .menu-clicked {
       display: block;
     }
   }
 }
-@media screen and (max-width: 600px) {
+@include media-tablet {
   .container {
     justify-content: space-between;
   }

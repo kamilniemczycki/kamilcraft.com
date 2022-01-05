@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="category-menu">
+    <div class="project_categories">
       <ul class="categories">
-        <li class="category"
+        <li class="categories_element"
             v-for="category in getCategories"
             :key="category.slug"
-            :class="{ 'category-active': categories.active === category.slug }"
+            :class="{ 'categories_element-active': categories.active === category.slug }"
             @click="changeCategory(category.slug)">
           <a :title="`Kategoria ${category.name}`">{{ category.name }}</a>
         </li>
@@ -13,13 +13,15 @@
     </div>
     <projects :projects="projects" />
     <div v-if="projects.length === 0" class="loading">
-      <div class="loading-animation"></div>
+      <div class="loading_animation"></div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-.category-menu {
+@import "scss/media";
+
+.project_categories {
   padding-top: 45px;
 
   .categories {
@@ -27,7 +29,7 @@
     justify-content: center;
     list-style: none;
 
-    .category {
+    .categories_element {
       position: relative;
       cursor: pointer;
       margin-right: 25px;
@@ -59,7 +61,7 @@
         }
       }
 
-      @media screen and (max-width: 450px) {
+      @include media-mobile {
         margin-right: 15px;
       }
     }

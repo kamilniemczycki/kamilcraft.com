@@ -5,11 +5,11 @@
       <div class="project"
            v-for="project in projects"
            :key="project.title.slug">
-        <img class="project-image" :src="project.image" :alt="project.title" />
-        <div class="project-content">
-          <h3 class="title">{{ project.title }}</h3>
-          <div class="release">{{ project.version }}</div>
-          <div class="description">
+        <img class="project_image" :src="project.image" :alt="project.title" />
+        <div class="project_content">
+          <h3 class="project_title">{{ project.title }}</h3>
+          <div class="project_release">{{ project.version }}</div>
+          <div class="project_description">
             <p>{{ project.short_description }}</p>
           </div>
         </div>
@@ -26,6 +26,8 @@
 </template>
 
 <style lang="scss">
+@import "scss/media";
+
 .projects {
   padding-top: 45px;
   padding-bottom: 45px;
@@ -48,27 +50,27 @@
       border-radius: 5px;
       animation: load-project 2s forwards;
 
-      .project-image {
+      .project_image {
         grid-area: image;
         width: 200px;
         height: 200px;
         object-fit: cover;
       }
 
-      .project-content {
+      .project_content {
         grid-area: content;
         padding: 10px 15px;
         height: 200px;
         overflow-y: hidden;
         position: relative;
 
-        .title {
+        .project_title {
           font-size: 1.3em;
           font-weight: normal;
           line-height: 1.5em;
         }
 
-        .release {
+        .project_release {
           font-size: .9em;
           font-weight: bold;
           padding: 5px 0;
@@ -90,7 +92,7 @@
       }
     }
 
-    @media screen and (min-width: 900px) {
+    @include media-tablet(true) {
       .project {
         .more-button {
           display: flex;
@@ -109,6 +111,7 @@
           &:hover {
             background: rgba(0, 0, 0, .3);
             border-radius: 5px;
+
             .btn {
               display: flex;
               color: white;
@@ -122,18 +125,17 @@
       }
     }
 
-    @media screen and (max-width: 900px) {
+    @include media-small {
       .project {
         display: block;
 
-        .project-image {
+        .project_image {
           width: 100%;
           height: 250px;
         }
 
-        .project-content {
-          height: auto;
-          max-height: 250px;
+        .project_content {
+          height: 125px;
         }
 
         .more-button {
@@ -143,6 +145,7 @@
           height: auto;
           left: unset;
           top: unset;
+
           .btn {
             display: flex;
             width: 100%;
@@ -166,7 +169,7 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@include media-tablet {
   .projects .container {
     grid-template-columns: 1fr;
     padding: 25px;

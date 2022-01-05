@@ -1,0 +1,34 @@
+@mixin media($min-max, $reverse: false) {
+  $type: max-width;
+  @if $reverse {
+    $type: min-width;
+    $min-max: $min-max + 1;
+  }
+  @media screen and ($type: $min-max) {
+    @content
+  }
+}
+
+@mixin media-mobile($reverse: false) {
+  @include media(480px, $reverse) {
+    @content
+  }
+}
+
+@mixin media-tablet($reverse: false) {
+  @include media(768px, $reverse) {
+    @content
+  }
+}
+
+@mixin media-small($reverse: false) {
+  @include media(1024px, $reverse) {
+    @content
+  }
+}
+
+@mixin media-large($reverse: false) {
+  @include media(1200px, $reverse) {
+    @content
+  }
+}

@@ -60,7 +60,7 @@
             margin-right: 5px;
           }
 
-          @media screen and (max-width: 790px) {
+          @include media-tablet {
             .title {
               display: none;
             }
@@ -72,16 +72,16 @@
         }
       }
 
-      @media screen and (max-width: 500px) {
+      @include media-mobile {
         padding-right: 15px;
       }
     }
-    @media screen and (max-width: 500px) {
+    @include media-mobile {
       padding: 0;
     }
   }
 
-  @media screen and (max-width: 500px) {
+  @include media-mobile {
     padding: 15px 0;
   }
 }

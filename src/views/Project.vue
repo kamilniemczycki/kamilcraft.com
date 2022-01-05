@@ -1,21 +1,21 @@
 <template>
   <section class="project" v-if="project">
-    <header class="project-header">
+    <header class="project_header">
       <h1>{{ project.title }}</h1>
-      <ul class="project-info">
-        <li class="info-text">
+      <ul class="project_info">
+        <li class="info_text">
           <font-awesome-icon class="icon" :icon="['far', 'clock']"/>
           <span>{{ project.release_data }}</span>
         </li>
-        <li class="info-text">
+        <li class="info_text">
           <font-awesome-icon class="icon" :icon="['far', 'user']"/>
           <span>{{ project.author }}</span>
         </li>
-        <li class="info-text">
+        <li class="info_text">
           <font-awesome-icon class="icon" :icon="['far', 'folder']"/>
           <span>{{ getCategoryName(project.categories)[0] }}</span>
         </li>
-        <li class="info-text">
+        <li class="info_text">
           <font-awesome-icon class="icon" :icon="['fas', 'code-branch']"/>
           <span>{{ project.version }}</span>
         </li>
@@ -83,7 +83,7 @@ export default {
 @import "scss/default";
 
 .project {
-  .project-header {
+  .project_header {
     @extend .container;
     text-align: center;
     margin-bottom: 25px;
@@ -94,12 +94,12 @@ export default {
       line-height: 2.4em;
     }
 
-    .project-info {
+    .project_info {
       display: flex;
       list-style: none;
       justify-content: center;
 
-      .info-text {
+      .info_text {
         display: flex;
         align-items: center;
 
@@ -115,7 +115,7 @@ export default {
           margin-right: 15px;
         }
       }
-      @media screen and (max-width: 560px) {
+      @include media-tablet {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         row-gap: 15px;
@@ -152,7 +152,7 @@ export default {
         text-indent: 1.5em;
         line-height: 1.8em;
 
-        @media screen and (max-width: 600px) {
+        @include media-tablet {
           font-size: 1em;
           line-height: 1.5em;
         }

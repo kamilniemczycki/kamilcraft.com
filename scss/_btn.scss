@@ -1,3 +1,77 @@
-@mixin btn($revese: false) {
+@import "colors";
 
+$default-color: transparent !default;
+$dark-gray: #4f4f4f !default;
+$navy-blue: #436da7 !default;
+$white: white !default;
+
+$btn-colors: (
+  border: $dark-gray,
+  bg: $default-color,
+  font: $dark-gray,
+  hover: (
+    bg: $dark-gray,
+    font: $white
+  )
+);
+
+.btn {
+  display: block;
+  min-width: 270px;
+  padding: 8px 10px;
+
+  border-radius: 3px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: $default-color;
+
+  background-color: map-get($btn-colors, bg);
+}
+
+@mixin btn($colors: $btn-colors) {
+  border-color: map-get($colors, border);
+  background-color: map-get($colors, bg);
+
+  font-size: 1.05em;
+  color: map-get($colors, font);
+
+  &:hover {
+    $hovers: map-get($colors, hover);
+    background-color: map-get($hovers, bg);
+    color: map-get($hovers, font);
+  }
+
+  @content;
+}
+
+@mixin btn-reverse($leading-color: $dark-gray) {
+  $colors: (
+    border: $leading-color,
+    bg: $leading-color,
+    font: $white,
+    hover: (
+      bg: $default-color,
+      font: $leading-color
+    )
+  );
+  @include btn($colors);
+}
+
+@mixin button($reverse: false, $has-icon: false) {
+  @if not $reverse {
+    @include btn()
+  } @else {
+    @include btn-reverse($navy-blue);
+  }
+  @if $has-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      margin-right: 10px;
+      font-size: 1.3em;
+    }
+  }
+  @content;
 }

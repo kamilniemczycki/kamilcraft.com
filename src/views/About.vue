@@ -15,7 +15,10 @@
       </p>
       <h3>Kursy</h3>
       <p>W ramach studiów uzyskałem zaświadczenie dotyczące ukończenia kursu:
-        <a :href="publicPath + 'download/certyfikat-laravel.pdf'"><strong>Architektura aplikacji internetowych opartych o framework Laravel</strong></a>.</p>
+        <strong><a :href="publicPath + 'download/certyfikat-laravel.pdf'"
+                   target="_blank"
+                   rel="noopener nofollow noreferrer">
+          Architektura aplikacji internetowych opartych o framework Laravel</a></strong>.</p>
       <p>Umożliwiło mi to szersze spojrzenie na możliwości jakie daje nam Laravel i wzbogaconie poprzednio zdobytej
         wiedzy o nowe doświadczenia.</p>
       <h2>Moje zainteresowania</h2>

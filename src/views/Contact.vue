@@ -28,36 +28,47 @@ export default {
 </script>
 
 <style lang="scss">
-  .contact {
-    padding: 25px 0;
+@import "scss/media";
 
+.contact {
+  padding: 25px 0;
+
+  .container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .contact_container, .contact_info {
+    margin: 10px;
+    max-width: 500px;
+    background-color: #eaeaea;
+    border: 2px solid #dadada;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+  }
+
+  @include media-tablet {
     .container {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-    }
+      display: block;
+      margin: 0 auto;
 
-    @media screen and (max-width: 940px) {
-      .container {
-        display: block;
-        margin: 0 auto;
-
-        .contact-container {
-          margin: 0 auto 25px;
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
-      }
-    }
-    @media screen and (max-width: 640px) {
-      .container {
-        padding: 0 10px;
-
-        .contact-container {
-          max-width: unset;
+      .contact_container, .contact_info {
+        margin: 0 auto 25px;
+        &:last-child {
+          margin-bottom: 0;
         }
       }
     }
   }
+  @include media-mobile {
+    .container {
+      padding: 0 10px;
+
+      .contact_container {
+        max-width: unset;
+      }
+    }
+  }
+}
 </style>

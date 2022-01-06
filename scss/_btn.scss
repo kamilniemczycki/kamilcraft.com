@@ -75,3 +75,31 @@ $btn-colors: (
   }
   @content;
 }
+
+@mixin ghost-button($has-icon: false) {
+  @include button($has-icon: $has-icon);
+
+  position: relative;
+  font-size: 1.2em;
+  border: unset;
+
+  &:hover {
+    &::after {
+      width: 98%;
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    width: 30%;
+    height: 2px;
+    background-color: $dark-gray;
+    transform: translateY(2px);
+    transition: width .3s linear;
+  }
+}

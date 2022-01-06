@@ -28,6 +28,8 @@
 </template>
 
 <style lang="scss">
+@import "scss/media";
+
 .about {
   background-color: var(--gray-color) !important;
 
@@ -66,7 +68,7 @@
              margin-right: 0;
            }
 
-           @media screen and (max-width: 600px) {
+           @include media-tablet {
              margin: 0 auto 15px;
 
              &:last-child {
@@ -75,18 +77,18 @@
            }
          }
 
-         @media screen and (max-width: 900px) {
+         @include media-small {
            justify-content: center;
            margin-bottom: 25px;
          }
 
-         @media screen and (max-width: 600px) {
+         @include media-tablet {
            display: block;
            margin-bottom: 25px;
          }
        }
 
-       @media screen and (max-width: 400px) {
+       @include media-mobile() {
          .buttons .btn,
          .buttons a {
            min-width: unset;
@@ -110,7 +112,7 @@
        }
      }
   }
-  @media (max-width: 900px) {
+  @include media-small {
     #grid {
       grid-template-columns: 1fr 1fr;
       grid-template-areas:

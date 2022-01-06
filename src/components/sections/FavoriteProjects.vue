@@ -8,7 +8,7 @@
     </projects>
     <div class="more-button">
       <GhostButton @click.native="$router.push('projects')">
-        RESZTA PROJEKTÓW
+        ZOBACZ WIĘCEJ
       </GhostButton>
     </div>
   </section>
@@ -57,12 +57,12 @@ export default {
     .btn {
       margin: 0 auto;
 
-      @media screen and (max-width: 600px) {
+      @include media-tablet {
         width: 100%;
       }
     }
 
-    @media screen and (max-width: 600px) {
+    @include media-tablet {
       padding: 0 25px;
     }
   }

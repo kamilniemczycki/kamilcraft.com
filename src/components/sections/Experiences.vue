@@ -159,6 +159,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "scss/media";
+
 .experiences {
   .container {
     padding-top: 45px;
@@ -212,13 +214,13 @@ export default {
         }
       }
 
-      @media screen and (max-width: 1100px) {
+      @include media-small {
         grid-template-columns: repeat(3, 1fr);
       }
-      @media screen and (max-width: 800px) {
+      @include media-tablet {
         grid-template-columns: repeat(2, 1fr);
       }
-      @media screen and (max-width: 550px) {
+      @include media-mobile {
         grid-template-columns: repeat(1, 1fr);
       }
     }

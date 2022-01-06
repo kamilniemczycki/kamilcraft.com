@@ -23,6 +23,14 @@ p {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+
+  @include media-large {
+    padding: 0 10px;
+  }
+
+  @include media-small {
+    padding: 0 20px;
+  }
 }
 
 .loading {
@@ -36,11 +44,5 @@ p {
     border-top: 10px #A2CF00 solid;
     border-radius: 50%;
     animation: loading-animation 1s linear infinite;
-  }
-}
-
-@include media-small {
-  .container {
-    padding: 0 20px;
   }
 }

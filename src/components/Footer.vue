@@ -84,6 +84,10 @@
           }
         }
 
+        @include media-mobile {
+          padding-right: 0;
+        }
+
         &:last-child {
           margin-right: 0;
         }

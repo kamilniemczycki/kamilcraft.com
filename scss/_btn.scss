@@ -84,6 +84,9 @@ $btn-colors: (
   border: unset;
 
   &:hover {
+    background-color: $default-color;
+    color: $dark-gray;
+
     &::after {
       width: 98%;
     }

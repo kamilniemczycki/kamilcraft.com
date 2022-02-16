@@ -22,7 +22,7 @@ export default {
   name: 'FavoriteProjects',
   data () {
     return {
-      publicPath: process.env.BASE_URL,
+      publicPath: process.env.VUE_APP_BASE_URL + '/',
       select_projects: []
     }
   },
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     loadProjectList () {
-      fetch('https://api.kamilcraft.com/projects/category/selected')
+      fetch(process.env.VUE_APP_API_URL + '/projects/category/selected')
         .then(response => response.json())
         .then(data => {
           this.select_projects = data

@@ -63,7 +63,7 @@ export default {
   name: 'About',
   data () {
     return {
-      publicPath: process.env.BASE_URL
+      publicPath: process.env.VUE_APP_BASE_URL + '/'
     }
   },
   mounted () {

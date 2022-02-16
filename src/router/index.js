@@ -64,13 +64,16 @@ const routes = [
   {
     path: '*',
     name: '404',
+    meta: {
+      title: 'Błąd 404'
+    },
     component: NotFound
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL ?? '/',
+  base: '/',
   routes,
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

@@ -15,7 +15,7 @@ export default {
   name: 'Home',
   data () {
     return {
-      publicPath: process.env.BASE_URL,
+      publicPath: process.env.VUE_APP_BASE_URL + '/',
       select_projects: []
     }
   },

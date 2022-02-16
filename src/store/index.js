@@ -25,7 +25,7 @@ const moduleSettings = {
   },
   actions: {
     fetchProjects (store) {
-      return fetch('https://api.kamilcraft.com/projects')
+      return fetch(process.env.VUE_APP_API_URL + '/projects')
         .then(response => response.json())
         .then(data => {
           store.commit('setProjects', data)
@@ -33,7 +33,7 @@ const moduleSettings = {
         })
     },
     fetchCategories (store) {
-      return fetch('https://api.kamilcraft.com/categories')
+      return fetch(process.env.VUE_APP_API_URL + '/categories')
         .then(response => response.json())
         .then(data => {
           store.commit('setCategories', data)

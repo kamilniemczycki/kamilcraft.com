@@ -5,13 +5,12 @@
       <div class="project"
            v-for="project in projects"
            :key="project.title.slug">
-        <img class="project_image" :src="project.image" :alt="project.title" />
+        <img v-if="project.images.small" class="project_image" :src="project.images.small" :alt="project.title" />
+        <img v-else-if="project.images.large" class="project_image" :src="project.images.large" :alt="project.title" />
         <div class="project_content">
           <h3 class="project_title">{{ project.title }}</h3>
           <div class="project_release">{{ project.version }}</div>
-          <div class="project_description">
-            <p>{{ project.short_description }}</p>
-          </div>
+          <div class="project_description" v-html="markdownToText(project)"></div>
         </div>
         <div class="more-button">
           <base-btn has-icon
@@ -55,6 +54,7 @@
         width: 200px;
         height: 200px;
         object-fit: cover;
+        object-position: top center;
       }
 
       .project_content {
@@ -181,6 +181,7 @@
 
 <script>
 import BaseButton from './BaseButton'
+import { marked } from 'marked'
 
 export default {
   name: 'SelectedProjects',
@@ -191,11 +192,18 @@ export default {
     const header = {
       title: this.$route.meta.title,
       description: [
-        'Witam Państwa na podstronie z moimi projektami!',
-        'Lista i treść jest niekompletna! (BETA)'
+        'Witam Państwa na podstronie z moimi projektami!'
       ]
     }
     this.$store.commit('setHeader', header)
+  },
+  methods: {
+    markdownToText (project) {
+      const projectText = marked.parse(project.description)
+      const nodeElement = document.createElement('div')
+      nodeElement.innerHTML = projectText
+      return nodeElement.querySelector('p').innerText.substr(0, 350)
+    }
   },
   props: {
     projects: {

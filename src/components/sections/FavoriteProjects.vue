@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     loadProjectList () {
-      fetch(process.env.VUE_APP_API_URL + '/projects/category/selected')
+      fetch(process.env.VUE_APP_API_URL + '/projects?category=selected')
         .then(response => response.json())
         .then(data => {
           this.select_projects = data

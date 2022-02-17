@@ -5,7 +5,7 @@
       <ul class="project_info">
         <li class="info_text">
           <font-awesome-icon class="icon" :icon="['far', 'clock']"/>
-          <span>{{ project.release_data }}</span>
+          <span>{{ project.release_date }}</span>
         </li>
         <li class="info_text">
           <font-awesome-icon class="icon" :icon="['far', 'user']"/>
@@ -17,19 +17,21 @@
         </li>
         <li class="info_text">
           <font-awesome-icon class="icon" :icon="['fas', 'code-branch']"/>
-          <span>{{ project.version }}</span>
+          <span>{{ project.project_version }}</span>
+        </li>
+        <li class="info_text" v-if="project.project_url">
+          <font-awesome-icon class="icon" :icon="['fas', 'link']"/>
+          <span><a :href="project.project_url"
+                  target="_blank"
+                  rel="noopener nofollow noreferrer">Link</a></span>
         </li>
       </ul>
     </header>
     <div class="container">
       <component :is="`figure`" class="project-photo">
-        <img :src="`${publicPath}${project.image}`" :alt="project.title">
+        <img :src="`${project.images.large}`" :alt="project.title">
       </component>
-      <div class="content">
-        <p v-for="(description, key) in project.description.split('\n')" :key="key">
-          {{ description }}
-        </p>
-      </div>
+      <div class="content" v-html="markdownToHtml"></div>
     </div>
   </section>
   <div v-else class="loading">
@@ -38,6 +40,8 @@
 </template>
 
 <script>
+import { marked } from 'marked'
+
 export default {
   name: 'Project',
   data () {
@@ -55,6 +59,9 @@ export default {
   computed: {
     getCategories () {
       return this.$store.getters.getCategories
+    },
+    markdownToHtml () {
+      return marked.parse(this.project.description)
     }
   },
   methods: {
@@ -69,7 +76,7 @@ export default {
       return categoriesText
     },
     loadProject (id) {
-      fetch('https://api.kamilcraft.com/projects/' + id)
+      fetch(process.env.VUE_APP_API_URL + '/project/' + id)
         .then(response => response.json())
         .then(data => {
           this.project = data
@@ -79,7 +86,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "scss/default";
 
 .project {
@@ -147,14 +154,70 @@ export default {
     .content {
       margin: 35px 0;
 
-      p {
-        text-align: justify;
-        text-indent: 1.5em;
+      a {
+        color: #8D8D8D;
+
+        &:hover {
+          color: #A2CF00;
+        }
+      }
+
+      h2, h3 {
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+
+      h2:first-of-type {
+        margin-top: 0;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+
+      h3 {
+        font-size: 1.4em;
+      }
+
+      p, ol li, ul li {
         line-height: 1.8em;
+        font-size: 1.1em;
 
         @include media-tablet {
-          font-size: 1em;
+          font-size: 1.2em;
           line-height: 1.5em;
+        }
+      }
+
+      p + ol, p + ul, p + blockquote {
+        margin-top: -10px;
+      }
+
+      ol, ul {
+        margin-bottom: 10px;
+        padding-inline-start: 2.1em;
+
+        li img {
+          display: block;
+          width: 100%;
+          padding: 0 5px 5px;
+          margin-top: .9em;
+        }
+      }
+
+      p {
+        margin-bottom: 10px;
+        text-align: justify;
+        /* text-indent: 1.5em; */
+      }
+
+      blockquote {
+        padding-left: 25px;
+        margin-left: 1.3em;
+        border-left: 1px solid rgb(116, 116, 116);
+
+        p {
+          text-indent: unset;
         }
       }
     }

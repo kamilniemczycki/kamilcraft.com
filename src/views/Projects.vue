@@ -122,9 +122,9 @@ export default {
     async loadAllData () {
       await this.$store.dispatch('fetchCategories')
       await this.$store.dispatch('fetchProjects').then(projects => {
-        projects.sort((firstProduct, secondProduct) => {
+        /* projects.sort((firstProduct, secondProduct) => {
           return secondProduct.id - firstProduct.id
-        })
+        }) */
         this.projects = projects
       }).catch(error => {
         console.log(error)

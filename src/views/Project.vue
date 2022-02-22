@@ -116,6 +116,7 @@ export default {
 
         span {
           font-weight: lighter;
+          white-space: nowrap;
         }
 
         &:not(&:last-child) {

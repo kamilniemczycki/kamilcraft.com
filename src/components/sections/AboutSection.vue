@@ -33,7 +33,10 @@
         </div>
         <div id="grid-photo">
           <figure id="about-photo">
-            <img :src="`${publicPath}assets/me.jpg`">
+            <img
+              :src="`${publicPath}assets/me.jpg`"
+              alt="Moje zdjęcie"
+            >
           </figure>
         </div>
       </div>
@@ -42,7 +45,7 @@
 </template>
 
 <script setup>
-import BaseButton from '../BaseButton'
+import BaseButton from '../buttons/BaseButton'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

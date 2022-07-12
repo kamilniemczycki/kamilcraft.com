@@ -18,7 +18,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Projects from '../SelectedProjects'
-import GhostButton from '../GhostButton'
+import GhostButton from '../buttons/GhostButton'
 
 const router = useRouter()
 

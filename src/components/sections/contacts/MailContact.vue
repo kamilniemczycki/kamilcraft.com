@@ -53,7 +53,7 @@
 </template>
 
 <script setup>
-import BaseButton from '../../BaseButton'
+import BaseButton from '../../buttons/BaseButton'
 import {ref, reactive, watch, computed} from 'vue'
 
 function emailValidate (mailObj) {

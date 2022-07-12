@@ -51,7 +51,7 @@
 import { defineProps, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import BaseButton from './BaseButton'
+import BaseButton from './buttons/BaseButton'
 import { marked } from 'marked'
 
 defineProps({

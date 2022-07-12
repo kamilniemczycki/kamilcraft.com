@@ -1,11 +1,15 @@
 <template>
-  <button class="btn">
+  <button
+    class="btn"
+    :class="{ 'btn-reverse': isReverse }"
+    title="Wyślij wiadomość"
+  >
     <font-awesome-icon
       v-if="hasIcon && icon"
       class="icon"
       :icon="icon"
     />
-    <span><slot /></span>
+    <slot />
   </button>
 </template>
 
@@ -20,14 +24,22 @@ defineProps({
   icon: {
     type: String,
     default: ''
+  },
+  isReverse: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
 
 <style lang="scss" scoped>
-@import "scss/btn";
+@import "../../../scss/btn";
 
 .btn {
-  @include ghost-button();
+  @include button($has-icon: true);
+}
+
+.btn-reverse {
+  @include button(true, true);
 }
 </style>

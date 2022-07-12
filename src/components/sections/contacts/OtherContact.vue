@@ -7,6 +7,7 @@
       <img
         class="contact_element_icon"
         src="/assets/img/instagram.jpg"
+        alt="Instagram"
       >
       <span
         id="instagram"
@@ -23,6 +24,7 @@
       <img
         class="contact_element_icon"
         src="/assets/img/facebook.jpg"
+        alt="Facebook"
       >
       <span
         id="facebook"
@@ -39,6 +41,7 @@
       <img
         class="contact_element_icon"
         src="/assets/img/twitter.jpg"
+        alt="Twitter"
       >
       <span
         id="twitter"
@@ -55,6 +58,7 @@
       <img
         class="contact_element_icon"
         src="/assets/img/gg.png"
+        alt="Gadu-Gadu"
       >
       <span
         id="gg"
@@ -65,9 +69,10 @@
       <img
         class="contact_element_icon"
         src="/assets/img/user.jpg"
+        alt="E-mail"
       >
       <span
-        id="email"
+        id="mailto"
         class="contact_element_text"
       >
         <a href="mailto:contact@kamilcraft.com">Email: contact@kamilcraft.com</a>
@@ -141,7 +146,7 @@
   color: #5eaade;
 }
 
-#email {
+#mailto {
   color: #696969;
 }
 
@@ -150,7 +155,7 @@
 }
 
 @include media-tablet {
-  #instagram, #facebook, #twitter, #email, #gg {
+  #instagram, #facebook, #twitter, #mailto, #gg {
     font-size: 1em;
     line-height: 1.2em;
   }

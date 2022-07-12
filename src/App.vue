@@ -1,6 +1,5 @@
 <template>
   <main
-    id="app"
     rel="main"
   >
     <SiteHeader />

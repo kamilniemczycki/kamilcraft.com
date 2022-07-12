@@ -3,29 +3,57 @@
     <div class="container">
       <div id="grid">
         <div id="grid-text">
-          <h2 class="name">Kamil Niemczycki</h2>
-          <div class="tagline">Web Developer</div>
-          <p>Jestem młodym i ambitnym inżynierem oprogramowania. Specjalizuję się w tworzeniu frontendów i backendów.
-            W projektach wykorzystuję techologie oparte o PHP i JavaScript, tworząc skomplikowane i skalowalne aplikacje internetowe.</p>
+          <h2 class="name">
+            Kamil Niemczycki
+          </h2>
+          <div class="tagline">
+            Web Developer
+          </div>
+          <p>
+            Jestem młodym i ambitnym inżynierem oprogramowania. Specjalizuję się w tworzeniu frontendów i backendów.
+            W projektach wykorzystuję techologie oparte o PHP i JavaScript, tworząc skomplikowane i skalowalne aplikacje internetowe.
+          </p>
           <div class="buttons">
-            <base-btn has-icon
-                      icon="portrait"
-                      is-reverse
-                      @click.native="scrollTo('.selected-projects')">Wybrane projekty</base-btn>
-            <base-btn has-icon
-                      icon="user"
-                      @click.native="$router.push('about')">Więcej o mnie</base-btn>
+            <BaseButton
+              has-icon
+              icon="portrait"
+              is-reverse
+              @click="scrollTo('.selected-projects')"
+            >
+              Wybrane projekty
+            </BaseButton>
+            <BaseButton
+              has-icon
+              icon="user"
+              @click="router.push('about')"
+            >
+              Więcej o mnie
+            </BaseButton>
           </div>
         </div>
         <div id="grid-photo">
           <figure id="about-photo">
-            <img :src="`${publicPath}assets/me.jpg`" />
+            <img :src="`${publicPath}assets/me.jpg`">
           </figure>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import BaseButton from '../BaseButton'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const publicPath = process.env.VUE_APP_BASE_URL + '/'
+
+function scrollTo(id) {
+  document.querySelector(id).scrollIntoView({
+    behavior: 'smooth'
+  })
+}
+</script>
 
 <style lang="scss">
 @import "scss/media";
@@ -122,24 +150,3 @@
   }
 }
 </style>
-<script>
-import BaseButton from '../BaseButton'
-
-export default {
-  data () {
-    return {
-      publicPath: process.env.VUE_APP_BASE_URL + '/'
-    }
-  },
-  methods: {
-    scrollTo (id) {
-      document.querySelector(id).scrollIntoView({
-        behavior: 'smooth'
-      })
-    }
-  },
-  components: {
-    'base-btn': BaseButton
-  }
-}
-</script>

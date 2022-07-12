@@ -1,22 +1,64 @@
 <template>
   <div class="contact_container">
-    <div class="message"></div>
-    <header class="container_head">Formularz kontaktowy:</header>
-    <form id="form-point" @submit="formSubmit">
-      <input v-model="emailValue" class="contact_input" type="text" name="email" placeholder="Twój adres e-mail." />
-      <textarea v-model="messageValue" class="contact_input" name="message" placeholder="Twoja wiadomość."></textarea>
-      <input v-model="senderValue" class="contact_input" type="text" name="sender" placeholder="Twój podpis." />
-      <base-btn is-reverse :disabled="buttonDisabled">Wyślij</base-btn>
+    <div
+      v-if="hasMessageError"
+      class="message message_error"
+    >
+      {{ messageError }}
+    </div>
+    <div
+      v-if="hasMessageOkStatus"
+      class="message message_ok"
+    >
+      {{ messageOk }}
+    </div>
+    <header class="container_head">
+      Formularz kontaktowy:
+    </header>
+    <form
+      id="form-point"
+      @submit="formSubmit"
+    >
+      <input
+        v-model="emailValue"
+        class="contact_input"
+        :class="{ 'contact_input-error': isEmailError }"
+        type="text"
+        name="email"
+        placeholder="Twój adres e-mail."
+      >
+      <textarea
+        v-model="messageValue"
+        class="contact_input"
+        :class="{ 'contact_input-error': isMessageError }"
+        name="message"
+        placeholder="Twoja wiadomość."
+      />
+      <input
+        v-model="senderValue"
+        class="contact_input"
+        :class="{ 'contact_input-error': isSenderError }"
+        type="text"
+        name="sender"
+        placeholder="Twój podpis."
+      >
+      <BaseButton
+        is-reverse
+        :disabled="buttonDisabled"
+      >
+        Wyślij
+      </BaseButton>
     </form>
   </div>
 </template>
 
-<script>
+<script setup>
 import BaseButton from '../../BaseButton'
+import {ref, reactive, watch, computed} from 'vue'
 
 function emailValidate (mailObj) {
   const mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-  return !!mailObj.value.match(mailFormat)
+  return mailObj.match(mailFormat)
 }
 
 async function postData (url = '', data = {}) {
@@ -31,99 +73,88 @@ async function postData (url = '', data = {}) {
   return response.json()
 }
 
-export default {
-  name: 'MailContact',
-  data () {
-    return {
-      buttonDisabled: false,
-      statusError: 0,
-      email: {},
-      emailValue: '',
-      message: {},
-      messageValue: '',
-      sender: {},
-      senderValue: ''
-    }
-  },
-  components: {
-    'base-btn': BaseButton
-  },
-  watch: {
-    emailValue (value) {
-      if (this.statusError > 0 && emailValidate(this.email)) {
-        this.email.classList.remove('contact_input-error')
-      }
-    },
-    messageValue (value) {
-      if (this.statusError > 0 && value !== '') {
-        this.message.classList.remove('contact_input-error')
-      }
-    },
-    senderValue (value) {
-      if (this.statusError > 0 && value !== '') {
-        this.sender.classList.remove('contact_input-error')
-      }
-    }
-  },
-  methods: {
-    clearErrors () {
-      this.statusError = 0
-      this.email.classList.remove('contact_input-error')
-      this.message.classList.remove('contact_input-error')
-      this.sender.classList.remove('contact_input-error')
-    },
-    checkForm () {
-      if (!emailValidate(this.email)) {
-        this.email.classList.add('contact_input-error')
-        this.statusError++
-      }
-      if (this.message.value === '') {
-        this.message.classList.add('contact_input-error')
-        this.statusError++
-      }
-      if (this.sender.value === '') {
-        this.sender.classList.add('contact_input-error')
-        this.statusError++
-      }
-    },
-    formSubmit (event) {
-      event.preventDefault()
+const buttonDisabled = ref(false)
+const statusError = ref(0)
+const emailValue = ref('')
+const messageValue = ref('')
+const senderValue = ref('')
 
-      this.email = event.target[0]
-      this.message = event.target[1]
-      this.sender = event.target[2]
+const messageError = ref('')
+const messageOk = ref('')
 
-      this.clearErrors()
-      this.checkForm()
+const errors = reactive({
+  email: false,
+  message: false,
+  sender: false
+})
 
-      const messageElement = document.querySelector('.message')
-      messageElement.classList.remove('message_ok', 'message_error')
+const isEmailError = computed(() => errors.email)
+const isMessageError = computed(() => errors.message)
+const isSenderError = computed(() => errors.sender)
+const hasMessageError = computed(() => messageError.value)
+const hasMessageOkStatus = computed(() => messageOk.value && !hasMessageError.value)
 
-      if (this.statusError === 0) {
-        this.buttonDisabled = true
-        postData('/send', {
-          email: this.emailValue,
-          message: this.messageValue,
-          sender: this.senderValue
-        }).then(result => {
-          messageElement.classList.add(
-            result.error ? 'message_error' : 'message_ok'
-          )
+watch([statusError, emailValue], ([errorCount, value]) => {
+  errors.email = errorCount > 0 && !emailValidate(value)
+})
 
-          messageElement.textContent = result.message
-          if (!result.error) {
-            this.messageValue = ''
-            this.emailValue = ''
-            this.senderValue = ''
-          }
-          this.buttonDisabled = false
-        }).catch(() => {
-          messageElement.classList.add('message_error')
-          messageElement.textContent = 'Wystąpił błąd podczas wysyłania wiadomości. Proszę spróbować później.'
-          this.buttonDisabled = false
-        })
+watch([statusError, messageValue], ([errorCount, value]) => {
+  errors.message = errorCount > 0 && (value === '' || value.length < 3)
+})
+
+watch([statusError, senderValue], ([errorCount, value]) => {
+  errors.sender = errorCount > 0 && (value === '' || value.length < 3)
+})
+
+function clearErrors() {
+  statusError.value = 0
+  errors.email = false
+  errors.message = false
+  errors.sender = false
+}
+
+function checkForm() {
+  clearErrors()
+  if (!emailValidate(emailValue.value)) {
+    errors.email = true
+    statusError.value++
+  }
+  if (messageValue.value === '') {
+    errors.message = true
+    statusError.value++
+  }
+  if (senderValue.value === '') {
+    errors.sender = true
+    statusError.value++
+  }
+}
+
+function formSubmit(event) {
+  event.preventDefault()
+
+  checkForm()
+
+  if (statusError.value === 0) {
+    console.log('Send!')
+    buttonDisabled.value = true
+    postData('https://kamilcraft.com/send', {
+      email: emailValue.value,
+      message: messageValue.value,
+      sender: senderValue.value
+    }).then(result => {
+      if (result.error) {
+        messageError.value = result.message
+      } else {
+        messageOk.value = result.message
+        messageValue.value = ''
+        emailValue.value = ''
+        senderValue.value = ''
       }
-    }
+      buttonDisabled.value = false
+    }).catch(() => {
+      messageError.value = 'Wystąpił błąd podczas wysyłania wiadomości. Proszę spróbować później.'
+      buttonDisabled.value = false
+    })
   }
 }
 </script>

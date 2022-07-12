@@ -1,19 +1,34 @@
 <template>
-  <button class="btn" :class="{ 'btn-reverse': isReverse }">
-    <font-awesome-icon class="icon" v-if="hasIcon" :icon="icon"/>
-    <span><slot></slot></span>
+  <button
+    class="btn"
+    :class="{ 'btn-reverse': isReverse }"
+  >
+    <font-awesome-icon
+      v-if="hasIcon && icon"
+      class="icon"
+      :icon="icon"
+    />
+    <span><slot /></span>
   </button>
 </template>
 
-<script>
-export default {
-  name: 'BaseButton',
-  props: {
-    hasIcon: Boolean,
-    icon: String,
-    isReverse: Boolean
+<script setup>
+import { defineProps } from 'vue'
+
+defineProps({
+  hasIcon: {
+    type: Boolean,
+    default: false
+  },
+  icon: {
+    type: String,
+    default: ''
+  },
+  isReverse: {
+    type: Boolean,
+    default: false
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

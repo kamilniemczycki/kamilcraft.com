@@ -7,24 +7,23 @@
   </section>
 </template>
 
-<script>
+<script setup>
+import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import MailContact from '../components/sections/contacts/MailContact'
 import OtherContact from '../components/sections/contacts/OtherContact'
 
-export default {
-  name: 'Contact',
-  mounted () {
-    const header = {
-      title: this.$route.meta.title,
-      description: 'Chcesz o coś zapytać? Chciałbyś współpracować? Napisz!'
-    }
-    this.$store.commit('setHeader', header)
-  },
-  components: {
-    MailContact,
-    OtherContact
+const route = useRoute()
+const store = useStore()
+
+onMounted(() => {
+  const header = {
+    title: route.meta.title,
+    description: 'Chcesz o coś zapytać? Chciałbyś współpracować? Napisz!'
   }
-}
+  store.commit('setHeader', header)
+})
 </script>
 
 <style lang="scss">

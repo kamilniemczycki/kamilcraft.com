@@ -1,9 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 
-Vue.use(Vuex)
-
-const moduleSettings = {
+export const store = createStore({
   state: {
     header: {
       title: null,
@@ -63,11 +60,5 @@ const moduleSettings = {
     resetHeaderDescription (state) {
       state.header.description = null
     }
-  }
-}
-
-export default new Vuex.Store({
-  modules: {
-    settings: moduleSettings
   }
 })

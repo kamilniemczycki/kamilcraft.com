@@ -14,20 +14,52 @@
         Zdobyłem także umiejętności pracy w zespole, które owocują tworzeniem merytorycznej dyskusji na temat części lub całości projektu.
       </p>
       <h3>Kursy</h3>
-      <p>W ramach studiów uzyskałem zaświadczenie dotyczące ukończenia kursu:
-        <strong><a :href="publicPath + 'download/certyfikat-laravel.pdf'"
-                   target="_blank"
-                   rel="noopener nofollow noreferrer">
-          Architektura aplikacji internetowych opartych o framework Laravel</a></strong>.</p>
-      <p>Umożliwiło mi to szersze spojrzenie na możliwości jakie daje nam Laravel i wzbogaconie poprzednio zdobytej
-        wiedzy o nowe doświadczenia.</p>
+      <p>
+        W ramach studiów uzyskałem zaświadczenie dotyczące ukończenia kursu:
+        <strong><a
+          :href="publicPath + 'download/certyfikat-laravel.pdf'"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+        >
+          Architektura aplikacji internetowych opartych o framework Laravel</a></strong>.
+      </p>
+      <p>
+        Umożliwiło mi to szersze spojrzenie na możliwości jakie daje nam Laravel i wzbogaconie poprzednio zdobytej
+        wiedzy o nowe doświadczenia.
+      </p>
       <h2>Moje zainteresowania</h2>
-      <p>W wolnym czasie przyjmuje małe zlecenia na strony lub serwisy internetowe. Uczę się nowych języków
+      <p>
+        W wolnym czasie przyjmuje małe zlecenia na strony lub serwisy internetowe. Uczę się nowych języków
         programowania lub frameworków w znanych mi już technologiach. Hobbistycznie, tworzę także rozwiązania do
-        problemów przy prywatnych projektach.</p>
+        problemów przy prywatnych projektach.
+      </p>
     </div>
   </section>
 </template>
+
+<script setup>
+import { onMounted, onUnmounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+
+const publicPath = process.env.VUE_APP_BASE_URL + '/'
+
+const store = useStore()
+const route = useRoute()
+
+onMounted(() => {
+  const header = {
+    title: route.meta.title,
+    description: 'Jestem młodym i ambitnym inżynierem oprogramowania. Specjalizuję się w tworzeniu frontendów i backendów.'
+  }
+  store.commit('setHeader', header)
+})
+
+onUnmounted(() => {
+  store.commit('resetHeaderTitle')
+  store.commit('resetHeaderDescription')
+})
+</script>
 
 <style lang="scss">
 section#about {
@@ -57,25 +89,3 @@ section#about {
   }
 }
 </style>
-
-<script>
-export default {
-  name: 'About',
-  data () {
-    return {
-      publicPath: process.env.VUE_APP_BASE_URL + '/'
-    }
-  },
-  mounted () {
-    const header = {
-      title: this.$route.meta.title,
-      description: 'Jestem młodym i ambitnym inżynierem oprogramowania. Specjalizuję się w tworzeniu frontendów i backendów.'
-    }
-    this.$store.commit('setHeader', header)
-  },
-  destroyed () {
-    this.$store.commit('resetHeaderTitle')
-    this.$store.commit('resetHeaderDescription')
-  }
-}
-</script>

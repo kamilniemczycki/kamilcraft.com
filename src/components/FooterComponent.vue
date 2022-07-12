@@ -1,26 +1,42 @@
 <template>
   <footer class="footer">
     <div class="footer_container">
-      <div class="container_logo">Kamil<span class="logo_element">Craft</span></div>
+      <div class="container_logo">
+        Kamil<span class="logo_element">Craft</span>
+      </div>
       <ul class="socials">
-        <li class="social_link"
-            v-for="link in socialLinks"
-            :key="link.title.slug">
-          <a class="link"
-             :href="link.link"
-             :title="link.title"
-             target="_blank"
-             rel="noopener nofollow noreferrer">
-            <font-awesome-icon class="icon" :icon="['fab', link.icon]" />
+        <li
+          v-for="link in socialLinks"
+          :key="link.title.slug"
+          class="social_link"
+        >
+          <a
+            class="link"
+            :href="link.link"
+            :title="link.title"
+            target="_blank"
+            rel="noopener nofollow noreferrer"
+          >
+            <font-awesome-icon
+              class="icon"
+              :icon="['fab', link.icon]"
+            />
             <span class="social_title">{{ link.title }}</span>
             <span class="social_shortcut">{{ link.shortcut }}</span>
           </a>
         </li>
       </ul>
     </div>
-    <div class="container"></div>
+    <div class="container" />
   </footer>
 </template>
+
+<script setup>
+const socialLinks = [
+  { link: 'https://www.youtube.com/user/kamilniemczycki', icon: 'youtube', title: 'Oglądaj mnie na YouTube', shortcut: 'YouTube' },
+  { link: 'https://www.facebook.com/nikcamii', icon: 'facebook', title: 'Znajdź mnie na Facebooku', shortcut: 'Facebook' }
+]
+</script>
 
 <style lang="scss" scoped>
 @import "scss/default";
@@ -104,17 +120,3 @@
   }
 }
 </style>
-
-<script>
-export default {
-  name: 'Footer',
-  data () {
-    return {
-      socialLinks: [
-        { link: 'https://www.youtube.com/user/kamilniemczycki', icon: 'youtube', title: 'Oglądaj mnie na YouTube', shortcut: 'YouTube' },
-        { link: 'https://www.facebook.com/nikcamii', icon: 'facebook', title: 'Znajdź mnie na Facebooku', shortcut: 'Facebook' }
-      ]
-    }
-  }
-}
-</script>

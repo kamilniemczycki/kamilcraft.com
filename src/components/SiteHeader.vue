@@ -1,48 +1,45 @@
 <template>
   <header :class="thisClass">
-    <navigation/>
-    <div v-if="isTitle" class="header-info" :class="{ 'header-info-home': isHome }">
+    <navigation />
+    <div
+      v-if="isTitle"
+      class="header-info"
+      :class="{ 'header-info-home': isHome }"
+    >
       <h1>{{ getTitle }}</h1>
-      <p v-if="isDescription && descriptionType === 'string'">{{ getDescription }}</p>
-      <p v-else-if="isDescription && descriptionType === 'array'"
-         v-for="(desc, key) in getDescription" :key="key">{{ desc }}</p>
+      <p v-if="isDescription && descriptionType === 'string'">
+        {{ getDescription }}
+      </p>
+      <p
+        v-for="(desc, key) in getDescription"
+        v-else-if="isDescription && descriptionType === 'array'"
+        :key="key"
+      >
+        {{ desc }}
+      </p>
     </div>
   </header>
 </template>
 
-<script>
-import Navigation from '@/components/Navigation'
+<script setup>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+import Navigation from './NavigationHeader'
 
-export default {
-  name: 'SiteHeader',
-  computed: {
-    isHome () {
-      return this.$route.path === '/'
-    },
-    thisClass () {
-      return [this.isHome ? 'home-page' : 'sub-page']
-    },
-    getTitle () {
-      return this.$store.getters.getHeader.title
-    },
-    isTitle () {
-      return this.getTitle !== null
-    },
-    getDescription () {
-      return this.$store.getters.getHeader.description
-    },
-    descriptionType () {
-      const isArray = this.getDescription instanceof Array
-      return isArray ? 'array' : typeof this.getDescription
-    },
-    isDescription () {
-      return this.getDescription !== null
-    }
-  },
-  components: {
-    navigation: Navigation
-  }
-}
+const store = useStore()
+const route = useRoute()
+
+const isHome = computed(() => route.path === '/')
+const thisClass = computed(() => [isHome.value ? 'home-page' : 'sub-page'])
+const getTitle = computed(() => store.getters.getHeader.title)
+const isTitle = computed(() => getTitle.value !== null)
+const getDescription = computed(() => store.getters.getHeader.description)
+const isDescription = computed(() => getDescription.value !== null)
+const descriptionType = computed(() => {
+  const isArray = getDescription.value instanceof Array
+  return isArray ? 'array' : typeof getDescription.value
+})
 </script>
 
 <style lang="scss">

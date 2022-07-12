@@ -1,21 +1,27 @@
 <template>
   <button class="btn">
-    <font-awesome-icon class="icon" v-if="hasIcon" :icon="icon"/>
-    <span><slot></slot></span>
+    <font-awesome-icon
+      v-if="hasIcon && icon"
+      class="icon"
+      :icon="icon"
+    />
+    <span><slot /></span>
   </button>
 </template>
 
-<script>
-export default {
-  name: 'GhostButton',
-  props: {
-    hasIcon: {
-      type: Boolean,
-      default: false
-    },
-    icon: String
+<script setup>
+import { defineProps } from 'vue'
+
+defineProps({
+  hasIcon: {
+    type: Boolean,
+    default: false
+  },
+  icon: {
+    type: String,
+    default: ''
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -1,52 +1,80 @@
 <template>
   <div class="contact_info">
-    <header class="info_head">Inne formy kontaktu:</header>
+    <header class="info_head">
+      Inne formy kontaktu:
+    </header>
     <div class="contact_element">
-      <img class="contact_element_icon"
-           src="/assets/img/instagram.jpg" />
-      <span id="instagram" class="contact_element_text">
-        <a href="https://www.instagram.com/nikcamii/"
-           target="_blank"
-           rel="noopener nofollow noreferrer">Instagram: @NiKCamii</a>
+      <img
+        class="contact_element_icon"
+        src="/assets/img/instagram.jpg"
+      >
+      <span
+        id="instagram"
+        class="contact_element_text"
+      >
+        <a
+          href="https://www.instagram.com/nikcamii/"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+        >Instagram: @NiKCamii</a>
       </span>
     </div>
     <div class="contact_element">
-      <img class="contact_element_icon" src="/assets/img/facebook.jpg" />
-      <span id="facebook" class="contact_element_text">
-        <a href="https://www.facebook.com/nikcamii/"
-           target="_blank"
-           rel="noopener nofollow noreferrer">Facebook: @NiKCamii</a>
+      <img
+        class="contact_element_icon"
+        src="/assets/img/facebook.jpg"
+      >
+      <span
+        id="facebook"
+        class="contact_element_text"
+      >
+        <a
+          href="https://www.facebook.com/nikcamii/"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+        >Facebook: @NiKCamii</a>
       </span>
     </div>
     <div class="contact_element">
-      <img class="contact_element_icon"
-           src="/assets/img/twitter.jpg" />
-      <span id="twitter" class="contact_element_text">
-        <a href="https://twitter.com/nikcamii"
-           target="_blank"
-           rel="noopener nofollow noreferrer">Twitter: @NiKCamii</a>
+      <img
+        class="contact_element_icon"
+        src="/assets/img/twitter.jpg"
+      >
+      <span
+        id="twitter"
+        class="contact_element_text"
+      >
+        <a
+          href="https://twitter.com/nikcamii"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+        >Twitter: @NiKCamii</a>
       </span>
     </div>
     <div class="contact_element">
-      <img class="contact_element_icon"
-           src="/assets/img/gg.png" />
-      <span id="gg" class="contact_element_text">GG: 38429969</span>
+      <img
+        class="contact_element_icon"
+        src="/assets/img/gg.png"
+      >
+      <span
+        id="gg"
+        class="contact_element_text"
+      >GG: 38429969</span>
     </div>
     <div class="contact_element">
-      <img class="contact_element_icon"
-           src="/assets/img/user.jpg" />
-      <span id="email" class="contact_element_text">
+      <img
+        class="contact_element_icon"
+        src="/assets/img/user.jpg"
+      >
+      <span
+        id="email"
+        class="contact_element_text"
+      >
         <a href="mailto:contact@kamilcraft.com">Email: contact@kamilcraft.com</a>
       </span>
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'OtherContact'
-}
-</script>
 
 <style lang="scss" scoped>
 @import "scss/media";

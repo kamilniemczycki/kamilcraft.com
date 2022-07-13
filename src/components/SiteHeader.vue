@@ -3,10 +3,12 @@
     <Navigation :is-home-page="isHome" />
     <div
       v-if="isTitle"
-      class="header-info"
-      :class="{ 'header-info-home': isHome }"
+      class="max-w-screen-header-content mx-auto text-center px-2.5 py-10"
+      :class="{ 'text-white': isHome }"
     >
-      <h1>{{ getTitle }}</h1>
+      <h1 class="mb-6 relative font-light text-[2.5rem] leading-[3.5rem] after:block after:absolute after:w-24 after:h-0.5 after:bg-kamilcraft-green after:left-1/2 after:-ml-12">
+        {{ getTitle }}
+      </h1>
       <p v-if="isDescription && descriptionType === 'string'">
         {{ getDescription }}
       </p>
@@ -42,38 +44,11 @@ const descriptionType = computed(() => {
 })
 </script>
 
-<style lang="scss">
+<style scoped>
 .home-page {
   background: linear-gradient(237.74deg, #1199A5 0%, #436DA7 83%);
 }
 .sub-page {
   background-color: #EFEFEF;
-}
-.header-info {
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 10px;
-  h1 {
-    position: relative;
-    font-weight: lighter;
-    font-size: 2.5em;
-    line-height: 1.5em;
-    margin-bottom: 25px;
-
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 100px;
-      height: 2px;
-      background-color: #A2CF00;
-      left: 50%;
-      margin-left: -50px;
-    }
-  }
-  &-home {
-    color: white;
-  }
 }
 </style>

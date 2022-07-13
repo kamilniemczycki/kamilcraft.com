@@ -5,26 +5,22 @@ module.exports = {
   ],
   darkMode: true,
   theme: {
-    fontFamily: {
-      'arial': ['Arial', 'sans-serif'],
-      'roboto': ['Roboto', 'sans-serif'],
-      'thasadith': ['Thasadith', 'sans-serif']
+    extend: {
+      fontFamily: {
+        'arial': ['Arial', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+        'thasadith': ['Thasadith', 'sans-serif']
+      },
+      fontSize: {
+        'logo-size': '2.5rem',
+      },
+      screens: {
+        'header-content': '900px'
+      },
+      colors: {
+        'kamilcraft-green': 'rgb(var(--color-kamilcraft-green) / <alpha-value>)'
+      }
     },
-    fontSize: {
-      'logo-size': '2.5rem',
-      'xs': '.75rem',
-      'sm': '.875rem',
-      'tiny': '.875rem',
-      'base': '1rem',
-      'lg': '1.125rem',
-      'xl': '1.25rem',
-      '2xl': '1.5rem',
-      '3xl': '1.875rem',
-      '4xl': '2.25rem',
-      '5xl': '3rem',
-      '6xl': '4rem',
-      '7xl': '5rem'
-    }
   },
   plugins: [],
 }

@@ -1,28 +1,87 @@
 <template>
   <div class="projects">
-    <slot></slot>
+    <slot />
     <div class="container">
-      <div class="project"
-           v-for="project in projects"
-           :key="project.title.slug">
-        <img v-if="project.images.small" class="project_image" :src="project.images.small" :alt="project.title" />
-        <img v-else-if="project.images.large" class="project_image" :src="project.images.large" :alt="project.title" />
+      <div
+        v-for="project in projects"
+        :key="project.title.slug"
+        class="project"
+      >
+        <img
+          v-if="project.images.small"
+          class="project_image"
+          :src="project.images.small"
+          :alt="project.title"
+        >
+        <img
+          v-else-if="project.images.large"
+          class="project_image"
+          :src="project.images.large"
+          :alt="project.title"
+        >
         <div class="project_content">
-          <h3 class="project_title">{{ project.title }}</h3>
-          <div class="project_release">{{ project.version }}</div>
-          <div class="project_description" v-html="markdownToText(project)"></div>
+          <h3 class="project_title">
+            {{ project.title }}
+          </h3>
+          <div class="project_release">
+            {{ project.version }}
+          </div>
+          <div
+            class="project_description"
+            v-html="markdownToText(project)"
+          />
         </div>
         <div class="more-button">
-          <base-btn has-icon
-                    icon="eye"
-                    is-reverse
-                    @click.native="$router.push({ name: 'Project', params: { id: project.id } })"
-                    class="btn">O projekcie</base-btn>
+          <BaseButton
+            has-icon
+            icon="eye"
+            is-reverse
+            class="btn"
+            @click="router.push({ name: 'Project', params: { id: project.id } })"
+          >
+            O projekcie
+          </BaseButton>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { defineProps, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import BaseButton from './buttons/BaseButton'
+import { marked } from 'marked'
+
+defineProps({
+  projects: {
+    type: Array,
+    default: () => []
+  }
+})
+
+const route = useRoute()
+const router = useRouter()
+const store = useStore()
+
+onMounted(() => {
+  const header = {
+    title: route.meta.title,
+    description: [
+      'Witam Państwa na podstronie z moimi projektami!'
+    ]
+  }
+  store.commit('setHeader', header)
+})
+
+function markdownToText (project) {
+  const projectText = marked.parse(project.description)
+  const nodeElement = document.createElement('div')
+  nodeElement.innerHTML = projectText
+  return nodeElement.querySelector('p').innerText.substr(0, 350)
+}
+</script>
 
 <style lang="scss">
 @import "scss/media";
@@ -178,40 +237,3 @@
   }
 }
 </style>
-
-<script>
-import BaseButton from './BaseButton'
-import { marked } from 'marked'
-
-export default {
-  name: 'SelectedProjects',
-  data () {
-    return {}
-  },
-  mounted () {
-    const header = {
-      title: this.$route.meta.title,
-      description: [
-        'Witam Państwa na podstronie z moimi projektami!'
-      ]
-    }
-    this.$store.commit('setHeader', header)
-  },
-  methods: {
-    markdownToText (project) {
-      const projectText = marked.parse(project.description)
-      const nodeElement = document.createElement('div')
-      nodeElement.innerHTML = projectText
-      return nodeElement.querySelector('p').innerText.substr(0, 350)
-    }
-  },
-  props: {
-    projects: {
-      type: Array
-    }
-  },
-  components: {
-    'base-btn': BaseButton
-  }
-}
-</script>

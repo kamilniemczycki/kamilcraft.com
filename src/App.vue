@@ -1,10 +1,17 @@
 <template>
-  <main rel="main" id="app">
+  <main
+    rel="main"
+  >
     <SiteHeader />
-    <router-view />
-    <Footer />
+    <RouterView />
+    <FooterComponent />
   </main>
 </template>
+
+<script setup>
+import SiteHeader from './components/SiteHeader'
+import FooterComponent from './components/FooterComponent'
+</script>
 
 <style lang="scss">
 #app {
@@ -14,16 +21,3 @@
   color: var(--text-color);
 }
 </style>
-
-<script>
-import SiteHeader from './components/SiteHeader'
-import Footer from './components/Footer'
-
-export default {
-  name: 'App',
-  components: {
-    SiteHeader,
-    Footer
-  }
-}
-</script>

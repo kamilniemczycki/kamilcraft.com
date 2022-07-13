@@ -7,41 +7,33 @@
       </div>
     </projects>
     <div class="more-button">
-      <GhostButton @click.native="$router.push('projects')">
+      <GhostButton @click="router.push('projects')">
         ZOBACZ WIĘCEJ
       </GhostButton>
     </div>
   </section>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import Projects from '../SelectedProjects'
-import GhostButton from '../GhostButton'
+import GhostButton from '../buttons/GhostButton'
 
-export default {
-  name: 'FavoriteProjects',
-  data () {
-    return {
-      publicPath: process.env.VUE_APP_BASE_URL + '/',
-      select_projects: []
-    }
-  },
-  mounted () {
-    this.loadProjectList()
-  },
-  methods: {
-    loadProjectList () {
-      fetch(process.env.VUE_APP_API_URL + '/projects?category=selected')
-        .then(response => response.json())
-        .then(data => {
-          this.select_projects = data
-        })
-    }
-  },
-  components: {
-    GhostButton,
-    Projects
-  }
+const router = useRouter()
+
+let select_projects = ref([])
+
+onMounted(() => {
+  loadProjectList()
+})
+
+function loadProjectList() {
+  fetch(process.env.VUE_APP_API_URL + '/projects?category=selected')
+    .then(response => response.json())
+    .then(data => {
+      select_projects.value = data
+    })
 }
 </script>
 

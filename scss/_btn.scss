@@ -35,7 +35,11 @@ $btn-colors: (
   font-size: 1.05em;
   color: map-get($colors, font);
 
-  &:hover {
+  &[disabled] {
+    opacity: .7;
+  }
+
+  &:hover:not([disabled]) {
     $hovers: map-get($colors, hover);
     background-color: map-get($hovers, bg);
     color: map-get($hovers, font);
@@ -83,7 +87,7 @@ $btn-colors: (
   font-size: 1.2em;
   border: unset;
 
-  &:hover {
+  &:hover:not([disabled]) {
     background-color: $default-color;
     color: $dark-gray;
 

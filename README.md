@@ -1,10 +1,10 @@
 # kamilcraft.com
 Project of my website - portfolio
-The project uses a closed API at https://api.kamilcraft.com
+The project uses the [API](https://github.com/kamilniemczycki/kamilcraft-api) at https://api.kamilcraft.com
 
 ## Dependency installation
 ```
-npm install
+npm install --legacy-peer-deps
 ```
 
 ### Development

@@ -1,14 +1,10 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home'
-import About from '../views/About'
-import Projects from '../views/Projects'
-import Project from '../views/Project'
-import Contact from '../views/Contact'
-import KamilCraftInfo from '../views/KamilCraftInfo'
+import { createRouter, createWebHistory } from 'vue-router'
+import Home from '../views/HomeView'
+import About from '../views/AboutView'
+import Projects from '../views/ProjectsView'
+import Project from '../views/ProjectView'
+import Contact from '../views/ContactView'
 import NotFound from '../views/NotFound'
-
-Vue.use(VueRouter)
 
 const mainTitle = 'kamilcraft.com'
 
@@ -54,15 +50,7 @@ const routes = [
     component: Contact
   },
   {
-    path: '/info',
-    name: 'KamilCraftProject',
-    meta: {
-      title: 'KamilCraft Project'
-    },
-    component: KamilCraftInfo
-  },
-  {
-    path: '*',
+    path: '/:catchAll(.*)',
     name: '404',
     meta: {
       title: 'Błąd 404'
@@ -71,22 +59,39 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: '/',
+const router = createRouter({
+  history: createWebHistory('/'),
   routes,
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else if (to.hash) {
-      return {
-        selector: to.hash,
-        behavior: 'smooth'
-      }
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve({
+            selector: to.hash
+          }, 1000)
+        })
+      })
+    } else {
+      return { left: 0, top: 0 }
+    }
+  }
+  /*scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else if (to.hash) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve({
+            selector: to.hash
+          }, 1000)
+        })
+      })
     } else {
       return { x: 0, y: 0 }
     }
-  }
+  }*/
 })
 
 const title = ' :: ' + mainTitle

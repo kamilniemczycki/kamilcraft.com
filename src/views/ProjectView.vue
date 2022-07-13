@@ -1,93 +1,136 @@
 <template>
-  <section class="project" v-if="project">
+  <section
+    v-if="isLoaded"
+    class="project"
+  >
     <header class="project_header">
       <h1>{{ project.title }}</h1>
       <ul class="project_info">
         <li class="info_text">
-          <font-awesome-icon class="icon" :icon="['far', 'clock']"/>
+          <font-awesome-icon
+            class="icon"
+            :icon="['far', 'clock']"
+          />
           <span>{{ project.release_date }}</span>
         </li>
         <li class="info_text">
-          <font-awesome-icon class="icon" :icon="['far', 'user']"/>
+          <font-awesome-icon
+            class="icon"
+            :icon="['far', 'user']"
+          />
           <span>{{ project.author }}</span>
         </li>
         <li class="info_text">
-          <font-awesome-icon class="icon" :icon="['far', 'folder']"/>
-          <span>{{ getCategoryName(project.categories)[0] }}</span>
+          <font-awesome-icon
+            class="icon"
+            :icon="['far', 'folder']"
+          />
+          <span>{{ getCategoryName(project.categories) }}</span>
         </li>
         <li class="info_text">
-          <font-awesome-icon class="icon" :icon="['fas', 'code-branch']"/>
+          <font-awesome-icon
+            class="icon"
+            :icon="['fas', 'code-branch']"
+          />
           <span>{{ project.project_version }}</span>
         </li>
-        <li class="info_text" v-if="project.project_url">
-          <font-awesome-icon class="icon" :icon="['fas', 'link']"/>
-          <span><a :href="project.project_url"
-                  target="_blank"
-                  rel="noopener nofollow noreferrer">Link</a></span>
+        <li
+          v-if="project.project_url"
+          class="info_text"
+        >
+          <font-awesome-icon
+            class="icon"
+            :icon="['fas', 'link']"
+          />
+          <span><a
+            :href="project.project_url"
+            target="_blank"
+            rel="noopener nofollow noreferrer"
+          >Link</a></span>
         </li>
       </ul>
     </header>
     <div class="container">
-      <component :is="`figure`" class="project-photo">
-        <img :src="`${project.images.large}`" :alt="project.title">
+      <component
+        :is="`figure`"
+        class="project-photo"
+      >
+        <img
+          :src="`${project.images.large}`"
+          :alt="project.title"
+        >
       </component>
-      <div class="content" v-html="markdownToHtml"></div>
+      <div
+        class="content"
+        v-html="markdownToHtml"
+      />
     </div>
   </section>
-  <div v-else class="loading">
-    <div class="loading-animation"></div>
+  <div
+    v-else
+    class="loading"
+  >
+    <div class="loading_animation" />
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, reactive, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import { marked } from 'marked'
 
-export default {
-  name: 'Project',
-  data () {
-    return {
-      publicPath: process.env.BASE_URL,
-      project: null
-    }
-  },
-  mounted () {
-    if (this.getCategories.length === 0) {
-      this.$store.dispatch('fetchCategories')
-    }
-    this.loadProject(this.$route.params.id)
-  },
-  computed: {
-    getCategories () {
-      return this.$store.getters.getCategories
-    },
-    markdownToHtml () {
-      return marked.parse(this.project.description)
-    }
-  },
-  methods: {
-    getCategoryName (categories) {
-      const categoriesText = []
-      categories.forEach(categoryElement => {
-        const cat = this.getCategories.find(category => category.slug === categoryElement)
-        if (cat) {
-          categoriesText.push(cat.name)
-        }
-      })
-      return categoriesText
-    },
-    loadProject (id) {
-      fetch(process.env.VUE_APP_API_URL + '/project/' + id)
-        .then(response => response.json())
-        .then(data => {
-          this.project = data
-        })
-    }
+const route = useRoute()
+const store = useStore()
+
+const isLoaded = ref(false)
+let project = reactive({})
+
+const getCategories = computed(() => store.getters.getCategories)
+const markdownToHtml = computed(() => marked.parse(project.description))
+
+onMounted(() => {
+  if (getCategories.value.length === 0) {
+    store.dispatch('fetchCategories')
   }
+  loadProject(route.params.id)
+})
+
+function getCategoryName(categories = []) {
+  const categoriesText = []
+  categories.forEach(categoryElement => {
+    const category = getCategories.value.find(category => category.slug === categoryElement)
+    if (category) {
+      categoriesText.push(category.name)
+    }
+  })
+  return categoriesText[0] ?? undefined
+}
+
+function loadProject(id) {
+  fetch(process.env.VUE_APP_API_URL + '/project/' + id)
+    .then(response => response.json())
+    .then(data => {
+      project.title = data.title
+      project.description = data.description
+      project.release_date = data.release_date
+      project.author = data.author
+      project.categories = data.categories
+      project.project_version = data.project_version
+      project.project_url = data.project_url
+      project.images = data.images
+      isLoaded.value = true
+    })
 }
 </script>
 
 <style lang="scss">
 @import "scss/default";
+
+.loading {
+  display: flex;
+  align-items: center;
+}
 
 .project {
   .project_header {

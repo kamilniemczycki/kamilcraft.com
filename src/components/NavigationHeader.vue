@@ -1,28 +1,110 @@
 <template>
-  <div class="container" :class="{'container-menu-active': clickedStatus}">
+  <div
+    class="container"
+    :class="{ 'container-menu-active': isClicked }"
+  >
     <router-link to="/">
-      <div class="logo" @click="linkClicked">Kamil<span class="logo-element">Craft</span></div>
+      <div
+        class="logo"
+        @click="linkClicked"
+      >
+        Kamil<span class="logo-element">Craft</span>
+      </div>
     </router-link>
     <nav class="nav">
-      <button class="nav-btn" @click="clickMenu">
-        <font-awesome-icon v-if="!clicked" icon="bars"></font-awesome-icon>
-        <font-awesome-icon v-else icon="times"></font-awesome-icon>
+      <button
+        class="nav-btn"
+        @click="clickMenu"
+      >
+        <font-awesome-icon
+          v-if="!isClicked"
+          icon="bars"
+        />
+        <font-awesome-icon
+          v-else
+          icon="times"
+        />
       </button>
-      <ul class="site-menu" :class="{'menu-clicked': clicked}">
-        <li v-for="menuItem in menuItems" :key="menuItem.slug" class="menu-element" @click="linkClicked">
-          <router-link :to="menuItem.uri">{{ menuItem.title }}</router-link>
+      <ul
+        class="site-menu"
+        :class="{ 'menu-clicked': isClicked }"
+      >
+        <li
+          v-for="menuItem in menuItems"
+          :key="menuItem.slug"
+          class="menu-element"
+          @click="linkClicked"
+        >
+          <RouterLink :to="menuItem.uri">
+            {{ menuItem.title }}
+          </RouterLink>
         </li>
       </ul>
     </nav>
   </div>
 </template>
 
+<script setup>
+import { ref, computed } from 'vue'
+
+const menuItems = [
+  {
+    slug: 'start',
+    title: 'Start',
+    uri: '/'
+  },
+  {
+    slug: 'projects',
+    title: 'Projekty',
+    uri: '/projects'
+  },
+  {
+    slug: 'about',
+    title: 'O mnie',
+    uri: '/about'
+  },
+  {
+    slug: 'contact',
+    title: 'Kontakt',
+    uri: '/contact'
+  }
+]
+
+const clicked = ref(false)
+const isClicked = computed(() => clicked.value)
+
+function changeClickedStatus() {
+  clicked.value = !clicked.value
+}
+
+function clickMenu() {
+  changeClickedStatus()
+}
+
+function linkClicked() {
+  if (isClicked.value) {
+    changeClickedStatus()
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 @import "scss/media";
 
-.sub-page > .container .nav-btn,
-.sub-page > .container .nav .site-menu .menu-element a:not([class|=router-link-exact]) {
-  color: #8D8D8D;
+.sub-page > .container {
+  .nav-btn {
+    color: #8D8D8D;
+  }
+
+  .nav .site-menu .menu-element {
+    a:not([class|=router-link]) {
+      color: #8D8D8D;
+
+      &:hover {
+        color: #A2CF00;
+      }
+    }
+  }
 }
 .container {
   display: flex;
@@ -143,55 +225,3 @@
   }
 }
 </style>
-
-<script>
-export default {
-  name: 'SiteHeader',
-  data () {
-    return {
-      menuItems: [
-        {
-          slug: 'start',
-          title: 'Start',
-          uri: '/'
-        },
-        {
-          slug: 'projects',
-          title: 'Projekty',
-          uri: '/projects'
-        },
-        {
-          slug: 'about',
-          title: 'O mnie',
-          uri: '/about'
-        },
-        {
-          slug: 'contact',
-          title: 'Kontakt',
-          uri: '/contact'
-        }
-      ],
-      clicked: false,
-      publicPath: process.env.VUE_APP_BASE_URL + '/'
-    }
-  },
-  computed: {
-    clickedStatus () {
-      return this.clicked
-    }
-  },
-  methods: {
-    changeClickedStatus () {
-      this.clicked = !this.clicked
-    },
-    clickMenu () {
-      this.changeClickedStatus()
-    },
-    linkClicked () {
-      if (this.clicked) {
-        this.changeClickedStatus()
-      }
-    }
-  }
-}
-</script>

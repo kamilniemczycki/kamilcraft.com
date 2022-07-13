@@ -5,6 +5,7 @@ import { store } from './store'
 // import VueMeta from 'vue-meta'
 
 import '../scss/default.scss'
+import '../css/index.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'

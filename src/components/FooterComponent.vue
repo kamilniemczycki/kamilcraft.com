@@ -2,7 +2,7 @@
   <footer class="bg-neutral-800 py-8">
     <div class="flex items-center justify-between max-w-screen-xl mx-auto">
       <div class="bg-neutral-600 text-white pl-10 pr-5 py-2.5 text-logo-size leading-normal font-thasadith">
-        Kamil<span class="text-lime-500">Craft</span>
+        Kamil<span class="text-kamilcraft-green">Craft</span>
       </div>
       <ul class="flex gap-5 pr-3 text-lg">
         <li

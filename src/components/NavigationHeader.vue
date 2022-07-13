@@ -9,7 +9,7 @@
         :class="{ 'clicked-logo': isClicked }"
         @click="linkClicked"
       >
-        Kamil<span class="text-lime-500">Craft</span>
+        Kamil<span class="text-kamilcraft-green">Craft</span>
       </div>
     </RouterLink>
     <nav>
@@ -44,8 +44,8 @@
           >
             <a
               :href="href"
-              class="hover:text-lime-500"
-              :class="[ (!isActive && isHomePage && !isClicked) ? 'text-white' : (isActive ? 'text-lime-500' : 'text-gray-500') ]"
+              class="hover:text-kamilcraft-green"
+              :class="[ (!isActive && isHomePage && !isClicked) ? 'text-white' : (isActive ? 'text-kamilcraft-green' : 'text-gray-500') ]"
               @click="navigate"
             >
               {{ menuItem.title }}

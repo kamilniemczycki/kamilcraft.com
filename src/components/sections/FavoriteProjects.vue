@@ -1,9 +1,13 @@
 <template>
-  <section class="selected-projects">
+  <section class="bg-neutral-50">
     <projects :projects="select_projects">
-      <div class="header-container">
-        <h2>Wybrane projekty</h2>
-        <p>Poniżej przedstawiam Państwu, wybraną przeze mnie, listę projektów.</p>
+      <div>
+        <h2 class="text-[2rem] mb-2">
+          Wybrane projekty
+        </h2>
+        <p class="mb-5">
+          Poniżej przedstawiam Państwu, wybraną przeze mnie, listę projektów.
+        </p>
       </div>
     </projects>
     <div class="more-button">

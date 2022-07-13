@@ -1,33 +1,35 @@
 <template>
-  <div class="projects">
+  <div class="max-w-screen-xl mx-auto px-6 xl:px-2 py-11">
     <slot />
-    <div class="container">
+    <div class="grid items-start grid-cols-2 gap-x-6 gap-y-5">
       <div
         v-for="project in projects"
         :key="project.title.slug"
-        class="project"
+        class="grid grid-project relative bg-neutral-100"
       >
         <img
           v-if="project.images.small"
-          class="project_image"
+          class="project-image w-[12.5rem] h-[12.5rem] object-cover"
           :src="project.images.small"
           :alt="project.title"
         >
         <img
           v-else-if="project.images.large"
-          class="project_image"
+          class="project-image w-[12.5rem] h-[12.5rem] object-cover"
           :src="project.images.large"
           :alt="project.title"
         >
-        <div class="project_content">
-          <h3 class="project_title">
-            {{ project.title }}
-          </h3>
-          <div class="project_release">
-            {{ project.version }}
-          </div>
-          <div
-            class="project_description"
+        <div class="p-3 h-[12.5rem] overflow-y-hidden after:absolute after:left-0 after:bottom-0 after:w-full after:h-full">
+          <header class="pb-2">
+            <h3 class="text-lg font-bold">
+              {{ project.title }}
+            </h3>
+            <p class="text-sm">
+              {{ project.project_version }}
+            </p>
+          </header>
+          <p
+            class="text-sm"
             v-html="markdownToText(project)"
           />
         </div>
@@ -83,8 +85,26 @@ function markdownToText (project) {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "scss/media";
+
+.grid-project {
+  grid-template-areas: 'image content';
+  grid-template-columns: 200px 1fr;
+  animation: load-project 2s forwards;
+
+  .project-image , .project-content {
+    object-position: top center;
+  }
+
+  .project-image {
+    grid-area: image;
+  }
+
+  .project-content {
+    grid-area: content;
+  }
+}
 
 .projects {
   padding-top: 45px;

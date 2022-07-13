@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex relative items-center justify-between md:justify-start max-w-screen-lg mx-auto gap-5"
+    class="flex relative items-center justify-between md:justify-start max-w-screen-xl mx-auto gap-5"
     :class="{ 'clicked-menu': isClicked }"
   >
     <RouterLink to="/">

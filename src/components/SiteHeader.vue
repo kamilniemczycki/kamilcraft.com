@@ -1,6 +1,6 @@
 <template>
   <header :class="thisClass">
-    <navigation />
+    <Navigation :is-home-page="isHome" />
     <div
       v-if="isTitle"
       class="header-info"

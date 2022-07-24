@@ -32,7 +32,7 @@ defineProps({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../../scss/btn";
 
 .btn {

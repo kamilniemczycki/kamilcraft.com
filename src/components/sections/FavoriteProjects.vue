@@ -1,17 +1,20 @@
 <template>
   <section class="bg-neutral-50">
     <projects :projects="select_projects">
-      <div>
+      <header>
         <h2 class="text-[2rem] mb-2">
           Wybrane projekty
         </h2>
         <p class="mb-5">
           Poniżej przedstawiam Państwu, wybraną przeze mnie, listę projektów.
         </p>
-      </div>
+      </header>
     </projects>
-    <div class="more-button">
-      <GhostButton @click="router.push('projects')">
+    <div class="w-full -translate-y-5 pb-5 more-button">
+      <GhostButton
+        class="mx-auto"
+        @click="router.push('projects')"
+      >
         ZOBACZ WIĘCEJ
       </GhostButton>
     </div>

@@ -9,7 +9,7 @@
         proste i najczęściej na użytek własny. Jednakże, doświadczenie zebrane przez lata pomogło mi wyselekcjonować
         technologie, które wspomagają pisanie i rozwijanie oprogramowania.
       </p>
-      <div class="grid grid-cols-4 gap-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         <div
           v-for="(skill, skillKey) in list"
           :key="skillKey"

@@ -21,7 +21,7 @@
               :icon="['fab', link.icon]"
             />
             <span class="hidden md:inline-block">{{ link.title }}</span>
-            <span class="md:hidden">{{ link.shortcut }}</span>
+            <span class="hidden sm:inline-block md:hidden">{{ link.shortcut }}</span>
           </a>
         </li>
       </ul>

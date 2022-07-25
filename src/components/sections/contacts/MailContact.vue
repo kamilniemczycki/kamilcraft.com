@@ -1,91 +1,95 @@
 <template>
-  <div class="contact_container">
-    <div
-      v-if="hasMessageError"
-      class="message message_error"
-    >
-      {{ messageError }}
-    </div>
-    <div
-      v-if="hasMessageOkStatus"
-      class="message message_ok"
-    >
-      {{ messageOk }}
-    </div>
-    <header class="container_head">
-      Formularz kontaktowy:
+  <div class="contact_container bg-neutral-100 rounded-md border border-gray-200 max-w-[500px] p-2 shadow">
+    <header class="mb-1.5">
+      <h3 class="text-xl">
+        Formularz kontaktowy
+      </h3>
     </header>
     <form
-      id="form-point"
+      class="flex flex-col gap-3 justify-start items-start"
       @submit="formSubmit"
     >
-      <label
-        class="label-info"
-        :class="{ 'label-error': isEmailError }"
-        for="email"
+      <div
+        v-if="hasMessageError"
+        class="w-full p-2 bg-red-200 text-red-500 text-sm border border-red-300 rounded-md"
       >
-        E-mail:
-      </label>
-      <input
-        id="email"
-        v-model="emailValue"
-        class="contact_input"
-        :class="{ 'contact_input-error': isEmailError }"
-        type="text"
-        name="email"
-        placeholder="przemek.kowalski@gmail.com"
+        {{ messageError }}
+      </div>
+      <div
+        v-else-if="hasMessageOkStatus"
+        class="w-full p-2 bg-[#27ae60] text-white text-sm border border-lime-600 rounded-md shadow"
       >
-      <span
-        v-if="isEmailError"
-        class="error-message"
-      >
-        E-mail musi być poprawny, np. przemek.kowalski@gmail.com
-      </span>
-      <label
-        class="label-info"
-        :class="{ 'label-error': isMessageError }"
-        for="message"
-      >
-        Wiadomość:
-      </label>
-      <textarea
-        id="message"
-        v-model="messageValue"
-        class="contact_input"
-        :class="{ 'contact_input-error': isMessageError }"
-        name="message"
-        placeholder="Chciałbym zlecić wykonanie strony..."
-      />
-      <span
-        v-if="isMessageError"
-        class="error-message"
-      >
-        Wiadomość musi zawierać przynajmniej 3 znaki!
-      </span>
-      <label
-        class="label-info"
-        :class="{ 'label-error': isSenderError }"
-        for="sender"
-      >
-        Podpis nadawcy:
-      </label>
-      <input
-        id="sender"
-        v-model="senderValue"
-        class="contact_input"
-        :class="{ 'contact_input-error': isSenderError }"
-        type="text"
-        name="sender"
-        placeholder="np. Przemek Kowalski"
-      >
-      <span
-        v-if="isSenderError"
-        class="error-message"
-      >
-        Podpis musi zawierać przynajmniej 3 znaki!
-      </span>
+        {{ messageOk }}
+      </div>
+      <div class="flex flex-col gap-1 w-full">
+        <label
+          class="text-gray-500"
+          for="message"
+        >
+          W czym mogę pomóc?
+        </label>
+        <textarea
+          id="message"
+          v-model="messageValue"
+          class="w-full max-w-full min-h-[150px] px-2.5 py-2 border-b-2 border-neutral-300 rounded-md focus:border-neutral-400 hover:border-neutral-500 outline-none"
+          :class="[ isMessageError ? 'border-red-400 text-red-400 placeholder-red-300' : 'text-gray-900 placeholder-gray-400' ]"
+          name="message"
+          placeholder="Chciałbym zlecić wykonanie strony..."
+        />
+        <span
+          v-if="isMessageError"
+        >
+          Wiadomość musi zawierać przynajmniej 3 znaki!
+        </span>
+      </div>
+      <div class="flex flex-col gap-1 w-full">
+        <label
+          class="text-gray-500"
+          for="email"
+        >
+          Jak mam się skontaktować?
+        </label>
+        <input
+          id="email"
+          v-model="emailValue"
+          class="w-full px-2.5 py-2 border-b-2 border-neutral-300 rounded-md focus:border-neutral-400 hover:border-neutral-500 outline-none"
+          :class="[ isEmailError ? 'border-red-400 text-red-400 placeholder-red-300' : 'text-gray-900 placeholder-gray-400' ]"
+          type="text"
+          name="email"
+          placeholder="Twój adres e-mail"
+        >
+        <span
+          v-if="isEmailError"
+          class="error-message"
+        >
+          E-mail musi być poprawny, np. przemek.kowalski@gmail.com
+        </span>
+      </div>
+      <div class="flex flex-col gap-1 w-full">
+        <label
+          class="text-gray-500"
+          for="sender"
+        >
+          Podpis
+        </label>
+        <input
+          id="sender"
+          v-model="senderValue"
+          class="w-full px-2.5 py-2 border-b-2 border-neutral-300 rounded-md focus:border-neutral-400 hover:border-neutral-500 outline-none"
+          :class="[ isSenderError ? 'border-red-400 text-red-400 placeholder-red-300' : 'text-gray-900 placeholder-gray-400' ]"
+          type="text"
+          name="sender"
+        >
+        <span
+          v-if="isSenderError"
+          class="error-message"
+        >
+          Podpis musi zawierać przynajmniej 3 znaki!
+        </span>
+      </div>
       <BaseButton
         is-reverse
+        class="py-1 w-full"
         :disabled="isButtonDisabled"
       >
         Wyślij
@@ -207,32 +211,14 @@ function formSubmit(event) {
 
 .contact_container {
   flex-basis: 500px;
-
-  #form-point {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .btn {
-    width: 97%;
-    margin: 0 20px 5px;
-  }
-}
-
-.container_head {
-  padding: 10px;
-  line-height: 1.6em;
-  font-size: 1.3em;
-  font-weight: bold;
 }
 
 .contact_container {
-  .label-info {
+  /* .label-info {
     width: 97%;
     padding-bottom: 5px;
     color: #7a7a7a;
-  }
+  } */
 
   .error-message {
     width: 97%;
@@ -240,7 +226,7 @@ function formSubmit(event) {
     color: #d44950;
   }
 
-  input, textarea {
+  /* input, textarea {
     width: 97%;
     max-width: 97%;
     border: 0;
@@ -251,7 +237,7 @@ function formSubmit(event) {
     line-height: 1.3em;
     margin-bottom: 15px;
     border-radius: 5px;
-  }
+  } */
 }
 
 .contact_input::placeholder {

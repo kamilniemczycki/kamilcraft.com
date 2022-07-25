@@ -1,5 +1,5 @@
 <template>
-  <div class="contact_info">
+  <div class="contact_info bg-neutral-100 rounded-md border border-gray-200 max-w-[500px] shadow">
     <header class="info_head">
       Inne formy kontaktu:
     </header>

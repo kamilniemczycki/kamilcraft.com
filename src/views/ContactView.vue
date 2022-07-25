@@ -1,6 +1,6 @@
 <template>
-  <section class="contact">
-    <div class="container">
+  <section class="py-6">
+    <div class="flex items-start justify-center mx-auto gap-5">
       <MailContact />
       <OtherContact />
     </div>
@@ -29,7 +29,7 @@ onMounted(() => {
 <style lang="scss">
 @import "scss/media";
 
-.contact {
+/* .contact {
   padding: 25px 0;
 
   .container {
@@ -41,9 +41,6 @@ onMounted(() => {
   .contact_container, .contact_info {
     margin: 10px;
     max-width: 500px;
-    background-color: #eaeaea;
-    border: 2px solid #dadada;
-    border-radius: 2px;
     box-shadow: 0 0 5px rgba(0, 0, 0, .2);
   }
 
@@ -69,5 +66,5 @@ onMounted(() => {
       }
     }
   }
-}
+} */
 </style>

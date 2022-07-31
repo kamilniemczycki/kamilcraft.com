@@ -1,6 +1,6 @@
 <template>
-  <section class="py-6">
-    <div class="flex items-start justify-center mx-auto gap-5">
+  <section class="px-3 py-6">
+    <div class="flex flex-col md:flex-row items-start justify-center mx-auto gap-5">
       <MailContact />
       <OtherContact />
     </div>
@@ -25,46 +25,3 @@ onMounted(() => {
   store.commit('setHeader', header)
 })
 </script>
-
-<style lang="scss">
-@import "scss/media";
-
-/* .contact {
-  padding: 25px 0;
-
-  .container {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-  }
-
-  .contact_container, .contact_info {
-    margin: 10px;
-    max-width: 500px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
-  }
-
-  @include media-tablet {
-    .container {
-      display: block;
-      margin: 0 auto;
-
-      .contact_container, .contact_info {
-        margin: 0 auto 25px;
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-  @include media-mobile {
-    .container {
-      padding: 0 10px;
-
-      .contact_container {
-        max-width: unset;
-      }
-    }
-  }
-} */
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="contact_container bg-neutral-100 rounded-md border border-gray-200 max-w-[500px] p-2 shadow">
+  <div class="contact_container w-full bg-neutral-100 rounded-md border border-gray-200 md:max-w-[500px] p-2 shadow">
     <header class="mb-1.5">
       <h3 class="text-xl">
         Formularz kontaktowy
@@ -208,7 +208,9 @@ function formSubmit(event) {
 </script>
 
 <style lang="scss" scoped>
-.contact_container {
-  flex-basis: 500px;
+@screen md {
+  .contact_container {
+    flex-basis: 500px;
+  }
 }
 </style>

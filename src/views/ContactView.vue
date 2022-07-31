@@ -1,9 +1,7 @@
 <template>
-  <section class="px-3 py-6">
-    <div class="flex flex-col md:flex-row items-start justify-center mx-auto gap-5">
-      <MailContact />
-      <OtherContact />
-    </div>
+  <section class="flex flex-col px-3 py-6 md:flex-row items-start justify-center mx-auto gap-5">
+    <MailContact />
+    <OtherContact />
   </section>
 </template>
 

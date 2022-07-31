@@ -1,5 +1,8 @@
 <template>
-  <div class="contact_container w-full bg-neutral-100 rounded-md border border-gray-200 md:max-w-[500px] p-2 shadow">
+  <div
+    id="contact-form"
+    class="contact_container w-full bg-neutral-100 rounded-md border border-gray-200 md:max-w-[500px] p-2 shadow"
+  >
     <header class="mb-1.5">
       <h3 class="text-xl">
         Formularz kontaktowy
@@ -204,6 +207,14 @@ function formSubmit(event) {
       buttonDisabled.value = false
     })
   }
+
+  scrollTo('#contact-form')
+}
+
+function scrollTo(id) {
+  document.querySelector(id).scrollIntoView({
+    behavior: 'smooth'
+  })
 }
 </script>
 

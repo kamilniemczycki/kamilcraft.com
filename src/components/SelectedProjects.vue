@@ -1,5 +1,8 @@
 <template>
-  <div class="max-w-screen-xl mx-auto px-6 xl:px-2 py-10">
+  <section
+    id="projects"
+    class="max-w-screen-xl mx-auto px-6 xl:px-2 py-10"
+  >
     <slot />
     <div class="grid items-start grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
       <div
@@ -49,7 +52,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>

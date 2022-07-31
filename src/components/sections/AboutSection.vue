@@ -21,7 +21,7 @@
               has-icon
               icon="portrait"
               is-reverse
-              @click="scrollTo('.selected-projects')"
+              @click="scrollTo('#projects')"
             >
               Wybrane projekty
             </BaseButton>

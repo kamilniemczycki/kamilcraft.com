@@ -38,6 +38,7 @@
         />
         <span
           v-if="isMessageError"
+          class="text-red-400"
         >
           Wiadomość musi zawierać przynajmniej 3 znaki!
         </span>
@@ -47,7 +48,7 @@
           class="text-gray-500"
           for="email"
         >
-          Jak mam się skontaktować?
+          Gdzie mam odesłać odpowiedź?
         </label>
         <input
           id="email"
@@ -60,7 +61,7 @@
         >
         <span
           v-if="isEmailError"
-          class="error-message"
+          class="text-red-400"
         >
           E-mail musi być poprawny, np. przemek.kowalski@gmail.com
         </span>
@@ -82,7 +83,7 @@
         >
         <span
           v-if="isSenderError"
-          class="error-message"
+          class="text-red-400"
         >
           Podpis musi zawierać przynajmniej 3 znaki!
         </span>
@@ -207,90 +208,7 @@ function formSubmit(event) {
 </script>
 
 <style lang="scss" scoped>
-@import "scss/media";
-
 .contact_container {
   flex-basis: 500px;
-}
-
-.contact_container {
-  /* .label-info {
-    width: 97%;
-    padding-bottom: 5px;
-    color: #7a7a7a;
-  } */
-
-  .error-message {
-    width: 97%;
-    padding: 5px 0 10px;
-    color: #d44950;
-  }
-
-  /* input, textarea {
-    width: 97%;
-    max-width: 97%;
-    border: 0;
-    border-bottom: 2px solid #c9c9c9;
-    padding: 10px 10px 8px;
-    font-size: 1em;
-    font-family: var(--font-family);
-    line-height: 1.3em;
-    margin-bottom: 15px;
-    border-radius: 5px;
-  } */
-}
-
-.contact_input::placeholder {
-  color: #bdbdbd;
-}
-
-.contact_input:focus, .contact_input:focus {
-  outline: none;
-  border-color: black;
-}
-
-textarea.contact_input {
-  max-width: 97%;
-  min-width: 97%;
-  min-height: 150px;
-}
-
-input.contact_input-error, textarea.contact_input-error {
-  border-color: #d44950;
-  color: #d44950;
-  margin-bottom: 0;
-}
-
-.contact_input-error::placeholder, .contact_input-error::placeholder {
-  color: #d7626a;
-}
-
-input[disabled].contact_input {
-  background-color: #cdcdcd;
-  border-color: gray;
-  color: black;
-}
-
-.message {
-  display: none;
-  margin: 5px;
-  padding: 8px;
-  border-radius: 5px;
-}
-
-.message_ok, .message_error {
-  display: block;
-}
-
-.message_ok {
-  background-color: #4CAF50;
-  border: 1px solid #387d3b;
-  color: white;
-}
-
-.message_error {
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  color: #721c24;
 }
 </style>

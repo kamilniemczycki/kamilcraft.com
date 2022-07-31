@@ -126,6 +126,10 @@ function markdownToText (project) {
 
         .btn {
           display: flex;
+
+          &:hover {
+            background-color: rgba(255, 255, 255, .9);
+          }
         }
       }
     }

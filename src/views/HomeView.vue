@@ -10,9 +10,9 @@
 import { onMounted, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import About from '../components/sections/AboutSection'
-import ExperiencesSection from '../components/sections/ExperiencesSection'
-import FavoriteProjects from '../components/sections/FavoriteProjects'
+import About from '@/components/sections/AboutSection'
+import ExperiencesSection from '@/components/sections/ExperiencesSection'
+import FavoriteProjects from '@/components/sections/FavoriteProjects'
 
 const store = useStore()
 const route = useRoute()

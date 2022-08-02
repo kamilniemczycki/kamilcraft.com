@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/HomeView'
-import About from '../views/AboutView'
-import Projects from '../views/ProjectsView'
-import Project from '../views/ProjectView'
-import Contact from '../views/ContactView'
-import NotFound from '../views/NotFound'
+import Home from '@/views/HomeView'
+import About from '@/views/AboutView'
+import Projects from '@/views/ProjectsView'
+import Project from '@/views/ProjectView'
+import Contact from '@/views/ContactView'
+import NotFound from '@/views/NotFound'
 
 const mainTitle = 'kamilcraft.com'
 
@@ -77,21 +77,6 @@ const router = createRouter({
       return { left: 0, top: 0 }
     }
   }
-  /*scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else if (to.hash) {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          resolve({
-            selector: to.hash
-          }, 1000)
-        })
-      })
-    } else {
-      return { x: 0, y: 0 }
-    }
-  }*/
 })
 
 const title = ' :: ' + mainTitle

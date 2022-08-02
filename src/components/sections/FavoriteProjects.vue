@@ -1,13 +1,20 @@
 <template>
-  <section class="selected-projects">
+  <section class="bg-neutral-50">
     <projects :projects="select_projects">
-      <div class="header-container">
-        <h2>Wybrane projekty</h2>
-        <p>Poniżej przedstawiam Państwu, wybraną przeze mnie, listę projektów.</p>
-      </div>
+      <header>
+        <h2 class="text-[2rem] mb-2">
+          Wybrane projekty
+        </h2>
+        <p class="mb-5">
+          Poniżej przedstawiam Państwu, wybraną przeze mnie, listę projektów.
+        </p>
+      </header>
     </projects>
-    <div class="more-button">
-      <GhostButton @click="router.push('projects')">
+    <div class="w-full -translate-y-5 pb-5 more-button">
+      <GhostButton
+        class="mx-auto"
+        @click="router.push('projects')"
+      >
         ZOBACZ WIĘCEJ
       </GhostButton>
     </div>
@@ -17,8 +24,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import Projects from '../SelectedProjects'
-import GhostButton from '../buttons/GhostButton'
+import Projects from '@/components/SelectedProjects'
+import GhostButton from '@/components/buttons/GhostButton'
 
 const router = useRouter()
 

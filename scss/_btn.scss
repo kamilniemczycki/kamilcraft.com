@@ -20,8 +20,7 @@ $btn-colors: (
   min-width: 270px;
   padding: 8px 10px;
 
-  border-radius: 3px;
-  border-width: 3px;
+  @apply border-4 rounded-md;
   border-style: solid;
   border-color: $default-color;
 

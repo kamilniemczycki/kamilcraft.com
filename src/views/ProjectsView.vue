@@ -1,38 +1,38 @@
 <template>
-  <div>
-    <div class="project_categories">
-      <ul class="categories">
+  <SelectedProjects :projects="projects">
+    <div class="pb-9">
+      <ul class="flex justify-center list-none">
         <li
           v-for="category in getCategories"
           :key="category.slug"
-          class="categories_element"
-          :class="{ 'categories_element-active': categories.active === category.slug }"
+          class="relative cursor-pointer mr-3 md:mr-5 last:mr-0 after:translate-y-2"
+          :class="{ 'category-active': selectedCategory(category.slug) }"
           @click="changeCategory(category.slug)"
         >
-          <a :title="`Kategoria ${category.name}`">{{ category.name }}</a>
+          <a
+            class="text-gray-500 hover:text-black"
+            :title="`Kategoria ${category.name}`"
+          >{{ category.name }}</a>
         </li>
       </ul>
     </div>
-    <SelectedProjects :projects="projects" />
-    <div
-      v-if="projects.length === 0"
-      class="loading"
-    >
-      <div class="loading_animation" />
-    </div>
+  </SelectedProjects>
+  <div
+    v-if="projects.length === 0"
+    class="loading"
+  >
+    <div class="loading_animation" />
   </div>
 </template>
 
 <script setup>
-import { reactive, computed, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
-import SelectedProjects from '../components/SelectedProjects'
+import SelectedProjects from '@/components/SelectedProjects'
 
 const store = useStore()
 
-const categories = reactive({
-  active: 'all'
-})
+const activeCategory = ref('all')
 const projects = reactive([])
 
 const getCategories = computed(() => store.getters.getCategories)
@@ -72,64 +72,22 @@ function loadListWhereCategory(category) {
 }
 
 function changeCategory(category) {
-  categories.active = category
+  activeCategory.value = category
   loadListWhereCategory(category)
+}
+
+function selectedCategory(categorySlug) {
+  return activeCategory.value === categorySlug
 }
 </script>
 
 <style lang="scss">
 @import "scss/media";
 
-.project_categories {
-  padding-top: 45px;
-
-  .categories {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-
-    .categories_element {
-      position: relative;
-      cursor: pointer;
-      margin-right: 25px;
-
-      a {
-        color: var(--text-color);
-        &:hover {
-          color: black;
-        }
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
-
-      &-active {
-        &::after {
-          content: '';
-          position: absolute;
-          margin: 0 auto;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          width: 0;
-          height: 2px;
-          background-color: #A2CF00;
-          transform: translateY(8px);
-          animation: load-underline 300ms forwards;
-        }
-      }
-
-      @include media-mobile {
-        margin-right: 15px;
-      }
-    }
-  }
-}
-
-.projects {
-  padding-top: 25px;
-  padding-bottom: 25px;
+.category-active::after {
+  @apply absolute mx-auto left-0 right-0 bottom-0 h-0.5;
+  background-color: #A2CF00;
+  animation: load-underline 300ms forwards;
 }
 
 @keyframes loading-animation {

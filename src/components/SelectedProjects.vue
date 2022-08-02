@@ -1,42 +1,50 @@
 <template>
-  <div class="projects">
+  <section
+    id="projects"
+    class="max-w-screen-xl mx-auto px-6 xl:px-2 py-10"
+  >
     <slot />
-    <div class="container">
+    <div class="grid items-start grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
       <div
         v-for="project in projects"
         :key="project.title.slug"
-        class="project"
+        class="flex flex-col lg:grid grid-project relative bg-neutral-100 border border-gray-200 rounded-md"
       >
         <img
           v-if="project.images.small"
-          class="project_image"
+          class="project-image w-full h-[16rem] lg:w-[12.5rem] lg:h-[12.5rem] object-cover object-top rounded-t-md lg:rounded-bl-md lg:rounded-tr-none"
           :src="project.images.small"
           :alt="project.title"
         >
         <img
           v-else-if="project.images.large"
-          class="project_image"
+          class="project-image w-[12.5rem] h-[12.5rem] object-cover"
           :src="project.images.large"
           :alt="project.title"
         >
-        <div class="project_content">
-          <h3 class="project_title">
-            {{ project.title }}
-          </h3>
-          <div class="project_release">
-            {{ project.version }}
-          </div>
-          <div
-            class="project_description"
+        <div class="project-content relative p-3 h-[12.5rem] overflow-y-hidden after:absolute after:left-0 after:top-0 after:w-full after:h-full">
+          <header class="pb-2">
+            <h3 class="text-lg font-bold">
+              {{ project.title }}
+            </h3>
+            <p class="text-sm">
+              {{ project.project_version }}
+            </p>
+          </header>
+          <p
+            class="text-sm"
             v-html="markdownToText(project)"
           />
         </div>
-        <div class="more-button">
+        <div
+          class="project-button lg:flex lg:absolute lg:justify-center lg:items-center lg:left-0 lg:top-0 lg:w-full lg:h-full"
+        >
           <BaseButton
             has-icon
             icon="eye"
             is-reverse
-            class="btn"
+            class="w-full lg:w-80 rounded-t-none lg:rounded-t-md"
+            title="Pokaż więcej"
             @click="router.push({ name: 'Project', params: { id: project.id } })"
           >
             O projekcie
@@ -44,14 +52,14 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
 import { defineProps, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import BaseButton from './buttons/BaseButton'
+import BaseButton from '@/components/buttons/BaseButton'
 import { marked } from 'marked'
 
 defineProps({
@@ -83,133 +91,47 @@ function markdownToText (project) {
 }
 </script>
 
-<style lang="scss">
-@import "scss/media";
+<style lang="scss" scoped>
+@import 'scss/media';
 
-.projects {
-  padding-top: 45px;
-  padding-bottom: 45px;
+.grid-project {
+  animation: load-project 2s forwards;
 
-  .container {
-    display: grid;
-    align-items: flex-start;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: minmax(80px, auto);
-    column-gap: 25px;
-    row-gap: 20px;
+  .project-image, .project-content {
+    object-position: top center;
+  }
 
-    .project {
-      display: grid;
-      position: relative;
-      grid-template-areas: 'image content';
-      grid-template-columns: 200px 1fr;
-      background-color: #fafafa;
-      border: 1px solid rgba(0, 0, 0, .025);
-      border-radius: 5px;
-      animation: load-project 2s forwards;
+  .project-image {
+    grid-area: image;
+  }
 
-      .project_image {
-        grid-area: image;
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
-        object-position: top center;
-      }
+  .project-content {
+    grid-area: content;
 
-      .project_content {
-        grid-area: content;
-        padding: 10px 15px;
-        height: 200px;
-        overflow-y: hidden;
-        position: relative;
-
-        .project_title {
-          font-size: 1.3em;
-          font-weight: normal;
-          line-height: 1.5em;
-        }
-
-        .project_release {
-          font-size: .9em;
-          font-weight: bold;
-          padding: 5px 0;
-        }
-
-        &::after {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 60%, #fafafa 100%);
-        }
-      }
-
-      p {
-        font-size: .9em;
-      }
+    &::after {
+      background: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 60%, #fafafa);
     }
+  }
+}
 
-    @include media-tablet(true) {
-      .project {
-        .more-button {
+@screen lg {
+  .grid-project {
+    grid-template-areas: 'image content';
+    grid-template-columns: 200px 1fr;
+
+    .project-button {
+      .btn {
+        display: none;
+      }
+      &:hover {
+        background: rgba(0, 0, 0, .3);
+        border-radius: 5px;
+
+        .btn {
           display: flex;
-          justify-content: center;
-          align-items: center;
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-
-          .btn {
-            display: none;
-          }
 
           &:hover {
-            background: rgba(0, 0, 0, .3);
-            border-radius: 5px;
-
-            .btn {
-              display: flex;
-              color: white;
-              border-style: none;
-              &:hover {
-                background-color: #385c8a;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    @include media-small {
-      .project {
-        display: block;
-
-        .project_image {
-          width: 100%;
-          height: 250px;
-        }
-
-        .project_content {
-          height: 125px;
-        }
-
-        .more-button {
-          display: block;
-          position: unset;
-          margin-top: 8px;
-          height: auto;
-          left: unset;
-          top: unset;
-
-          .btn {
-            display: flex;
-            width: 100%;
-            border-radius: 0;
-            border-style: solid;
+            background-color: rgba(255, 255, 255, .9);
           }
         }
       }
@@ -225,15 +147,6 @@ function markdownToText (project) {
   to {
     transform: translateY(0);
     opacity: 1;
-  }
-}
-
-@include media-tablet {
-  .projects .container {
-    grid-template-columns: 1fr;
-    padding: 25px;
-    column-gap: 0;
-    row-gap: 20px;
   }
 }
 </style>

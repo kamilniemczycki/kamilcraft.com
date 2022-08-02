@@ -1,20 +1,22 @@
 <template>
-  <div class="experiences">
-    <div class="container">
-      <h2>Wykorzystywane technologie</h2>
-      <p>
+  <div>
+    <div class="max-w-screen-xl mx-auto px-6 xl:px-2 py-11">
+      <h2 class="text-[2rem] mb-2">
+        Wykorzystywane technologie
+      </h2>
+      <p class="mb-5">
         Programowaniem stron internetowych zajmuję się najmłodszych lat, czyli od 2011 roku. Pierwsze projekty były
         proste i najczęściej na użytek własny. Jednakże, doświadczenie zebrane przez lata pomogło mi wyselekcjonować
         technologie, które wspomagają pisanie i rozwijanie oprogramowania.
       </p>
-      <div class="skills">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         <div
           v-for="(skill, skillKey) in list"
           :key="skillKey"
-          class="skill-group"
+          class="p-4 bg-neutral-50 rounded-lg"
         >
-          <header class="skill-header">
-            <div class="tech-icons">
+          <header>
+            <div class="flex gap-2 text-3xl mb-2">
               <font-awesome-icon
                 v-for="(icon, iconKey) in skill.icons"
                 :key="iconKey"
@@ -24,13 +26,25 @@
                 :title="icon.title"
               />
             </div>
-            <h3>{{ skill.header }}</h3>
+            <h3 class="text-lg font-bold">
+              {{ skill.header }}
+            </h3>
           </header>
-          <p v-if="skill.showMore.value || skill.description.length < 200">
+          <p
+            v-if="skill.showMore.value || skill.description.length < 200"
+            class="text-sm"
+          >
             {{ skill.description }}
           </p>
-          <p v-else>
-            {{ parseText(skill.description) }}... <a @click="changeMoreStatus(skill)">Więcej</a>
+          <p
+            v-else
+            class="text-sm"
+          >
+            {{ parseText(skill.description) }}...
+            <a
+              class="text-neutral-500 hover:text-neutral-700 hover:underline cursor-pointer"
+              @click="changeMoreStatus(skill)"
+            >Więcej</a>
           </p>
         </div>
       </div>
@@ -160,74 +174,7 @@ function changeMoreStatus(skill) {
 }
 </script>
 
-<style lang="scss">
-@import "scss/media";
-
-.experiences {
-  .container {
-    padding-top: 45px;
-    padding-bottom: 45px;
-
-    .skills {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      column-gap: 20px;
-      row-gap: 20px;
-      margin-top: 15px;
-
-      .skill-group {
-        background-color: #fafafa;
-        padding: 15px;
-        border-radius: 5px;
-
-        .tech-icons {
-          font-size: 1.8em;
-          margin-bottom: 3px;
-
-          & > svg[class*='icon'] {
-            margin-right: 10px;
-
-            &:last-child {
-              margin-right: 0;
-            }
-          }
-        }
-        h3 {
-          font-size: 1.2em;
-          line-height: 1.6em;
-          font-weight: bold;
-        }
-        .skill-list {
-          margin-block: auto;
-          padding-inline: inherit;
-          margin-left: 5px;
-          list-style-type: initial;
-        }
-        p {
-          font-size: .9em;
-
-          a {
-            color: #8D8D8D;
-            cursor: pointer;
-          }
-        }
-        &:hover {
-          background-color: rgba(0, 0, 0, .03);
-        }
-      }
-
-      @include media-small {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      @include media-tablet {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      @include media-mobile {
-        grid-template-columns: repeat(1, 1fr);
-      }
-    }
-  }
-}
+<style scoped>
 .icon-js {
   color: #F1DE4F;
 }

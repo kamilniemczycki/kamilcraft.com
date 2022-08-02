@@ -1,122 +1,47 @@
 <template>
-  <footer class="footer">
-    <div class="footer_container">
-      <div class="container_logo">
-        Kamil<span class="logo_element">Craft</span>
+  <footer class="bg-neutral-800 py-8">
+    <div class="flex items-center justify-between max-w-screen-xl mx-auto">
+      <div class="bg-neutral-600 text-white pl-10 pr-5 py-2.5 text-logo-size leading-normal font-thasadith">
+        Kamil<span class="text-kamilcraft-green">Craft</span>
       </div>
-      <ul class="socials">
+      <ul class="flex gap-5 pr-3 text-lg">
         <li
           v-for="link in socialLinks"
           :key="link.title.slug"
-          class="social_link"
         >
           <a
-            class="link"
+            class="text-neutral-400 hover:text-neutral-500"
             :href="link.link"
             :title="link.title"
             target="_blank"
             rel="noopener nofollow noreferrer"
           >
-            <font-awesome-icon
-              class="icon"
+            <FontAwesomeIcon
+              class="mr-1"
               :icon="['fab', link.icon]"
             />
-            <span class="social_title">{{ link.title }}</span>
-            <span class="social_shortcut">{{ link.shortcut }}</span>
+            <span class="hidden md:inline-block">{{ link.title }}</span>
+            <span class="hidden sm:inline-block md:hidden">{{ link.shortcut }}</span>
           </a>
         </li>
       </ul>
     </div>
-    <div class="container" />
   </footer>
 </template>
 
 <script setup>
 const socialLinks = [
-  { link: 'https://www.youtube.com/user/kamilniemczycki', icon: 'youtube', title: 'Oglądaj mnie na YouTube', shortcut: 'YouTube' },
-  { link: 'https://www.facebook.com/nikcamii', icon: 'facebook', title: 'Znajdź mnie na Facebooku', shortcut: 'Facebook' }
+  {
+    link: 'https://www.youtube.com/user/kamilniemczycki',
+    icon: 'youtube',
+    title: 'Oglądaj mnie na YouTube',
+    shortcut: 'YouTube'
+  },
+  {
+    link: 'https://www.facebook.com/nikcamii',
+    icon: 'facebook',
+    title: 'Znajdź mnie na Facebooku',
+    shortcut: 'Facebook'
+  }
 ]
 </script>
-
-<style lang="scss" scoped>
-@import "scss/default";
-
-.footer {
-  background-color: #323232;
-  padding: 35px 0;
-
-  &_container {
-    @extend .container;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .container_logo {
-      padding: 14px 20px 14px 40px;
-      font-family: 'Thasadith', sans-serif;
-      font-size: 2.5em;
-      color: #D4D4D4;
-      background-color: #5B5B5B;
-
-      .logo_element {
-        color: #A2CF00;
-      }
-    }
-
-    .socials {
-      display: flex;
-      list-style: none;
-
-      .social_link {
-        margin-right: 25px;
-        padding-right: 15px;
-        font-size: 1.1em;
-
-        a {
-          color: #A3A3A3;
-
-          .icon {
-            margin-right: 5px;
-          }
-
-          .social_shortcut {
-            display: none;
-          }
-
-          @include media-tablet {
-            .social_title {
-              display: none;
-            }
-
-            .social_shortcut {
-              display: inline-block;
-            }
-          }
-
-          @include media-mobile {
-            .social_shortcut {
-              display: none;
-            }
-          }
-        }
-
-        @include media-mobile {
-          padding-right: 0;
-        }
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-
-    @include media-tablet {
-      padding: 0;
-    }
-  }
-
-  @include media-mobile {
-    padding: 15px 0;
-  }
-}
-</style>

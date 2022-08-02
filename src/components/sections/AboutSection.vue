@@ -1,24 +1,27 @@
 <template>
-  <div class="about">
-    <div class="container">
-      <div id="grid">
-        <div id="grid-text">
-          <h2 class="name">
+  <div class="bg-neutral-50">
+    <div class="max-w-screen-xl mx-auto px-6 xl:px-2 py-11">
+      <div
+        id="grid-columns"
+        class="flex flex-col md:grid items-center"
+      >
+        <div id="grid-content">
+          <h2 class="text-[2rem]">
             Kamil Niemczycki
           </h2>
-          <div class="tagline">
+          <div class="mb-2 text-[1.5rem]">
             Web Developer
           </div>
           <p>
             Jestem młodym i ambitnym inżynierem oprogramowania. Specjalizuję się w tworzeniu frontendów i backendów.
             W projektach wykorzystuję techologie oparte o PHP i JavaScript, tworząc skomplikowane i skalowalne aplikacje internetowe.
           </p>
-          <div class="buttons">
+          <div class="flex flex-col sm:flex-row justify-center md:justify-start py-6 gap-5">
             <BaseButton
               has-icon
               icon="portrait"
               is-reverse
-              @click="scrollTo('.selected-projects')"
+              @click="scrollTo('#projects')"
             >
               Wybrane projekty
             </BaseButton>
@@ -32,9 +35,10 @@
           </div>
         </div>
         <div id="grid-photo">
-          <figure id="about-photo">
+          <figure>
             <img
               :src="`${publicPath}assets/me.jpg`"
+              class="mx-auto rounded-full object-cover w-[12.5rem] h-[12.5rem]"
               alt="Moje zdjęcie"
             >
           </figure>
@@ -45,7 +49,7 @@
 </template>
 
 <script setup>
-import BaseButton from '../buttons/BaseButton'
+import BaseButton from '@/components/buttons/BaseButton'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -59,97 +63,17 @@ function scrollTo(id) {
 </script>
 
 <style lang="scss">
-@import "scss/media";
+#grid-columns {
+  grid-template-columns: 1fr 1fr .8fr;
+  grid-template-areas:
+    'text text photo';
+}
 
-.about {
-  background-color: var(--gray-color) !important;
+#grid-content {
+  grid-area: text;
+}
 
-  .container {
-    padding-top: 45px;
-    padding-bottom: 45px;
-  }
-  h2.name {
-    font-size: 2.1em;
-    margin-bottom: 5px;
-  }
-  div.tagline {
-    font-size: 1.6em;
-    margin-bottom: .7em;
-  }
-  #grid {
-     display: grid;
-     grid-template-columns: 1fr 1fr .8fr;
-     grid-template-areas:
-       'text text photo';
-     align-items: center;
-
-     #grid-text {
-       grid-area: text;
-       text-align: left;
-
-       .buttons {
-         display: flex;
-         justify-content: flex-start;
-         padding: 25px 0;
-
-         .btn {
-           margin-right: 20px;
-
-           &:last-child {
-             margin-right: 0;
-           }
-
-           @include media-tablet {
-             margin: 0 auto 15px;
-
-             &:last-child {
-               margin: 0 auto;
-             }
-           }
-         }
-
-         @include media-small {
-           justify-content: center;
-           margin-bottom: 25px;
-         }
-
-         @include media-tablet {
-           display: block;
-           margin-bottom: 25px;
-         }
-       }
-
-       @include media-mobile() {
-         .buttons .btn,
-         .buttons a {
-           min-width: unset;
-           width: 100%;
-         }
-       }
-     }
-     #grid-photo {
-       grid-area: photo;
-
-       #about-photo img {
-         border-radius: 50%;
-       }
-     }
-     figure {
-       text-align: center;
-       img {
-         object-fit: cover;
-         width: 200px;
-         height: 200px;
-       }
-     }
-  }
-  @include media-small {
-    #grid {
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-    'text text'
-    'photo photo';
-    }
-  }
+#grid-photo {
+  grid-area: photo;
 }
 </style>

@@ -59,7 +59,7 @@
 import { defineProps, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import BaseButton from './buttons/BaseButton'
+import BaseButton from '@/components/buttons/BaseButton'
 import { marked } from 'marked'
 
 defineProps({
@@ -92,7 +92,7 @@ function markdownToText (project) {
 </script>
 
 <style lang="scss" scoped>
-@import "scss/media";
+@import 'scss/media';
 
 .grid-project {
   animation: load-project 2s forwards;

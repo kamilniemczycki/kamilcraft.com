@@ -25,7 +25,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import "../../../scss/btn";
+@import 'scss/btn';
 
 .btn {
   @include ghost-button();

@@ -24,8 +24,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import Projects from '../SelectedProjects'
-import GhostButton from '../buttons/GhostButton'
+import Projects from '@/components/SelectedProjects'
+import GhostButton from '@/components/buttons/GhostButton'
 
 const router = useRouter()
 

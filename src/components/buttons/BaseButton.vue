@@ -33,7 +33,7 @@ defineProps({
 </script>
 
 <style lang="scss">
-@import "../../../scss/btn";
+@import 'scss/btn';
 
 .btn {
   @include button($has-icon: true);

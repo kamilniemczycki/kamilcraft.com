@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import BaseButton from '../buttons/BaseButton'
+import BaseButton from '@/components/buttons/BaseButton'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

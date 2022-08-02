@@ -27,7 +27,7 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import Navigation from './NavigationHeader'
+import Navigation from '@/components/NavigationHeader'
 
 const store = useStore()
 const route = useRoute()

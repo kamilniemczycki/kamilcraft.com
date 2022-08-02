@@ -28,7 +28,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
-import SelectedProjects from '../components/SelectedProjects'
+import SelectedProjects from '@/components/SelectedProjects'
 
 const store = useStore()
 

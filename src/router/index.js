@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/HomeView'
-import About from '../views/AboutView'
-import Projects from '../views/ProjectsView'
-import Project from '../views/ProjectView'
-import Contact from '../views/ContactView'
-import NotFound from '../views/NotFound'
+import Home from '@/views/HomeView'
+import About from '@/views/AboutView'
+import Projects from '@/views/ProjectsView'
+import Project from '@/views/ProjectView'
+import Contact from '@/views/ContactView'
+import NotFound from '@/views/NotFound'
 
 const mainTitle = 'kamilcraft.com'
 

@@ -1,16 +1,16 @@
 <template>
+  <SiteHeader />
   <main
     rel="main"
   >
-    <SiteHeader />
     <RouterView />
-    <FooterComponent />
   </main>
+  <FooterComponent />
 </template>
 
 <script setup>
-import SiteHeader from './components/SiteHeader'
-import FooterComponent from './components/FooterComponent'
+import SiteHeader from '@/components/SiteHeader'
+import FooterComponent from '@/components/FooterComponent'
 </script>
 
 <style lang="scss">

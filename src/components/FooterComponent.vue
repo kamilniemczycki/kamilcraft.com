@@ -20,8 +20,8 @@
               class="mr-1"
               :icon="['fab', link.icon]"
             />
-            <span class="hidden md:inline-block">{{ link.title }}</span>
-            <span class="hidden sm:inline-block md:hidden">{{ link.shortcut }}</span>
+            <span class="hidden lg:inline-block">{{ link.title }}</span>
+            <span class="hidden sm:inline-block lg:hidden">{{ link.shortcut }}</span>
           </a>
         </li>
       </ul>
@@ -42,6 +42,12 @@ const socialLinks = [
     icon: 'facebook',
     title: 'Znajdź mnie na Facebooku',
     shortcut: 'Facebook'
+  },
+  {
+    link: 'https://github.com/kamilniemczycki/kamilcraft.com',
+    icon: 'github',
+    title: 'Kod na GitHub',
+    shortcut: 'GitHub'
   }
 ]
 </script>

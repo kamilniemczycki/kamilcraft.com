@@ -1,3 +1,25 @@
+<script setup>
+import { onMounted, onUnmounted } from 'vue';
+import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
+
+const store = useStore();
+const route = useRoute();
+
+onMounted(() => {
+  const header = {
+    title: route.meta.title,
+    description: 'Jestem młodym i ambitnym inżynierem oprogramowania. Specjalizuję się w tworzeniu frontendów i backendów.',
+  }
+  store.commit('setHeader', header);
+});
+
+onUnmounted(() => {
+  store.commit('resetHeaderTitle');
+  store.commit('resetHeaderDescription');
+});
+</script>
+
 <template>
   <section class="max-w-screen-xl mx-auto px-6 xl:px-2 py-11">
     <p class="font-bold">
@@ -20,7 +42,7 @@
     <p>
       W ramach studiów uzyskałem zaświadczenie dotyczące ukończenia kursu:
       <a
-        :href="publicPath + 'download/certyfikat-laravel.pdf'"
+        href="/download/certyfikat-laravel.pdf"
         class="text-gray-500 underline hover:text-kamilcraft-green hover:no-underline"
         target="_blank"
         rel="noopener nofollow noreferrer"
@@ -42,27 +64,3 @@
     </p>
   </section>
 </template>
-
-<script setup>
-import { onMounted, onUnmounted } from 'vue'
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
-
-const publicPath = process.env.VUE_APP_BASE_URL + '/'
-
-const store = useStore()
-const route = useRoute()
-
-onMounted(() => {
-  const header = {
-    title: route.meta.title,
-    description: 'Jestem młodym i ambitnym inżynierem oprogramowania. Specjalizuję się w tworzeniu frontendów i backendów.'
-  }
-  store.commit('setHeader', header)
-})
-
-onUnmounted(() => {
-  store.commit('resetHeaderTitle')
-  store.commit('resetHeaderDescription')
-})
-</script>

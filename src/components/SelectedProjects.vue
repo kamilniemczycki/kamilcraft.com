@@ -1,3 +1,32 @@
+<script setup>
+import { defineProps, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import BaseButton from '@/components/buttons/BaseButton.vue';
+import Markdown from "@/components/markdowns/MarkdownShort.vue";
+
+defineProps({
+  projects: {
+    type: Array,
+    default: () => []
+  }
+})
+
+const route = useRoute()
+const router = useRouter()
+const store = useStore()
+
+onMounted(() => {
+  const header = {
+    title: route.meta.title,
+    description: [
+      'Witam Państwa na podstronie z moimi projektami!'
+    ]
+  }
+  store.commit('setHeader', header)
+})
+</script>
+
 <template>
   <section
     id="projects"
@@ -31,10 +60,7 @@
               {{ project.project_version }}
             </p>
           </header>
-          <p
-            class="text-sm"
-            v-html="markdownToText(project)"
-          />
+          <Markdown :source="project.description" />
         </div>
         <div
           class="project-button lg:flex lg:absolute lg:justify-center lg:items-center lg:left-0 lg:top-0 lg:w-full lg:h-full"
@@ -55,43 +81,7 @@
   </section>
 </template>
 
-<script setup>
-import { defineProps, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-import BaseButton from '@/components/buttons/BaseButton'
-import { marked } from 'marked'
-
-defineProps({
-  projects: {
-    type: Array,
-    default: () => []
-  }
-})
-
-const route = useRoute()
-const router = useRouter()
-const store = useStore()
-
-onMounted(() => {
-  const header = {
-    title: route.meta.title,
-    description: [
-      'Witam Państwa na podstronie z moimi projektami!'
-    ]
-  }
-  store.commit('setHeader', header)
-})
-
-function markdownToText (project) {
-  const projectText = marked.parse(project.description)
-  const nodeElement = document.createElement('div')
-  nodeElement.innerHTML = projectText
-  return nodeElement.querySelector('p').innerText.substr(0, 350)
-}
-</script>
-
-<style lang="scss" scoped>
+<style lang="scss">
 @import 'scss/media';
 
 .grid-project {

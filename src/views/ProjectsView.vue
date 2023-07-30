@@ -1,3 +1,59 @@
+<script setup>
+import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
+import { useStore } from 'vuex';
+import SelectedProjects from '@/components/SelectedProjects.vue';
+
+const store = useStore();
+
+const activeCategory = ref('all');
+const projects = reactive([]);
+
+const getCategories = computed(() => store.getters.getCategories);
+
+onMounted(() => {
+  loadAllData();
+});
+
+onUnmounted(() => {
+  store.commit('resetHeaderTitle');
+  store.commit('resetHeaderDescription');
+});
+
+function loadAllData () {
+  store.dispatch('fetchCategories');
+  store.dispatch('fetchProjects').then(loadedProjects => {
+    loadedProjects.forEach(project => {
+      projects.push(project);
+    });
+  });
+}
+
+function loadListWhereCategory(category) {
+  projects.splice(0);
+  setTimeout(() => {
+    if (category !== 'all') {
+      const storedProjects = store.getters.getProjects.filter(project => project.categories.includes(category));
+      storedProjects.forEach(project => {
+        projects.push(project);
+      })
+    } else {
+      store.getters.getProjects.forEach(project => {
+        projects.push(project);
+      });
+    }
+  }, 500);
+}
+
+function changeCategory(category) {
+  activeCategory.value = category
+  loadListWhereCategory(category)
+}
+
+function selectedCategory(categorySlug) {
+  return activeCategory.value === categorySlug;
+}
+</script>
+
 <template>
   <SelectedProjects :projects="projects">
     <div class="pb-9">
@@ -24,62 +80,6 @@
     <div class="loading_animation" />
   </div>
 </template>
-
-<script setup>
-import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
-import { useStore } from 'vuex'
-import SelectedProjects from '@/components/SelectedProjects'
-
-const store = useStore()
-
-const activeCategory = ref('all')
-const projects = reactive([])
-
-const getCategories = computed(() => store.getters.getCategories)
-
-onMounted(() => {
-  loadAllData()
-})
-
-onUnmounted(() => {
-  store.commit('resetHeaderTitle')
-  store.commit('resetHeaderDescription')
-})
-
-function loadAllData () {
-  store.dispatch('fetchCategories')
-  store.dispatch('fetchProjects').then(loadedProjects => {
-    loadedProjects.forEach(project => {
-      projects.push(project)
-    })
-  })
-}
-
-function loadListWhereCategory(category) {
-  projects.splice(0)
-  setTimeout(() => {
-    if (category !== 'all') {
-      const storedProjects = store.getters.getProjects.filter(project => project.categories.includes(category))
-      storedProjects.forEach(project => {
-        projects.push(project)
-      })
-    } else {
-      store.getters.getProjects.forEach(project => {
-        projects.push(project)
-      })
-    }
-  }, 500)
-}
-
-function changeCategory(category) {
-  activeCategory.value = category
-  loadListWhereCategory(category)
-}
-
-function selectedCategory(categorySlug) {
-  return activeCategory.value === categorySlug
-}
-</script>
 
 <style lang="scss">
 @import "scss/media";

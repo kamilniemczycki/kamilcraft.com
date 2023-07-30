@@ -64,9 +64,9 @@
           :alt="project.title"
         >
       </figure>
-      <div
+      <Markdown
         class="markdown mt-9"
-        v-html="markdownToHtml"
+        :source="project.description"
       />
     </div>
   </section>
@@ -79,52 +79,52 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
-import { marked } from 'marked'
+import { ref, reactive, computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
+import Markdown from '@/components/markdowns/MarkdownDescription.vue';
 
-const route = useRoute()
-const store = useStore()
+const apiURL = import.meta.env.VITE_APP_API_URL;
+const route = useRoute();
+const store = useStore();
 
-const isLoaded = ref(false)
-let project = reactive({})
+const isLoaded = ref(false);
+let project = reactive({});
 
-const getCategories = computed(() => store.getters.getCategories)
-const markdownToHtml = computed(() => marked.parse(project.description))
+const getCategories = computed(() => store.getters.getCategories);
 
 onMounted(() => {
   if (getCategories.value.length === 0) {
-    store.dispatch('fetchCategories')
+    store.dispatch('fetchCategories');
   }
-  loadProject(route.params.id)
+  loadProject(route.params.id);
 })
 
 function getCategoryName(categories = []) {
-  const categoriesText = []
+  const categoriesText = [];
   categories.forEach(categoryElement => {
-    const category = getCategories.value.find(category => category.slug === categoryElement)
+    const category = getCategories.value.find(category => category.slug === categoryElement);
     if (category) {
-      categoriesText.push(category.name)
+      categoriesText.push(category.name);
     }
-  })
-  return categoriesText[0] ?? undefined
+  });
+  return categoriesText[0] ?? undefined;
 }
 
 function loadProject(id) {
-  fetch(process.env.VUE_APP_API_URL + '/project/' + id)
+  fetch(apiURL + '/project/' + id)
     .then(response => response.json())
     .then(data => {
-      project.title = data.title
-      project.description = data.description
-      project.release_date = data.release_date
-      project.author = data.author
-      project.categories = data.categories
-      project.project_version = data.project_version
-      project.project_url = data.project_url
-      project.images = data.images
-      isLoaded.value = true
-    })
+      project.title = data.title;
+      project.description = data.description;
+      project.release_date = data.release_date;
+      project.author = data.author;
+      project.categories = data.categories;
+      project.project_version = data.project_version;
+      project.project_url = data.project_url;
+      project.images = data.images;
+      isLoaded.value = true;
+    });
 }
 </script>
 
@@ -153,7 +153,7 @@ a {
   }
 
   p + ol, p + ul, p + blockquote {
-    @apply -mb-2.5;
+    @apply -mb-2;
   }
 
   ol {
@@ -174,7 +174,7 @@ a {
   }
 
   p {
-    @apply mb-2.5 text-justify;
+    @apply mb-2 text-justify;
   }
 
   blockquote {

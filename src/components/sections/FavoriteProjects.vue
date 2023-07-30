@@ -24,10 +24,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import Projects from '@/components/SelectedProjects'
-import GhostButton from '@/components/buttons/GhostButton'
+import Projects from '@/components/SelectedProjects.vue'
+import GhostButton from '@/components/buttons/GhostButton.vue'
 
 const router = useRouter()
+const apiURL = import.meta.env.VITE_APP_API_URL
 
 let select_projects = ref([])
 
@@ -36,7 +37,7 @@ onMounted(() => {
 })
 
 function loadProjectList() {
-  fetch(process.env.VUE_APP_API_URL + '/projects?category=selected')
+  fetch(apiURL + '/projects?category=selected')
     .then(response => response.json())
     .then(data => {
       select_projects.value = data
@@ -44,7 +45,7 @@ function loadProjectList() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "scss/default";
 
 .selected-projects {

@@ -1,4 +1,6 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
+
+const apiURL = import.meta.env.VITE_APP_API_URL;
 
 export const store = createStore({
   state: {
@@ -22,7 +24,7 @@ export const store = createStore({
   },
   actions: {
     fetchProjects (store) {
-      return fetch(process.env.VUE_APP_API_URL + '/projects')
+      return fetch(apiURL + '/projects')
         .then(response => response.json())
         .then(data => {
           store.commit('setProjects', data)
@@ -30,7 +32,7 @@ export const store = createStore({
         })
     },
     fetchCategories (store) {
-      return fetch(process.env.VUE_APP_API_URL + '/categories')
+      return fetch(apiURL + '/categories')
         .then(response => response.json())
         .then(data => {
           store.commit('setCategories', data)

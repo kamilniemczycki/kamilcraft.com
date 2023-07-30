@@ -9,8 +9,8 @@
 </template>
 
 <script setup>
-import SiteHeader from '@/components/SiteHeader'
-import FooterComponent from '@/components/FooterComponent'
+import SiteHeader from '@/components/SiteHeader.vue'
+import FooterComponent from '@/components/FooterComponent.vue'
 </script>
 
 <style lang="scss">

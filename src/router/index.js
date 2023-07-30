@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/HomeView'
-import About from '@/views/AboutView'
-import Projects from '@/views/ProjectsView'
-import Project from '@/views/ProjectView'
-import Contact from '@/views/ContactView'
-import NotFound from '@/views/NotFound'
+
+const Home = () => import('@/views/HomeView.vue');
+const About = () => import('@/views/AboutView.vue');
+const Projects = () => import('@/views/ProjectsView.vue');
+const Project = () => import('@/views/ProjectView.vue');
+const Contact = () => import('@/views/ContactView.vue');
+const NotFound = () => import('@/views/NotFound.vue');
 
 const mainTitle = 'kamilcraft.com'
 

@@ -9,8 +9,8 @@
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import MailContact from '@/components/sections/contacts/MailContact'
-import OtherContact from '@/components/sections/contacts/OtherContact'
+import MailContact from '@/components/sections/contacts/MailContact.vue'
+import OtherContact from '@/components/sections/contacts/OtherContact.vue'
 
 const route = useRoute()
 const store = useStore()

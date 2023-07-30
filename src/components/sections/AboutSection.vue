@@ -1,3 +1,16 @@
+<script setup>
+import BaseButton from '@/components/buttons/BaseButton.vue'
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+function scrollTo(id) {
+  document.querySelector(id).scrollIntoView({
+    behavior: 'smooth'
+  })
+}
+</script>
+
 <template>
   <div class="bg-neutral-50">
     <div class="max-w-screen-xl mx-auto px-6 xl:px-2 py-11">
@@ -37,7 +50,7 @@
         <div id="grid-photo">
           <figure>
             <img
-              :src="`${publicPath}assets/me.jpg`"
+              src="/assets/me.jpg"
               class="mx-auto rounded-full object-cover w-[12.5rem] h-[12.5rem]"
               alt="Moje zdjęcie"
             >
@@ -47,20 +60,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import BaseButton from '@/components/buttons/BaseButton'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-const publicPath = process.env.VUE_APP_BASE_URL + '/'
-
-function scrollTo(id) {
-  document.querySelector(id).scrollIntoView({
-    behavior: 'smooth'
-  })
-}
-</script>
 
 <style lang="scss">
 #grid-columns {

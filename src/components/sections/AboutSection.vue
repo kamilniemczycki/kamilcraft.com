@@ -6,8 +6,8 @@ const router = useRouter();
 
 function scrollTo(id) {
   document.querySelector(id).scrollIntoView({
-    behavior: 'smooth'
-  })
+    behavior: 'smooth',
+  });
 }
 </script>
 

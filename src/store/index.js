@@ -4,22 +4,15 @@ const apiURL = import.meta.env.VITE_APP_API_URL;
 
 export const store = createStore({
   state: {
-    header: {
-      title: null,
-      description: null
-    },
     categories: [],
     projects: []
   },
   getters: {
-    getHeader (state) {
-      return state.header
-    },
     getCategories (state) {
-      return state.categories
+      return state.categories;
     },
     getProjects (state) {
-      return state.projects
+      return state.projects;
     }
   },
   actions: {
@@ -29,7 +22,7 @@ export const store = createStore({
         .then(data => {
           store.commit('setProjects', data)
           return store.getters.getProjects
-        })
+        });
     },
     fetchCategories (store) {
       return fetch(apiURL + '/categories')
@@ -37,7 +30,7 @@ export const store = createStore({
         .then(data => {
           store.commit('setCategories', data)
           return store.getters.getCategories
-        })
+        });
     }
   },
   mutations: {
@@ -47,20 +40,5 @@ export const store = createStore({
     setProjects: (state, array = []) => {
       state.projects = array
     },
-    setHeader: (state, text) => {
-      state.header = {
-        title: text.title ?? null,
-        description: text.description ?? null
-      }
-    },
-    resetHeaderTitle (state) {
-      state.header.title = null
-    },
-    setHeaderDescription: (state, payload) => {
-      state.header.description = payload.title
-    },
-    resetHeaderDescription (state) {
-      state.header.description = null
-    }
   }
 })

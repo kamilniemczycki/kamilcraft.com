@@ -1,3 +1,21 @@
+<script setup>
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+import Navigation from '@/components/NavigationHeader.vue';
+
+import { getHeaderTitle, getHeaderDescription } from '@/HeaderReference';
+
+const route = useRoute();
+
+const isHome = computed(() => route.path === '/');
+const thisClass = computed(() => [isHome.value ? 'home-page' : 'sub-page']);
+const title = getHeaderTitle();
+const isTitle = computed(() => title.value !== null);
+const description = getHeaderDescription();
+const isDescription = computed(() => description.value !== null);
+</script>
+
 <template>
   <header :class="thisClass">
     <Navigation :is-home-page="isHome" />
@@ -7,42 +25,19 @@
       :class="{ 'text-white': isHome }"
     >
       <h1 class="mb-6 relative font-light text-[2.5rem] leading-[3.5rem] after:block after:absolute after:w-24 after:h-0.5 after:bg-kamilcraft-green after:left-1/2 after:-ml-12">
-        {{ getTitle }}
+        {{ title }}
       </h1>
-      <p v-if="isDescription && descriptionType === 'string'">
-        {{ getDescription }}
-      </p>
-      <p
-        v-for="(desc, key) in getDescription"
-        v-else-if="isDescription && descriptionType === 'array'"
-        :key="key"
-      >
-        {{ desc }}
-      </p>
+      <template v-if="isDescription">
+        <p
+          v-for="(descriptionLine, key) in description"
+          :key="key"
+        >
+          {{ descriptionLine }}
+        </p>
+      </template>
     </div>
   </header>
 </template>
-
-<script setup>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
-import Navigation from '@/components/NavigationHeader.vue'
-
-const store = useStore()
-const route = useRoute()
-
-const isHome = computed(() => route.path === '/')
-const thisClass = computed(() => [isHome.value ? 'home-page' : 'sub-page'])
-const getTitle = computed(() => store.getters.getHeader.title)
-const isTitle = computed(() => getTitle.value !== null)
-const getDescription = computed(() => store.getters.getHeader.description)
-const isDescription = computed(() => getDescription.value !== null)
-const descriptionType = computed(() => {
-  const isArray = getDescription.value instanceof Array
-  return isArray ? 'array' : typeof getDescription.value
-})
-</script>
 
 <style scoped>
 .home-page {

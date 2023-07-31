@@ -1,7 +1,5 @@
 <script setup>
-import { defineProps, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import BaseButton from '@/components/buttons/BaseButton.vue';
 import Markdown from "@/components/markdowns/MarkdownShort.vue";
 
@@ -12,19 +10,7 @@ defineProps({
   }
 })
 
-const route = useRoute()
-const router = useRouter()
-const store = useStore()
-
-onMounted(() => {
-  const header = {
-    title: route.meta.title,
-    description: [
-      'Witam Państwa na podstronie z moimi projektami!'
-    ]
-  }
-  store.commit('setHeader', header)
-})
+const router = useRouter();
 </script>
 
 <template>

@@ -1,3 +1,27 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import Projects from '@/components/SelectedProjects.vue';
+import GhostButton from '@/components/buttons/GhostButton.vue';
+
+const router = useRouter();
+const apiURL = import.meta.env.VITE_APP_API_URL;
+
+let select_projects = ref([]);
+
+onMounted(() => {
+  loadProjectList();
+});
+
+function loadProjectList() {
+  fetch(apiURL + '/projects?category=selected')
+    .then(response => response.json())
+    .then(data => {
+      select_projects.value = data
+    });
+}
+</script>
+
 <template>
   <section class="bg-neutral-50">
     <projects :projects="select_projects">
@@ -20,30 +44,6 @@
     </div>
   </section>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import Projects from '@/components/SelectedProjects.vue'
-import GhostButton from '@/components/buttons/GhostButton.vue'
-
-const router = useRouter()
-const apiURL = import.meta.env.VITE_APP_API_URL
-
-let select_projects = ref([])
-
-onMounted(() => {
-  loadProjectList()
-})
-
-function loadProjectList() {
-  fetch(apiURL + '/projects?category=selected')
-    .then(response => response.json())
-    .then(data => {
-      select_projects.value = data
-    })
-}
-</script>
 
 <style lang="scss">
 @import "scss/default";

@@ -1,3 +1,8 @@
+<script setup>
+import SiteHeader from '@/components/SiteHeader.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
+</script>
+
 <template>
   <SiteHeader />
   <main
@@ -7,11 +12,6 @@
   </main>
   <FooterComponent />
 </template>
-
-<script setup>
-import SiteHeader from '@/components/SiteHeader.vue'
-import FooterComponent from '@/components/FooterComponent.vue'
-</script>
 
 <style lang="scss">
 #app {

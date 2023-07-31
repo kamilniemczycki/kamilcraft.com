@@ -1,3 +1,54 @@
+<script setup>
+import { ref, computed } from 'vue';
+
+defineProps({
+  isHomePage: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const menuItems = [
+  {
+    slug: 'start',
+    title: 'Start',
+    uri: '/'
+  },
+  {
+    slug: 'projects',
+    title: 'Projekty',
+    uri: '/projects'
+  },
+  {
+    slug: 'about',
+    title: 'O mnie',
+    uri: '/about'
+  },
+  {
+    slug: 'contact',
+    title: 'Kontakt',
+    uri: '/contact'
+  }
+];
+
+const clicked = ref(false);
+const isClicked = computed(() => clicked.value);
+
+function changeClickedStatus() {
+  clicked.value = !clicked.value;
+}
+
+function clickMenu() {
+  changeClickedStatus();
+}
+
+function linkClicked() {
+  if (isClicked.value) {
+    changeClickedStatus();
+  }
+}
+</script>
+
 <template>
   <div
     class="flex relative items-center justify-between md:justify-start max-w-screen-xl mx-auto gap-5"
@@ -56,57 +107,6 @@
     </nav>
   </div>
 </template>
-
-<script setup>
-import { defineProps, ref, computed } from 'vue'
-
-defineProps({
-  isHomePage: {
-    type: Boolean,
-    default: false
-  }
-})
-
-const menuItems = [
-  {
-    slug: 'start',
-    title: 'Start',
-    uri: '/'
-  },
-  {
-    slug: 'projects',
-    title: 'Projekty',
-    uri: '/projects'
-  },
-  {
-    slug: 'about',
-    title: 'O mnie',
-    uri: '/about'
-  },
-  {
-    slug: 'contact',
-    title: 'Kontakt',
-    uri: '/contact'
-  }
-]
-
-const clicked = ref(false)
-const isClicked = computed(() => clicked.value)
-
-function changeClickedStatus() {
-  clicked.value = !clicked.value
-}
-
-function clickMenu() {
-  changeClickedStatus()
-}
-
-function linkClicked() {
-  if (isClicked.value) {
-    changeClickedStatus()
-  }
-}
-</script>
 
 <style lang="scss">
 .clicked-menu {

@@ -1,3 +1,20 @@
+<script setup>
+defineProps({
+  hasIcon: {
+    type: Boolean,
+    default: false,
+  },
+  icon: {
+    type: String,
+    default: '',
+  },
+  isReverse: {
+    type: Boolean,
+    default: false,
+  },
+});
+</script>
+
 <template>
   <button
     class="btn"
@@ -12,25 +29,6 @@
     <slot />
   </button>
 </template>
-
-<script setup>
-import { defineProps } from 'vue'
-
-defineProps({
-  hasIcon: {
-    type: Boolean,
-    default: false
-  },
-  icon: {
-    type: String,
-    default: ''
-  },
-  isReverse: {
-    type: Boolean,
-    default: false
-  }
-})
-</script>
 
 <style lang="scss">
 @import 'scss/btn';

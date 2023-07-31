@@ -1,3 +1,56 @@
+<script setup>
+import { ref, reactive, computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
+import { clearHeaderTitle, clearHeaderDescription } from '@/HeaderReference';
+import Markdown from '@/components/markdowns/MarkdownDescription.vue';
+
+const apiURL = import.meta.env.VITE_APP_API_URL;
+const route = useRoute();
+const store = useStore();
+
+const isLoaded = ref(false);
+let project = reactive({});
+
+const getCategories = computed(() => store.getters.getCategories);
+
+onMounted(() => {
+  clearHeaderTitle();
+  clearHeaderDescription();
+  if (getCategories.value.length === 0) {
+    store.dispatch('fetchCategories');
+  }
+  loadProject(route.params.id);
+})
+
+function getCategoryName(categories = []) {
+  const categoriesText = [];
+  categories.forEach(categoryElement => {
+    const category = getCategories.value.find(category => category.slug === categoryElement);
+    if (category) {
+      categoriesText.push(category.name);
+    }
+  });
+  return categoriesText[0] ?? undefined;
+}
+
+function loadProject(id) {
+  fetch(apiURL + '/project/' + id)
+    .then(response => response.json())
+    .then(data => {
+      project.title = data.title;
+      project.description = data.description;
+      project.release_date = data.release_date;
+      project.author = data.author;
+      project.categories = data.categories;
+      project.project_version = data.project_version;
+      project.project_url = data.project_url;
+      project.images = data.images;
+      isLoaded.value = true;
+    });
+}
+</script>
+
 <template>
   <section
     v-if="isLoaded"
@@ -77,56 +130,6 @@
     <div class="loading_animation" />
   </div>
 </template>
-
-<script setup>
-import { ref, reactive, computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
-import Markdown from '@/components/markdowns/MarkdownDescription.vue';
-
-const apiURL = import.meta.env.VITE_APP_API_URL;
-const route = useRoute();
-const store = useStore();
-
-const isLoaded = ref(false);
-let project = reactive({});
-
-const getCategories = computed(() => store.getters.getCategories);
-
-onMounted(() => {
-  if (getCategories.value.length === 0) {
-    store.dispatch('fetchCategories');
-  }
-  loadProject(route.params.id);
-})
-
-function getCategoryName(categories = []) {
-  const categoriesText = [];
-  categories.forEach(categoryElement => {
-    const category = getCategories.value.find(category => category.slug === categoryElement);
-    if (category) {
-      categoriesText.push(category.name);
-    }
-  });
-  return categoriesText[0] ?? undefined;
-}
-
-function loadProject(id) {
-  fetch(apiURL + '/project/' + id)
-    .then(response => response.json())
-    .then(data => {
-      project.title = data.title;
-      project.description = data.description;
-      project.release_date = data.release_date;
-      project.author = data.author;
-      project.categories = data.categories;
-      project.project_version = data.project_version;
-      project.project_url = data.project_url;
-      project.images = data.images;
-      isLoaded.value = true;
-    });
-}
-</script>
 
 <style lang="scss">
 @import "scss/default";

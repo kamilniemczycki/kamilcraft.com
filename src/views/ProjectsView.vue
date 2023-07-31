@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
+import { ref, reactive, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import SelectedProjects from '@/components/SelectedProjects.vue';
 
@@ -12,11 +12,6 @@ const getCategories = computed(() => store.getters.getCategories);
 
 onMounted(() => {
   loadAllData();
-});
-
-onUnmounted(() => {
-  store.commit('resetHeaderTitle');
-  store.commit('resetHeaderDescription');
 });
 
 function loadAllData () {

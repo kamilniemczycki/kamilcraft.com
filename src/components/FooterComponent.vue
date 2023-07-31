@@ -1,3 +1,26 @@
+<script setup>
+const socialLinks = [
+  {
+    link: 'https://www.youtube.com/user/kamilniemczycki',
+    icon: 'youtube',
+    title: 'Oglądaj mnie na YouTube',
+    shortcut: 'YouTube'
+  },
+  {
+    link: 'https://www.facebook.com/nikcamii',
+    icon: 'facebook',
+    title: 'Znajdź mnie na Facebooku',
+    shortcut: 'Facebook'
+  },
+  {
+    link: 'https://github.com/kamilniemczycki/kamilcraft.com',
+    icon: 'github',
+    title: 'Kod na GitHub',
+    shortcut: 'GitHub'
+  }
+];
+</script>
+
 <template>
   <footer class="bg-neutral-800 py-8">
     <div class="flex items-center justify-between max-w-screen-xl mx-auto">
@@ -28,26 +51,3 @@
     </div>
   </footer>
 </template>
-
-<script setup>
-const socialLinks = [
-  {
-    link: 'https://www.youtube.com/user/kamilniemczycki',
-    icon: 'youtube',
-    title: 'Oglądaj mnie na YouTube',
-    shortcut: 'YouTube'
-  },
-  {
-    link: 'https://www.facebook.com/nikcamii',
-    icon: 'facebook',
-    title: 'Znajdź mnie na Facebooku',
-    shortcut: 'Facebook'
-  },
-  {
-    link: 'https://github.com/kamilniemczycki/kamilcraft.com',
-    icon: 'github',
-    title: 'Kod na GitHub',
-    shortcut: 'GitHub'
-  }
-]
-</script>

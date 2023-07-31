@@ -1,3 +1,118 @@
+<script setup>
+import { ref, reactive, watch, computed } from 'vue';
+import BaseButton from '@/components/buttons/BaseButton.vue';
+
+function emailValidate (mailObj) {
+  const mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  return mailObj.match(mailFormat);
+}
+
+async function postData (url = '', data = {}) {
+  const response = await fetch(url, {
+    method: 'POST',
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  return response.json();
+}
+
+const buttonDisabled = ref(false)
+const statusError = ref(0)
+const emailValue = ref('')
+const messageValue = ref('')
+const senderValue = ref('')
+
+const messageError = ref('')
+const messageOk = ref('')
+
+const errors = reactive({
+  email: false,
+  message: false,
+  sender: false,
+});
+
+const isButtonDisabled = computed(() => buttonDisabled.value || errors.email || errors.message || errors.sender);
+const isEmailError = computed(() => errors.email);
+const isMessageError = computed(() => errors.message);
+const isSenderError = computed(() => errors.sender);
+const hasMessageError = computed(() => messageError.value);
+const hasMessageOkStatus = computed(() => messageOk.value && !hasMessageError.value);
+
+watch([statusError, emailValue], ([errorCount, value]) => {
+  errors.email = errorCount > 0 && !emailValidate(value);
+})
+
+watch([statusError, messageValue], ([errorCount, value]) => {
+  errors.message = errorCount > 0 && (value === '' || value.length < 3);
+})
+
+watch([statusError, senderValue], ([errorCount, value]) => {
+  errors.sender = errorCount > 0 && (value === '' || value.length < 3);
+})
+
+function clearErrors() {
+  statusError.value = 0;
+  errors.email = false;
+  errors.message = false;
+  errors.sender = false;
+}
+
+function checkForm() {
+  clearErrors();
+  if (!emailValidate(emailValue.value)) {
+    errors.email = true;
+    statusError.value++;
+  }
+  if (messageValue.value === '') {
+    errors.message = true;
+    statusError.value++;
+  }
+  if (senderValue.value === '') {
+    errors.sender = true;
+    statusError.value++;
+  }
+}
+
+function formSubmit(event) {
+  event.preventDefault();
+
+  checkForm();
+
+  if (statusError.value === 0) {
+    buttonDisabled.value = true;
+    postData('https://kamilcraft.com/send', {
+      email: emailValue.value,
+      message: messageValue.value,
+      sender: senderValue.value,
+    }).then(result => {
+      if (result.error) {
+        messageError.value = result.message;
+      } else {
+        messageOk.value = result.message;
+        messageValue.value = '';
+        emailValue.value = '';
+        senderValue.value = '';
+      }
+      buttonDisabled.value = false
+    }).catch(() => {
+      messageError.value = 'Wystąpił błąd podczas wysyłania wiadomości. Proszę spróbować później.';
+      buttonDisabled.value = false;
+    });
+  }
+
+  scrollTo('#contact-form');
+}
+
+function scrollTo(id) {
+  document.querySelector(id).scrollIntoView({
+    behavior: 'smooth',
+  });
+}
+</script>
+
 <template>
   <div
     id="contact-form"
@@ -102,123 +217,7 @@
   </div>
 </template>
 
-<script setup>
-import BaseButton from '@/components/buttons/BaseButton.vue'
-import { ref, reactive, watch, computed } from 'vue'
-
-function emailValidate (mailObj) {
-  const mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-  return mailObj.match(mailFormat)
-}
-
-async function postData (url = '', data = {}) {
-  const response = await fetch(url, {
-    method: 'POST',
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  return response.json()
-}
-
-const buttonDisabled = ref(false)
-const statusError = ref(0)
-const emailValue = ref('')
-const messageValue = ref('')
-const senderValue = ref('')
-
-const messageError = ref('')
-const messageOk = ref('')
-
-const errors = reactive({
-  email: false,
-  message: false,
-  sender: false
-})
-
-const isButtonDisabled = computed(() => buttonDisabled.value || errors.email || errors.message || errors.sender)
-const isEmailError = computed(() => errors.email)
-const isMessageError = computed(() => errors.message)
-const isSenderError = computed(() => errors.sender)
-const hasMessageError = computed(() => messageError.value)
-const hasMessageOkStatus = computed(() => messageOk.value && !hasMessageError.value)
-
-watch([statusError, emailValue], ([errorCount, value]) => {
-  errors.email = errorCount > 0 && !emailValidate(value)
-})
-
-watch([statusError, messageValue], ([errorCount, value]) => {
-  errors.message = errorCount > 0 && (value === '' || value.length < 3)
-})
-
-watch([statusError, senderValue], ([errorCount, value]) => {
-  errors.sender = errorCount > 0 && (value === '' || value.length < 3)
-})
-
-function clearErrors() {
-  statusError.value = 0
-  errors.email = false
-  errors.message = false
-  errors.sender = false
-}
-
-function checkForm() {
-  clearErrors()
-  if (!emailValidate(emailValue.value)) {
-    errors.email = true
-    statusError.value++
-  }
-  if (messageValue.value === '') {
-    errors.message = true
-    statusError.value++
-  }
-  if (senderValue.value === '') {
-    errors.sender = true
-    statusError.value++
-  }
-}
-
-function formSubmit(event) {
-  event.preventDefault()
-
-  checkForm()
-
-  if (statusError.value === 0) {
-    console.log('Send!')
-    buttonDisabled.value = true
-    postData('https://kamilcraft.com/send', {
-      email: emailValue.value,
-      message: messageValue.value,
-      sender: senderValue.value
-    }).then(result => {
-      if (result.error) {
-        messageError.value = result.message
-      } else {
-        messageOk.value = result.message
-        messageValue.value = ''
-        emailValue.value = ''
-        senderValue.value = ''
-      }
-      buttonDisabled.value = false
-    }).catch(() => {
-      messageError.value = 'Wystąpił błąd podczas wysyłania wiadomości. Proszę spróbować później.'
-      buttonDisabled.value = false
-    })
-  }
-
-  scrollTo('#contact-form')
-}
-
-function scrollTo(id) {
-  document.querySelector(id).scrollIntoView({
-    behavior: 'smooth'
-  })
-}
-</script>
-
-<style lang="scss" scoped>
+<style lang="scss">
 @screen md {
   .contact_container {
     flex-basis: 500px;

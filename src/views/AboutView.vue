@@ -1,25 +1,3 @@
-<script setup>
-import { onMounted, onUnmounted } from 'vue';
-import { useStore } from 'vuex';
-import { useRoute } from 'vue-router';
-
-const store = useStore();
-const route = useRoute();
-
-onMounted(() => {
-  const header = {
-    title: route.meta.title,
-    description: 'Jestem młodym i ambitnym inżynierem oprogramowania. Specjalizuję się w tworzeniu frontendów i backendów.',
-  }
-  store.commit('setHeader', header);
-});
-
-onUnmounted(() => {
-  store.commit('resetHeaderTitle');
-  store.commit('resetHeaderDescription');
-});
-</script>
-
 <template>
   <section class="max-w-screen-xl mx-auto px-6 xl:px-2 py-11">
     <p class="font-bold">

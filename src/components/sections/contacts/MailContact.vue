@@ -8,71 +8,72 @@ function emailValidate (mailObj) {
 }
 
 async function postData (url = '', data = {}) {
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: 'POST',
     cache: 'no-cache',
     headers: {
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
     },
     body: JSON.stringify(data),
-  })
-  return response.json();
+  }).then(r =>  r.json().then(response => ({ status: r.status, data: response })) );
 }
 
-const buttonDisabled = ref(false)
-const statusError = ref(0)
-const emailValue = ref('')
-const messageValue = ref('')
-const senderValue = ref('')
-
-const messageError = ref('')
-const messageOk = ref('')
+const buttonDisabled = ref(false);
+const isError = ref(false);
+const email = ref(null);
+const message = ref(null);
+const sender = ref(null);
 
 const errors = reactive({
-  email: false,
-  message: false,
-  sender: false,
+  email: null,
+  message: null,
+  sender: null,
+});
+
+const responseMessage = reactive({
+  type: null,
+  data: null,
 });
 
 const isButtonDisabled = computed(() => buttonDisabled.value || errors.email || errors.message || errors.sender);
-const isEmailError = computed(() => errors.email);
-const isMessageError = computed(() => errors.message);
-const isSenderError = computed(() => errors.sender);
-const hasMessageError = computed(() => messageError.value);
-const hasMessageOkStatus = computed(() => messageOk.value && !hasMessageError.value);
 
-watch([statusError, emailValue], ([errorCount, value]) => {
-  errors.email = errorCount > 0 && !emailValidate(value);
-})
+watch([isError, message], async ([errorStatus, messageValue]) => {
+  errors.message = (messageValue !== null || errorStatus) && (messageValue?.length ?? 0) < 3 ? 'Wymanage są przynajmniej 3 znaki.' : null;
+});
 
-watch([statusError, messageValue], ([errorCount, value]) => {
-  errors.message = errorCount > 0 && (value === '' || value.length < 3);
-})
+watch([isError, email], async ([errorStatus, emailValue]) => {
+  errors.email = (emailValue !== null || errorStatus) && !emailValidate(emailValue ?? '') ? 'E-mail powinien mieć formę: adam.nowak@gmail.com.' : null;
+});
 
-watch([statusError, senderValue], ([errorCount, value]) => {
-  errors.sender = errorCount > 0 && (value === '' || value.length < 3);
-})
-
-function clearErrors() {
-  statusError.value = 0;
-  errors.email = false;
-  errors.message = false;
-  errors.sender = false;
-}
+watch([isError, sender], async ([errorStatus, senderValue]) => {
+  errors.sender = (senderValue !== null || errorStatus) && (senderValue?.length ?? 0) < 3 ? 'Proszę się przedstawić 😉' : null;
+});
 
 function checkForm() {
-  clearErrors();
-  if (!emailValidate(emailValue.value)) {
-    errors.email = true;
-    statusError.value++;
+  isError.value = false;
+  responseMessage.type = null;
+  responseMessage.data = null;
+
+  if (email.value === null || !emailValidate(email.value)) {
+    console.log('email error');
+    errors.email = '';
+    isError.value = true;
   }
-  if (messageValue.value === '') {
-    errors.message = true;
-    statusError.value++;
+  if (message.value === null) {
+    console.log('message error');
+    errors.message = '';
+    isError.value = true;
   }
-  if (senderValue.value === '') {
-    errors.sender = true;
-    statusError.value++;
+  if (sender.value === null) {
+    console.log('sender error');
+    errors.sender = '';
+    isError.value = true;
+  }
+
+  if (isError.value) {
+    responseMessage.type = 'err';
+    responseMessage.data = 'Podane dane są niepoprawne. Sprawdź komunikaty pod polami.';
   }
 }
 
@@ -81,24 +82,32 @@ function formSubmit(event) {
 
   checkForm();
 
-  if (statusError.value === 0) {
+  if (!isError.value) {
     buttonDisabled.value = true;
-    postData('https://kamilcraft.com/send', {
-      email: emailValue.value,
-      message: messageValue.value,
-      sender: senderValue.value,
-    }).then(result => {
-      if (result.error) {
-        messageError.value = result.message;
+    const sendUrl = import.meta.env.VITE_APP_API_URL;
+    postData(`${sendUrl}/message`, {
+      email: email.value,
+      message: message.value,
+      sender: sender.value,
+    }).then(({ status, data }) => {
+      if (status === 200) {
+        responseMessage.type = 'ok';
+        responseMessage.data = data.message;
+      } else if(status === 422) {
+        responseMessage.type = 'err';
+        responseMessage.data = 'Podane dane są niepoprawne. Sprawdź komunikaty pod polami.';
+
+        errors.email = data.errors?.email[0] ?? null;
+        errors.message = data.errors?.message[0] ?? null;
+        errors.sender = data.errors?.sender[0] ?? null;
       } else {
-        messageOk.value = result.message;
-        messageValue.value = '';
-        emailValue.value = '';
-        senderValue.value = '';
+        responseMessage.type = 'err';
+        responseMessage.data = 'Wystąpił błąd podczas wysyłania wiadomości. Proszę spróbować później.';
       }
-      buttonDisabled.value = false
+      buttonDisabled.value = false;
     }).catch(() => {
-      messageError.value = 'Wystąpił błąd podczas wysyłania wiadomości. Proszę spróbować później.';
+      responseMessage.type = 'err';
+      responseMessage.data = 'Wystąpił błąd podczas wysyłania wiadomości. Proszę spróbować później.';
       buttonDisabled.value = false;
     });
   }
@@ -128,16 +137,16 @@ function scrollTo(id) {
       @submit="formSubmit"
     >
       <div
-        v-if="hasMessageError"
-        class="w-full p-2 bg-red-200 text-red-500 text-sm border border-red-300 rounded-md"
+        v-if="responseMessage.type === 'err'"
+        class="w-full px-2 py-2.5 bg-red-100 text-red-700 text-sm rounded-md"
       >
-        {{ messageError }}
+        {{ responseMessage.data }}
       </div>
       <div
-        v-else-if="hasMessageOkStatus"
-        class="w-full p-2 bg-[#27ae60] text-white text-sm border border-lime-600 rounded-md shadow"
+        v-else-if="responseMessage.type === 'ok'"
+        class="w-full p-2 bg-green-100 text-green-700 text-sm rounded-md shadow"
       >
-        {{ messageOk }}
+        {{ responseMessage.data }}
       </div>
       <div class="flex flex-col gap-1 w-full">
         <label
@@ -148,17 +157,17 @@ function scrollTo(id) {
         </label>
         <textarea
           id="message"
-          v-model="messageValue"
+          v-model="message"
           class="w-full max-w-full min-h-[150px] px-2.5 py-2 border-b-2 border-neutral-300 rounded-md focus:border-neutral-400 hover:border-neutral-500 outline-none"
-          :class="[ isMessageError ? 'border-red-400 text-red-400 placeholder-red-300' : 'text-gray-900 placeholder-gray-400' ]"
+          :class="[ errors.message ? 'border-red-400 text-red-400 placeholder-red-300' : 'text-gray-900 placeholder-gray-400' ]"
           name="message"
           placeholder="Chciałbym zlecić wykonanie strony..."
         />
         <span
-          v-if="isMessageError"
+          v-if="errors.message"
           class="text-red-400"
         >
-          Wiadomość musi zawierać przynajmniej 3 znaki!
+          {{ errors.message }}
         </span>
       </div>
       <div class="flex flex-col gap-1 w-full">
@@ -170,18 +179,18 @@ function scrollTo(id) {
         </label>
         <input
           id="email"
-          v-model="emailValue"
+          v-model="email"
           class="w-full px-2.5 py-2 border-b-2 border-neutral-300 rounded-md focus:border-neutral-400 hover:border-neutral-500 outline-none"
-          :class="[ isEmailError ? 'border-red-400 text-red-400 placeholder-red-300' : 'text-gray-900 placeholder-gray-400' ]"
+          :class="[ errors.email ? 'border-red-400 text-red-400 placeholder-red-300' : 'text-gray-900 placeholder-gray-400' ]"
           type="text"
           name="email"
           placeholder="Twój adres e-mail"
         >
         <span
-          v-if="isEmailError"
+          v-if="errors.email"
           class="text-red-400"
         >
-          E-mail musi być poprawny, np. przemek.kowalski@gmail.com
+          {{ errors.email }}
         </span>
       </div>
       <div class="flex flex-col gap-1 w-full">
@@ -193,17 +202,17 @@ function scrollTo(id) {
         </label>
         <input
           id="sender"
-          v-model="senderValue"
+          v-model="sender"
           class="w-full px-2.5 py-2 border-b-2 border-neutral-300 rounded-md focus:border-neutral-400 hover:border-neutral-500 outline-none"
-          :class="[ isSenderError ? 'border-red-400 text-red-400 placeholder-red-300' : 'text-gray-900 placeholder-gray-400' ]"
+          :class="[ errors.sender ? 'border-red-400 text-red-400 placeholder-red-300' : 'text-gray-900 placeholder-gray-400' ]"
           type="text"
           name="sender"
         >
         <span
-          v-if="isSenderError"
+          v-if="errors.sender"
           class="text-red-400"
         >
-          Podpis musi zawierać przynajmniej 3 znaki!
+          {{ errors.sender }}
         </span>
       </div>
       <BaseButton

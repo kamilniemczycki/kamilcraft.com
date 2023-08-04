@@ -63,7 +63,7 @@ watch([isError, sender], async ([errorStatus, senderValue]) => {
     if (len < 3)
       return 'Wymanage są przynajmniej 3 znaki.';
     if (len > 50)
-      return 'Wiadomość nie może mieć więcej niż 50 znaków.';
+      return 'Podpis nie może mieć więcej niż 50 znaków.';
   };
   errors.sender = (senderValue !== null || errorStatus) &&
     ((senderValue?.length ?? 0) < 3 || (senderValue?.length ?? 0) > 50)

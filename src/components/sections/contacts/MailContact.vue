@@ -56,17 +56,14 @@ function checkForm() {
   responseMessage.data = null;
 
   if (email.value === null || !emailValidate(email.value)) {
-    console.log('email error');
     errors.email = '';
     isError.value = true;
   }
   if (message.value === null) {
-    console.log('message error');
     errors.message = '';
     isError.value = true;
   }
   if (sender.value === null) {
-    console.log('sender error');
     errors.sender = '';
     isError.value = true;
   }

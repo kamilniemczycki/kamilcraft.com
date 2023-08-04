@@ -38,8 +38,20 @@ const responseMessage = reactive({
 
 const isButtonDisabled = computed(() => buttonDisabled.value || errors.email || errors.message || errors.sender);
 
+const messageLength = computed(() => `${message.value?.length ?? 0}/500`);
+const senderLength = computed(() => `${sender.value?.length ?? 0}/50`);
+
 watch([isError, message], async ([errorStatus, messageValue]) => {
-  errors.message = (messageValue !== null || errorStatus) && (messageValue?.length ?? 0) < 3 ? 'Wymanage są przynajmniej 3 znaki.' : null;
+  const errMsg = (len) => {
+    if (len < 3)
+      return 'Wymanage są przynajmniej 3 znaki.';
+    if (len > 500)
+      return 'Wiadomość nie może mieć więcej niż 500 znaków.';
+  };
+  errors.message = (messageValue !== null || errorStatus) &&
+    ((messageValue?.length ?? 0) < 3 || (messageValue?.length ?? 0) > 500)
+    ? errMsg(messageValue?.length ?? 0)
+    : null;
 });
 
 watch([isError, email], async ([errorStatus, emailValue]) => {
@@ -47,7 +59,16 @@ watch([isError, email], async ([errorStatus, emailValue]) => {
 });
 
 watch([isError, sender], async ([errorStatus, senderValue]) => {
-  errors.sender = (senderValue !== null || errorStatus) && (senderValue?.length ?? 0) < 3 ? 'Proszę się przedstawić 😉' : null;
+    const errMsg = (len) => {
+    if (len < 3)
+      return 'Wymanage są przynajmniej 3 znaki.';
+    if (len > 50)
+      return 'Wiadomość nie może mieć więcej niż 50 znaków.';
+  };
+  errors.sender = (senderValue !== null || errorStatus) &&
+    ((senderValue?.length ?? 0) < 3 || (senderValue?.length ?? 0) > 50)
+    ? errMsg(senderValue?.length ?? 0)
+    : null;
 });
 
 function checkForm() {
@@ -87,28 +108,28 @@ function formSubmit(event) {
       message: message.value,
       sender: sender.value,
     }).then(({ status, data }) => {
-      if (status === 200) {
+      console.log(status, data);
+      if (200 == status) {
         email.value = null;
         sender.value = null;
         message.value = null;
 
         responseMessage.type = 'ok';
         responseMessage.data = data.message;
-      } else if(status === 422) {
+      } else if (422 == status) {
         responseMessage.type = 'err';
         responseMessage.data = 'Podane dane są niepoprawne. Sprawdź komunikaty pod polami.';
 
-        errors.email = data.errors?.email[0] ?? null;
-        errors.message = data.errors?.message[0] ?? null;
-        errors.sender = data.errors?.sender[0] ?? null;
+        if (data.errors.email !== undefined)
+          errors.email = data.errors.email[0];
+        if (data.errors.message !== undefined)
+          errors.message = data.errors.message[0] ?? null;
+        if (data.errors.sender !== undefined)
+          errors.sender = data.errors.sender[0] ?? null;
       } else {
         responseMessage.type = 'err';
         responseMessage.data = 'Wystąpił błąd podczas wysyłania wiadomości. Proszę spróbować później.';
       }
-      buttonDisabled.value = false;
-    }).catch(() => {
-      responseMessage.type = 'err';
-      responseMessage.data = 'Wystąpił błąd podczas wysyłania wiadomości. Proszę spróbować później.';
       buttonDisabled.value = false;
     });
   }
@@ -165,10 +186,9 @@ function scrollTo(id) {
           placeholder="Chciałbym zlecić wykonanie strony..."
         />
         <span
-          v-if="errors.message"
-          class="text-red-400"
+          :class="{ 'text-red-400': errors.message }"
         >
-          {{ errors.message }}
+          {{ messageLength + (errors.message ? `. ${errors.message}` : '') }}
         </span>
       </div>
       <div class="flex flex-col gap-1 w-full">
@@ -210,10 +230,9 @@ function scrollTo(id) {
           name="sender"
         >
         <span
-          v-if="errors.sender"
-          class="text-red-400"
+          :class="{ 'text-red-400': errors.sender }"
         >
-          {{ errors.sender }}
+          {{ senderLength + (errors.sender ? `. ${errors.sender}` : '') }}
         </span>
       </div>
       <BaseButton

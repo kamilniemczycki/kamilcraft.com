@@ -91,6 +91,10 @@ function formSubmit(event) {
       sender: sender.value,
     }).then(({ status, data }) => {
       if (status === 200) {
+        email.value = null;
+        sender.value = null;
+        message.value = null;
+
         responseMessage.type = 'ok';
         responseMessage.data = data.message;
       } else if(status === 422) {

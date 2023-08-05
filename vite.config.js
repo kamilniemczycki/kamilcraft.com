@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import eslint from 'vite-plugin-eslint';
 
 export default defineConfig((mode) => {
   const env = loadEnv(mode, process.cwd(), "");
@@ -15,6 +16,7 @@ export default defineConfig((mode) => {
     plugins: [
       vue(),
       splitVendorChunkPlugin(),
+      eslint(),
     ],
     resolve: {
         vue: 'vue/dist/vue.esm-bundler.js',

@@ -6,8 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "./node_modules/.bin/eslint src --ext .js,.vue",
-    "lintf": "./node_modules/.bin/eslint src --ext .js,.vue --fix"
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore",
+    "lintf": "eslint --ext .js,.vue --ignore-path .gitignore--fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -29,7 +29,8 @@
   },
   "devDependencies": {
     "eslint": "^8.29.0",
-    "eslint-plugin-vue": "^9.8.0"
+    "eslint-plugin-vue": "^9.8.0",
+    "vite-plugin-eslint": "^1.8.1"
   },
   "eslintConfig": {
     "root": true,
